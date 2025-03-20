@@ -1,0 +1,121 @@
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;/
+}
+
+.content_info {
+    width: 65%;
+
+    margin: 0 10%;
+}
+
+.padding {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    padding-top: 94px;
+}
+.padding2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    margin-top: auto;
+    padding-bottom: 94px;
+}
+
+.heatmastericon {
+    justify-content: center;
+    max-width: 100%;
+    height: auto;
+}
+.bread_crump{
+color:#C47344;
+}
+.bread_crumps{
+    padding: 20px 0;
+    display: flex;
+    gap:2px;
+    font-size: 14px;
+    color:#CECECE;
+}
+.title{
+    padding: 20px 0;
+    font-size: 36px;
+    font-weight: bold;
+
+}
+.bread_crumps a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.bread_crumps a:visited {
+    color: inherit;
+}
+
+.bread_crumps a:active {
+    color: inherit;
+}
+
+.bread_crumps a:hover {
+    text-decoration: underline;
+}
+.termoregulator{
+    max-width: 350px;
+    overflow: hidden;
+
+}
+.img_termoregulator{
+    width: 100%;
+    height: 223px;
+    display: block;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.termoregulators{
+    display:flex;
+    flex-wrap: wrap;
+     justify-content: center;
+    gap: 30px;
+    margin-bottom: 84px;
+    margin-top: 56px;
+}
+.thermoregulator_descripton{
+    background:#C47344;
+    color:white;
+    font-size: 18px;
+    padding: 20px;
+    text-align: center;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+@media(max-width:600px){
+    .termoregulators{
+        gap:60px
+    }
+}
+@media(max-width:768px ){
+    .thermoregulator_descripton{
+        width: 209px;
+    }
+    .padding{
+        display:none;
+    }
+    .termoregulator{
+        max-width: 209px;
+        height: 209px;
+        overflow: hidden;
+    }
+    .img_termoregulator{
+        width: 209px;
+        height: 190px;
+    }
+    .content_info {
+    width: 100%;
+
+    margin: 0 5%;
+}
+}

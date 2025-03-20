@@ -1,10 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+{% extends './layout.html' %}
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Tibtle</title>
+    {% load static %}
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    {% endblock %}
+
 </head>
 <body>
-ghkvdjhdvhvbdhjcvhbv
+        {% block content %}
+          <div class="content">
+            <div class="padding">
+                <img src="{% static 'icon/+.svg' %}" alt="+"/>
+            </div>
+            <div class="content_info">
+                <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <div class="bread_crump">Терморегуляторы</div></div>
+                <div>
+                    <div class="title">Терморегуляторы</div>
+                   <div class="termoregulators">
+                         {% for thermostat in thermostats %}
+                            <div class="thermoregulator">
+                                <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                                <div class="thermoregulator_descripton"><div>{{ thermostat.type }}</div></div>
+                            </div>
+                         {% endfor %}
+                   </div>
+                </div>
+            </div>
+<!--            <div class="padding2">-->
+<!--                <img src="+.svg" alt="+"/>-->
+<!--            </div>-->
+          </div>
+        {% endblock %}
+
 </body>
 </html>
