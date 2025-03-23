@@ -95,21 +95,22 @@ class Produce(models.Model):
     sphere = models.CharField(max_length=120)
     def __str__(self):
         return self.name
-class HistoryApplication(models.Model):
-    status = models.CharField(max_length=120)
-    description = models.CharField(max_length=120)
-    operator = models.CharField(max_length=120)
-    def __str__(self):
-        return self.operator
+def get_default_application():
+    return Applications.objects.first()
 class Applications(models.Model):
     status = models.CharField(max_length=120)
     description = models.CharField(max_length=120)
     part = models.CharField(max_length=120)
     phone = models.CharField(max_length=120)
-    application = models.ForeignKey(HistoryApplication, related_name="application", on_delete=models.CASCADE)
     def __str__(self):
         return self.description
-
+class HistoryApplication(models.Model):
+    status = models.CharField(max_length=120)
+    description = models.CharField(max_length=120)
+    operator = models.CharField(max_length=120)
+    application = models.ForeignKey(Applications, related_name="application", on_delete=models.CASCADE, default=get_default_application)
+    def __str__(self):
+        return self.operator
 class History(models.Model):
     operator = models.CharField(max_length=120)
     status = models.CharField(max_length=120)
