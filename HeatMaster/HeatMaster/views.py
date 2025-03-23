@@ -88,3 +88,6 @@ def create_blog(request):
         'blog_form': blog_form,
         'image_form': image_form
     })
+
+def videos(request):
+    return render(request, 'pages/videos.html')

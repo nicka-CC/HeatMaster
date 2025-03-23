@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends './layout.html' %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    {% endblock %}
+
+</head>
+<body>
+
+{% block content %}
+<div class="content">
+    <div class="padding">
+        <img src="{% static 'icon/+.svg'%}" alt="+"/>
+    </div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> /
+            <div class="bread_crump">О компании</div>
+        </div>
+        <div>
+            Как установить терморегулятор Energy BHT-2000
+            <video controls width="250">
+                <source src="{% static 'videos/Как установить терморегулятор Energy BHT-2000 #shorts #терморегулятор #электрика.mp4' %}" type="video/webm"/>
+            </video>
+            Подключение терморегулятора. Схема подключения.
+            <video controls width="250">
+                <source src="{% static 'videos/Подключение терморегулятора. Схема подключения.mp4' %}" type="video/webm"/>
+            </video>
+            Умный термостат с Алисой.
+            <video controls width="250">
+                <source src="{% static 'videos/Умный термостат с Алисой..mp4' %}" type="video/webm"/>
+            </video>
+        </div>
+    </div>
+    <div class="padding2">
+        <img src="{% static 'icon/+.svg'%}" alt="+"/>
+    </div>
+</div>
+{% endblock %}
+
+</body>
+</html>

@@ -29,6 +29,7 @@ urlpatterns = [
     path('create_blog/',views.create_blog, name='create_blog'),
     path('blog/<int:blog_id>/', views.blog_detail, name='blog_detail'),
     path('admin/', admin.site.urls),
+    path('videos/', views.videos, name='videos'),
     path('signUp/', views.signUp, name='signUp'),
     path('signIn/', views.signIn, name='signIn'),
     path('calculate_price/', views.calculate_price, name='calculate_price'),
