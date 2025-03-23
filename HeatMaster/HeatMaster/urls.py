@@ -37,3 +37,4 @@ urlpatterns = [
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# TODO: fix videos, fix blog: item, comment, list, fix:slider, fix, img in clculate, fix home page, fix user list info, fix logout
