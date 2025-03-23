@@ -20,17 +20,79 @@
         <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> /
             <div class="bread_crump">Терморегуляторы</div>
         </div>
+
+        <div class="sidebar">
+            <div class="slider-container">
+                <div class="slider">
+                    <div class="slide active">
+                        <img src="{% static 'on_siderbar/1a135b7cc423295b98cd92f86a6c363f-e1650569525748.jpeg'%}" alt="Фото 1">
+                    </div>
+                    <div class="slide active">
+                        <img src="{% static 'on_siderbar/9472036f337d6269923115a81be23f75.jpg'%}" alt="Фото 1">
+                    </div>
+                    <div class="slide active">
+                        <img src="{% static 'on_siderbar/pol_vod-1.jpg'%}" alt="Фото 1">
+                    </div>
+                </div>
+
+                <!-- Стрелки -->
+                <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+                <button class="next" onclick="changeSlide(1)">&#10095;</button>
+
+                <!-- Индикаторы -->
+                <div class="dots-container">
+                    <span class="dot active" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                </div>
+            </div>
+        </div>
+        <script>
+        let currentIndex = 0;
+        const slides = document.querySelectorAll(".sidebar .slide");
+        const dots = document.querySelectorAll(".sidebar .dot");
+
+        function showSlide(index) {
+            if (index >= slides.length) {
+                currentIndex = 0;
+            } else if (index < 0) {
+                currentIndex = slides.length - 1;
+            } else {
+                currentIndex = index;
+            }
+
+            document.querySelector(".sidebar .slider").style.transform = `translateX(${-currentIndex * 100}%)`;
+
+            dots.forEach(dot => dot.classList.remove("active"));
+            dots[currentIndex].classList.add("active");
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentIndex + direction);
+        }
+
+        function currentSlide(index) {
+            showSlide(index - 1);
+        }
+
+        setInterval(() => {
+            changeSlide(1);
+        }, 3000);
+
+        </script>
+
+
         {% if user.is_authenticated %}
         <p>Привет, {{ user.first_name }} {{user.last_name}}!</p>
         <form action="{% url 'logout' %}" method="post" style="display:inline;">
 
-        {% csrf_token %}
+            {% csrf_token %}
 
-        <button type="submit">Выйти</button>
+            <button type="submit">Выйти</button>
 
-    </form>
+        </form>
         {% else %}
-        <a href="{% url 'signIn'%}" >Войти</a> |
+        <a href="{% url 'signIn'%}">Войти</a> |
         <a href="{% url 'signUp' %}">Регистрация</a>
         {% endif %}
         <div>
@@ -47,9 +109,9 @@
             </div>
         </div>
     </div>
-    <!--            <div class="padding2">-->
-    <!--                <img src="+.svg" alt="+"/>-->
-    <!--            </div>-->
+                <div class="padding2">
+                    <img src="{% static 'icon/+.svg' %}" alt="+"/>
+                </div>
 </div>
 {% endblock %}
 

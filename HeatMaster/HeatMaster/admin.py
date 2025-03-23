@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Thermostats, Thermostat, ThermostatImages, HeatedMats, Blog, ImageBlog, Part, WarmFloor, ModelRange, \
-    MethodPay, Produce, HistoryApplication, Applications, History, HotCable, LetsCooperate, CalculatePrice
+    MethodPay, Produce, HistoryApplication, Applications, History, HotCable, LetsCooperate, CalculatePrice, CommentBlog
 
 
 class ThermostatsAdmin(admin.ModelAdmin):
@@ -32,8 +32,11 @@ class ThermostatAdmin(admin.ModelAdmin):
 class ImageBlogInline(admin.TabularInline):
     model = ImageBlog
     extra = 1
+class CommentsBlogInline(admin.TabularInline):
+    model = CommentBlog
+    extra = 1
 class BlogAdmin(admin.ModelAdmin):
-    inlines = [ImageBlogInline]
+    inlines = [ImageBlogInline, CommentsBlogInline]
 
 class PartAdmin(admin.ModelAdmin):
     list_display = ('title', 'icon_preview')

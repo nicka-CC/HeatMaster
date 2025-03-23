@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends './layout.html' %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    {% endblock %}
+
+</head>
+<body>
+
+{% block content %}
+<div class="content">
+    <div class="padding">
+        <img src="{% static 'icon/+.svg'%}" alt="+"/>
+    </div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> /
+            <div class="bread_crump"><a href="{% url 'blog' %}">Блог</a></div>
+            /
+            <div class="bread_crump">{{ blog.article }}</div>
+        </div>
+        <a href="{% url 'blog'%}">
+            <div class="blog_btn_ext"><- Назад</div>
+        </a>
+        <h1>{{ blog.article }}</h1>
+        {% for image in blog.blod.all %}
+        <div>
+            {% if image.status == 'header'%}
+            <img src="{{ image.image.url }}" alt="Изображение" style="max-width: 100%;">
+            {% endif %}
+        </div>
+        {% empty %}
+        <p>Нет изображений</p>
+        {% endfor %}
+        <p>{{ blog.text }}</p>
+        {% for image in blog.blod.all %}
+        <div>
+            {% if image.status == 'one'%}
+            <img src="{{ image.image.url }}" alt="Изображение" style="max-width: 70%;">
+            {% endif %}
+        </div>
+        {% empty %}
+        <p>Нет изображений</p>
+        {% endfor %}
+        <p>{{ blog.text_two }}</p>
+
+        {% for image in blog.blod.all %}
+        <div>
+            {% if image.status == 'two'%}
+            <img src="{{ image.image.url }}" alt="Изображение" style="width: 70%;">
+            {% endif %}
+        </div>
+        {% empty %}
+        <p>Нет изображений</p>
+        {% endfor %}
+
+
+        {% if user.is_authenticated %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="submitBtncl" id="submitBtn">Отправить</button>
+        </form>
+        <script>
+            // Функция для изменения цвета кнопки при наведении
+            document.getElementById("submitBtn").addEventListener("mouseover", function () {
+                this.style.color = "white";
+                this.style.backgroundColor = "#C47344";
+            });
+
+            document.getElementById("submitBtn").addEventListener("mouseout", function () {
+                this.style.color = "";
+                this.style.backgroundColor = "";
+            });
+            document.querySelectorAll(".form-control").forEach(function (input) {
+                input.addEventListener("focus", function () {
+                    this.style.backgroundColor = '#eadcd4';
+                });
+
+                input.addEventListener("blur", function () {
+                    this.style.backgroundColor = "";
+                });
+            });
+        </script>
+        {% else %}
+        <a href="{% url 'signIn'%}">Войти</a> |
+        <a href="{% url 'signUp' %}">Регистрация</a>
+        {% endif %}
+
+
+        <div class="comments">
+            <h3>Комментарии:</h3>
+            {% for comment in comments %}
+            <div class="comment">
+                <p><strong>{{ comment.author }}</strong> - {{ comment.date }}</p>
+                <p>{{ comment.text }}</p>
+            </div>
+            {% empty %}
+            <p>Нет комментариев</p>
+            {% endfor %}
+        </div>
+
+    </div>
+    <div class="padding2">
+        <img src="{% static 'icon/+.svg'%}" alt="+"/>
+    </div>
+</div>
+{% endblock %}
+
+</body>
+</html>
