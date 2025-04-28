@@ -286,7 +286,96 @@
     margin-top: 43px;
     width: 70px;
 }
+.blog{
+    display: flex;
+    flex-direction: row;
+    background: #F2F2F2;
+    border-radius: 20px;
+    gap:30px;
+}
+.comment{
+     padding: 10px 40px;
+    background: #e4b59a;
+    border-radius: 10px;
+}
+.comments{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
 
+}
+
+.blog_btn{
+    background: #E94216;
+    border-radius: 10px;
+    margin:20px 0;
+    color:white;
+    width: 135px;
+    text-decoration: none;
+    padding: 5px 20px;
+}
+.blog_btn:hover{
+    background: #a53d20;
+}
+.blog_btns{
+    background: #C47344;
+    border-radius: 10px;
+    margin:10px 0;
+    color:white;
+    width: 200px;
+    text-decoration: none;
+    padding: 10px 20px;
+}
+.blog_btns:hover{
+    background: #9f5f39;
+}
+.blog_btn_ext{
+    background: #C47344;
+    border-radius: 10px;
+    margin:20px 0;
+    color:white;
+    width: 85px;
+    text-decoration: none;
+    padding: 5px 20px;
+}
+.blog_btn_ext:hover{
+    background: #aa633a;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+.blog_container{
+    display: flex;
+    flex-direction: column;
+    gap:30px;
+}
+.blog_body{
+    width: 50%;
+}
+.blog_img{
+    width:250px
+}
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    gap: 30px;
+    margin-bottom: 84px;
+    margin-top: 56px;
+    width: 700px;
+}
+
+.form-control {
+    overflow-y: hidden;
+    background: #cf9776;
+    width: 330px;
+    padding: 15px 10px;
+    border: 1px solid #CECECE;
+    border-radius: 4px;
+}
 @media (max-width: 768px) {
     .padding {
         display: none;
@@ -315,5 +404,47 @@
 
     .people_img {
         height: 222px;
+    }
+}
+.blog_img_t{
+    max-width: 300px; border-top-left-radius: 20px;border-bottom-left-radius: 20px;
+}
+@media (max-width: 360px) {
+    .form-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    gap: 30px;
+    margin-bottom: 84px;
+    margin-top: 56px;
+    width: 700px;
+}
+.submitBtncl {
+    padding: 6px 100px;
+    margin: 0 auto;
+}
+.form-control {
+    overflow-y: hidden;
+    background: #cf9776;
+    width: 300px;
+    padding: 15px 10px;
+    border: 1px solid #CECECE;
+    border-radius: 4px;
+}
+    .blog{
+        flex-direction: column;
+        gap:15px
+    }
+    .blog_body{
+        width: 100%;
+        /*padding:0 5px;*/
+    }
+    .blog_btn{
+        margin:  20px auto;
+    }
+    .blog_img_t{
+        border-top-left-radius: 20px;border-top-right-radius: 20px;
+        border-bottom-left-radius: 0px;
+        max-width: 400px;
     }
 }

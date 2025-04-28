@@ -3,6 +3,91 @@
     justify-content: space-between;
     align-items: flex-start;/
 }
+.sidebar * {
+    box-sizing: border-box;
+}
+
+.sidebar {
+    position: relative;
+    width: 100%;
+    background-color: #f9f9f9;
+    /*padding: 20px;*/
+    height: 497px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar .slider-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar .slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.sidebar .slide {
+    min-width: 100%;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.sidebar .slide img {
+    width: 100%;
+    height: 497px;
+    border-radius: 10px;
+}
+
+/* Стрелки */
+.sidebar button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgb(248, 176, 6);
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 50px;
+}
+
+.sidebar .prev {
+    left: 10px;
+}
+
+.sidebar .next {
+    right: 10px;
+}
+
+.sidebar button:hover {
+    background-color: rgba(248, 176, 6, 0.7);
+}
+
+.sidebar .dots-container {
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
+    left:10%;
+    right:10%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0);
+}
+
+.sidebar .dot {
+    display: inline-block;
+    width: 22px;
+    height: 3px;
+    margin: 5px;
+    background-color: gray;
+    /*border-radius: 50px;*/
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar .dot.active {
+    background-color: #f8b006;
+}
 
 .content_info {
     width: 65%;
@@ -116,6 +201,15 @@ color:#C47344;
     .content_info {
     width: 100%;
 
-    margin: 0 5%;
+    margin: 0 1%;
 }
+}
+@media(max-width:400px){
+    .sidebar {
+      height: 250px;
+    }
+    .sidebar .slide img {
+       height: 250px;
+    }
+
 }

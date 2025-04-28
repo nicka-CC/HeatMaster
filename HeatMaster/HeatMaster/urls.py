@@ -23,12 +23,18 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('thermoregulator/',views.thermoregulator, name='thermoregulator'),
     path('about/', views.about, name='about'),
+    path('blog/', views.blog, name='blog'),
+    path('create_blog/',views.create_blog, name='create_blog'),
+    path('blog/<int:blog_id>/', views.blog_detail, name='blog_detail'),
     path('admin/', admin.site.urls),
+    path('videos/', views.videos, name='videos'),
     path('signUp/', views.signUp, name='signUp'),
     path('signIn/', views.signIn, name='signIn'),
     path('calculate_price/', views.calculate_price, name='calculate_price'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# TODO: fix videos, fix blog: item, comment, list, fix:slider, fix, img in clculate, fix home page, fix user list info, fix logout

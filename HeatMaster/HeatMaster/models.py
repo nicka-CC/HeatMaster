@@ -1,5 +1,8 @@
+import datetime
+
 from django.db import models
 from django.db.models import ForeignKey
+from django.utils import timezone
 
 
 class Thermostats(models.Model):
@@ -44,9 +47,12 @@ class HeatedMats(models.Model):
 
 
 class Blog(models.Model):
-    article = models.CharField(max_length=120)
-    text = models.TextField(max_length=1000)
-    text_two = models.TextField(max_length=1000)
+    article = models.CharField(max_length=200)
+    text = models.TextField(max_length=10000)
+    text_two = models.TextField(max_length=10000)
+    start= models.TextField(max_length=10000,default="")
+    final = models.TextField(max_length=10000, default='')
+    date = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.article
 class ImageBlog(models.Model):
@@ -55,6 +61,15 @@ class ImageBlog(models.Model):
     blog = ForeignKey(Blog, related_name="blod", on_delete=models.CASCADE)
     def __str__(self):
         return self.image.name
+class CommentBlog(models.Model):
+    text = models.CharField(max_length=500)
+    date = models.DateTimeField(auto_now_add=True)
+    author = models.CharField(max_length=320)
+    username = models.CharField(max_length=320)
+    rating = models.FloatField(default=0)
+    blog = ForeignKey(Blog, related_name="comment", on_delete=models.CASCADE)
+    def __str__(self):
+        return self.author
 
 class Part(models.Model):
     image = models.ImageField(upload_to="images/", null=True, blank=True)

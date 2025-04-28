@@ -23,16 +23,11 @@
         </div>
         <div class="title">Расчет стоимости</div>
         <div class="content_body">
-            {% if form %}
-
             <form method="post" class="form-container">
                 {% csrf_token %}
                 <div class="row">
                     <div class="mb-3">{{ form.subject }}</div>
-                    <div class="row">
-                        <div>Этаж:</div>
-                        {{ form.stage }}
-                    </div>
+                    <div class="row"><div>Этаж: </div>{{ form.stage }}</div>
                 </div>
                 <div class="row">
                     <div class="mb-3">{{ form.type }}</div>
@@ -40,10 +35,7 @@
                 </div>
                 <div class="row">
                     <div class="mb-3">{{ form.type_across }}</div>
-                    <div class="form-instal">
-                        <div class="tfi">Установка пола:</div>
-                        {{ form.install }}
-                    </div>
+                    <div class="form-instal"><div class="tfi">Установка пола:</div>{{ form.install }}</div>
                 </div>
                 <div class="row">
                     <div class="mb-3">{{ form.name }}</div>
@@ -51,31 +43,6 @@
                 </div>
                 <button type="submit" class="submitBtncl" id="submitBtn">Отправить</button>
             </form>
-            {% else %}
-            <div class="container_blog_detail">
-                <h5 class="after_text">Заявка на расчёт стоимости успешно отправлена!</h5>
-                <div class="con-cp">
-                    {% for field, value in form_data.items %}
-                    <div class="after_form_container">
-                        <p class="value_after_form">
-                            {% if field == "subject" %}Тема{% elif field == "stage" %}Этаж
-                            {% elif field == "type" %}Тип{% elif field == "produce" %}Производство
-                            {% elif field == "type_across" %}Тип укладки
-                            {% elif field == "install" %}Установка пола
-                            {% elif field == "name" %}Имя
-                            {% elif field == "phone" %}Телефон
-                            {% else %}{{ field }}{% endif %}:
-                        </p>
-                        <p class="value_after_form">
-                            {% if value is not None %}{{ value }}{% else %}Empty{% endif %}
-                        </p>
-                    </div>
-                    {% endfor %}
-
-                </div>
-            </div>
-
-            {% endif %}
             <script>
                 // Функция для изменения цвета кнопки при наведении
                 document.getElementById("submitBtn").addEventListener("mouseover", function () {
@@ -97,7 +64,6 @@
                     });
                 });
             </script>
-
             <div>
                 <img src="{% static 'icon/pic.jpg' %}" alt="pic" class="pic"/>
             </div>

@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
+from django.utils import timezone
 
-from .models import CalculatePrice, Thermostats, Produce
+from .models import CalculatePrice, Thermostats, Produce, CommentBlog, Blog, ImageBlog
 
 
 class CalculatePriceForm(forms.ModelForm):
@@ -33,19 +34,19 @@ class CalculatePriceForm(forms.ModelForm):
         widget=forms.Select(attrs={'class': 'form-control'})
     )
     TYPE_INSTALL = [
-        ('yes', 'Установка'),
+        ('yes', 'Да'),
         ('no', 'Нет'),
 
     ]
 
     install = forms.ChoiceField(
         choices=TYPE_INSTALL,
-        widget=forms.Select(attrs={'class': 'form-control'})
+        widget=forms.RadioSelect(attrs={'class': 'form-install'}),
     )
     STAGE_CHOICES = [(str(i), str(i)) for i in range(1, 11)]
     stage = forms.ChoiceField(
         choices=STAGE_CHOICES,
-        widget=forms.RadioSelect(attrs={'class': 'form-check-input'})
+        widget=forms.Select(attrs={'class': 'form-control'})
     )
     type_across = forms.ModelChoiceField(
         queryset=Thermostats.objects.all(),
@@ -108,3 +109,53 @@ class CustomAuthenticationForm(AuthenticationForm):
         for field in self.fields:
          if self[field].errors:
             self.fields[field].widget.attrs['class'] += ' is-invalid'
+
+class CommentBlogForm(forms.ModelForm):
+    class Meta:
+        model = CommentBlog
+        fields = ['text', 'rating']
+        widgets = {
+            'text': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Введите текст комментария'}),
+            'rating': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Оценка'}),
+        }
+
+    def __init__(self, *args, user=None, blog=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
+        self.blog = blog
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+
+        # Привязываем пользователя
+        if self.user and self.user.is_authenticated:
+            instance.author = f"{self.user.first_name} {self.user.last_name}".strip()
+            instance.username = self.user.username
+
+        # Привязываем блог
+        if self.blog:
+            instance.blog = self.blog
+        else:
+            raise ValueError("Ошибка: блог не передан в форму!")
+
+        instance.date = timezone.now()
+
+        if commit:
+            instance.save()
+        return instance
+
+class BlogForm(forms.ModelForm):
+    class Meta:
+        model = Blog
+        fields = ['article', 'text', 'text_two', 'start', 'final']
+        widgets = {
+            'article': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Название статьи'}),
+            'text': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Первый абзац'}),
+            'text_two': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Второй абзац'}),
+            'start': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Начало статьи'}),
+            'final': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Конец статьи'}),
+        }
+
+
+class ImageBlogForm(forms.Form):
+    image_1 = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'accept': 'image/*', 'class': 'image-input'}))
