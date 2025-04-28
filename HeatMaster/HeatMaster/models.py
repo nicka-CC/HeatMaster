@@ -106,7 +106,7 @@ class Produce(models.Model):
     icon = models.ImageField(upload_to="images/", null=True, blank=True)
     name = models.CharField(max_length=120)
     description = models.CharField(max_length=1000)
-    date_work = models.DateField()
+    date_work = models.CharField(max_length=10)
     sphere = models.CharField(max_length=120)
     def __str__(self):
         return self.name
