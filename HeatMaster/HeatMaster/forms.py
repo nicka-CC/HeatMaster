@@ -34,19 +34,19 @@ class CalculatePriceForm(forms.ModelForm):
         widget=forms.Select(attrs={'class': 'form-control'})
     )
     TYPE_INSTALL = [
-        ('yes', 'Установка'),
+        ('yes', 'Да'),
         ('no', 'Нет'),
 
     ]
 
     install = forms.ChoiceField(
         choices=TYPE_INSTALL,
-        widget=forms.Select(attrs={'class': 'form-control'})
+        widget=forms.RadioSelect(attrs={'class': 'form-install'}),
     )
     STAGE_CHOICES = [(str(i), str(i)) for i in range(1, 11)]
     stage = forms.ChoiceField(
         choices=STAGE_CHOICES,
-        widget=forms.RadioSelect(attrs={'class': 'form-check-input'})
+        widget=forms.Select(attrs={'class': 'form-control'})
     )
     type_across = forms.ModelChoiceField(
         queryset=Thermostats.objects.all(),

@@ -1,3 +1,23 @@
+.after_form_container{
+    display: flex;
+    gap:30px;
+    border-radius: 20px;
+    padding-left:20px;
+    background: rgba(69, 156, 175, 0.17);
+}
+.con-cp{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+.after_text{
+    font-size: 24px;
+    color:#C47344;
+}
+.container_blog_detail{
+    display: flex;
+    flex-direction: column;
+}
 .form-container {
     display: flex;
     flex-wrap: wrap;
@@ -7,7 +27,14 @@
     margin-top: 56px;
     width: 700px;
 }
-
+.form-instal{
+    display: flex;
+    flex-direction: row;
+}
+.tfi{
+    width:200px;
+    margin: 0 10%;
+}
 .form-control {
     overflow-y: hidden;
     background: #cf9776;
@@ -52,7 +79,12 @@ body {
     overflow: hidden;
     object-fit: cover;
 }
-
+.form-install{
+    display:flex;
+    flex-direction: row;
+    gap:40px;
+    /*margin: 0 10%;*/
+}
 .padding {
     display: flex;
     justify-content: center;

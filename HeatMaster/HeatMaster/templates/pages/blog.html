@@ -24,6 +24,9 @@
         <div>
             <div class="title">Блог</div>
             <div class="blog_container">
+               {% if user.is_superuser or user.is_staff %}
+                <a href="{% url 'create_blog' %}" class="create_blog_btn"><div class="blog_btns">Создать новый блог</div></a>
+                {% endif %}
                 {% for blog in blogs %}
                 <div class="blog">
                     {% for image in blog.blod.all %}

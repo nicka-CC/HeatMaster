@@ -33,7 +33,7 @@ urlpatterns = [
     path('signUp/', views.signUp, name='signUp'),
     path('signIn/', views.signIn, name='signIn'),
     path('calculate_price/', views.calculate_price, name='calculate_price'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

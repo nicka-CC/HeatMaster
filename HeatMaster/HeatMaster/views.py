@@ -20,7 +20,7 @@ def calculate_price(request):
         form = CalculatePriceForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('calculate_price')
+            return render(request, 'pages/calculate_price.html', context={'form_data': form.cleaned_data})
     else:
         form = CalculatePriceForm()
     return render(request, 'pages/calculate_price.html',{'form':form})

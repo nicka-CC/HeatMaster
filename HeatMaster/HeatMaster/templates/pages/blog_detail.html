@@ -96,8 +96,9 @@
             <h3>Комментарии:</h3>
             {% for comment in comments %}
             <div class="comment">
-                <p><strong>{{ comment.author }}</strong> - {{ comment.date }}</p>
-                <p>{{ comment.text }}</p>
+                <div style="display: flex; gap:10px"><strong>{{ comment.author }}</strong>  - {{ comment.date }}<div class="rating" style=" margin-left:  auto; width:11px; padding: 3px 10px; color:white; border-radius: 5px;  background: {% if comment.rating >= 7.0 %}green{% elif comment.rating >= 5.0 %}yellow{% else %}red{% endif %}">{{comment.rating|floatformat:"0" }}</div></div>
+                <div>{{ comment.text }}</div>
+<!--                <div class="rating" style="width:11px; padding: 3px 10px; color:white; border-radius: 5px;  background: {% if comment.rating >= 7.0 %}green{% elif comment.rating >= 5.0 %}yellow{% else %}red{% endif %}">{{comment.rating|floatformat:"0" }}</div>-->
             </div>
             {% empty %}
             <p>Нет комментариев</p>
