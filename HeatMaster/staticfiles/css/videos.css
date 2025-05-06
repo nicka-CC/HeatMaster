@@ -1,0 +1,77 @@
+.video_body {
+    display:flex;
+    gap:30px;
+}
+.video-container {
+    display:flex;
+    flex-direction: column-reverse;
+}
+.content {
+    overflow-y: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+/ overflow-x: hidden;
+    font-size: 20px;
+    margin-bottom: 59px;
+}
+.content_info {
+    overflow-y: hidden;
+    width: 60vw;
+    /*margin: 0 1%;*/
+}
+
+.padding {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    padding-top: 94px;
+}
+
+.padding2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    margin-top: auto;
+    padding-bottom: 94px;
+}
+
+.bread_crump {
+    color: #C47344;
+
+}
+
+.bread_crumps {
+    padding: 20px 0;
+    display: flex;
+    gap: 2px;
+    font-size: 14px;
+    color: #CECECE;
+    text-decoration: none;
+}
+
+.bread_crumps a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.bread_crumps a:visited {
+    color: inherit;
+}
+
+.bread_crumps a:active {
+    color: inherit;
+}
+
+.bread_crumps a:hover {
+    text-decoration: underline;
+}
+
+.title {
+    padding: 20px 0;
+    font-size: 36px;
+    font-weight: bold;
+
+}
