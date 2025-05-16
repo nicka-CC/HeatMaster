@@ -148,14 +148,29 @@ class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
         fields = ['article', 'text', 'text_two', 'start', 'final']
+        labels = {
+            'article': 'Название статьи',
+            'text': 'Первый абзац',
+            'text_two': 'Второй абзац',
+            'start': 'Начало статьи',
+            'final': 'Конец статьи'
+        }
         widgets = {
-            'article': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Название статьи'}),
-            'text': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Первый абзац'}),
-            'text_two': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Второй абзац'}),
-            'start': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Начало статьи'}),
-            'final': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Конец статьи'}),
+            'article': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введите название статьи'}),
+            'text': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Введите первый абзац'}),
+            'text_two': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Введите второй абзац'}),
+            'start': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Введите начало статьи'}),
+            'final': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Введите конец статьи'}),
         }
 
 
 class ImageBlogForm(forms.Form):
-    image_1 = forms.ImageField(required=False, widget=forms.ClearableFileInput(attrs={'accept': 'image/*', 'class': 'image-input'}))
+    image_1 = forms.ImageField(
+        required=False,
+        label='Изображение для статьи',
+        widget=forms.ClearableFileInput(attrs={
+            'accept': 'image/*',
+            'class': 'image-input',
+            'placeholder': 'Выберите изображение'
+        })
+    )
