@@ -174,3 +174,14 @@ class ImageBlogForm(forms.Form):
             'placeholder': 'Выберите изображение'
         })
     )
+
+
+class ApplicationForm(forms.ModelForm):
+    class Meta:
+        model = __import__('{}.models'.format(__name__.split('.')[0]), fromlist=['Applications']).Applications
+        fields = ['description', 'part', 'phone']
+        widgets = {
+            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Короткое описание заявки'}),
+            'part': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Название/часть'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Телефон'}),
+        }

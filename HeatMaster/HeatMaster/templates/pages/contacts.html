@@ -1,0 +1,73 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
+<style>
+.contact-top { display:flex; gap:12px; align-items:center; margin-bottom:14px; }
+.contact-top .info { display:flex; gap:14px; align-items:center; }
+.contact-top .info div { display:flex; gap:8px; align-items:center; color:#666; }
+.location-tabs { display:flex; gap:10px; margin:14px 0; }
+.location-tabs .tab { padding:10px 18px; background:#f4a322; color:#fff; border-radius:4px; }
+.map-block { width:100%; height:360px; border-radius:6px; overflow:hidden; margin-bottom:10px; }
+.map-iframe { width:100%; height:100%; border:0; }
+.request-banner { background-image: url('{% static "on_siderbar/pol_vod-1.jpg" %}'); background-size:cover; padding:28px; border-radius:6px; display:flex; gap:12px; align-items:center; color:#fff; }
+.request-banner .title { font-size:28px; font-weight:700; }
+.request-banner form { display:flex; gap:8px; width:100%; }
+.request-banner input, .request-banner textarea { padding:12px; border-radius:4px; border:1px solid rgba(255,255,255,0.2); }
+.request-banner .btn-order { background:#e64a2a; color:#fff; padding:12px 22px; border-radius:6px; text-decoration:none; border:none; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+  <div class="padding"></div>
+  <div class="content_info">
+    <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <div class="bread_crump">Контакты</div></div>
+
+    <h1>Контакты</h1>
+
+    <div class="contact-top">
+      <div class="info">
+        <div><img src="{% static 'icon/phone.svg' %}" alt="phone" style="width:18px;"> +38 (098) 552 97 87</div>
+        <div><img src="{% static 'icon/phone.svg' %}" alt="phone" style="width:18px;"> +38 (050) 552 97 87</div>
+        <div><img src="{% static 'icon/mail.svg' %}" alt="mail" style="width:18px;"> zakaz@heatingfloor.com.ua</div>
+      </div>
+      <div style="margin-left:auto; display:flex; gap:8px;"><a href="#" style="display:inline-block; width:34px; height:34px; background:#fff; border-radius:6px; text-align:center; line-height:34px;">f</a><a href="#" style="display:inline-block; width:34px; height:34px; background:#fff; border-radius:6px; text-align:center; line-height:34px;">ig</a></div>
+    </div>
+
+    <div class="location-tabs">
+      <div class="tab">г. Киев, ул. Радищева 12/16</div>
+      <div class="tab" style="background:#fff; color:#333; border:1px solid #f4a322;">г. Харьков, просп. Московский 247</div>
+    </div>
+
+    <div class="map-block">
+      <!-- Yandex map iframe embed -->
+      <iframe class="map-iframe" src="https://yandex.ru/map-widget/v1/?um=constructor%3Aexample&width=100%&height=400&lang=ru_RU" allowfullscreen></iframe>
+    </div>
+
+    <div class="request-banner">
+      <div style="flex:1">
+        <div class="title">Оставить заявку</div>
+        <div>Заявка принимается менеджером. Оставьте ваш телефон и мы свяжемся с вами.</div>
+      </div>
+      <div style="flex:1">
+        <form method="post" action="">
+          {% csrf_token %}
+          {% if submitted %}
+            <div style="padding:8px; background:#e6ffed; color:#1a7f3a; border-radius:4px; margin-bottom:8px;">Заявка успешно отправлена.</div>
+          {% endif %}
+          <div style="display:flex; gap:8px;">
+            <div style="flex:2;">{{ form.part }}</div>
+            <div style="flex:2;">{{ form.phone }}</div>
+            <div style="flex:1; text-align:right;"><button type="submit" class="btn-order">Отправить</button></div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+  <div class="padding2"></div>
+</div>
+{% endblock %}

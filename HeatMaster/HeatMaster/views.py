@@ -3,7 +3,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import CalculatePriceForm, CustomUserCreationForm, CustomAuthenticationForm, CommentBlogForm, BlogForm, \
     ImageBlogForm
-from .models import Thermostats, Blog, CommentBlog, ImageBlog
+from .models import Thermostats, Blog, CommentBlog, ImageBlog, Thermostat, ThermostatImages, Applications, HeatedMats, Produce
+from .forms import ApplicationForm
+from django.core.paginator import Paginator
+from django.db.models import Q, Count
 
 
 def home(request):
@@ -91,3 +94,149 @@ def create_blog(request):
 
 def videos(request):
     return render(request, 'pages/videos.html')
+
+
+def heated_mats(request):
+    # simple content page with application form (create Applications record)
+    if request.method == 'POST':
+        form = ApplicationForm(request.POST)
+        if form.is_valid():
+            app = form.save(commit=False)
+            app.status = 'new'
+            app.save()
+            return render(request, 'pages/heated_mats.html', {'form': ApplicationForm(), 'success': True})
+    else:
+        form = ApplicationForm()
+
+    mats = HeatedMats.objects.all()
+    return render(request, 'pages/heated_mats.html', {'form': form, 'mats': mats})
+
+
+def contacts(request):
+    # Contact page with Yandex map and short contact form (reuse ApplicationForm)
+    submitted = False
+    if request.method == 'POST':
+        form = ApplicationForm(request.POST)
+        if form.is_valid():
+            app = form.save(commit=False)
+            app.status = 'new'
+            app.save()
+            submitted = True
+            form = ApplicationForm()
+    else:
+        form = ApplicationForm()
+
+    return render(request, 'pages/contacts.html', {'form': form, 'submitted': submitted})
+
+
+def delivery_payment(request):
+    # static page describing delivery and payment options
+    return render(request, 'pages/delivery_payment.html')
+
+
+def cooperation(request):
+    # static cooperation/partners page
+    return render(request, 'pages/cooperation.html')
+
+
+def manufacturers(request):
+    producers = Produce.objects.all()
+    return render(request, 'pages/manufacturers.html', {'producers': producers})
+
+
+def thermostat_list(request, type_id=None):
+    """List of thermostats with multiple sidebar filters and pagination.
+
+    URL can provide `type_id` as path param (via thermostats/type/<id>/) or GET param `type_id`.
+    Sidebar includes manufacturers and countries with counts and price range.
+    """
+    qs = Thermostat.objects.filter(available=True)
+
+    # allow type in path or GET
+    type_param = type_id or request.GET.get('type_id')
+    if type_param:
+        try:
+            type_int = int(type_param)
+            qs = qs.filter(thermostats_id=type_int)
+        except (ValueError, TypeError):
+            type_int = None
+    else:
+        type_int = None
+
+    # simple search
+    q = request.GET.get('q')
+    if q:
+        qs = qs.filter(Q(name__icontains=q) | Q(manufacturer__icontains=q) | Q(model__icontains=q))
+
+    # sidebar filters: manufacturer and country with counts
+    manufacturers = qs.values('manufacturer').order_by('manufacturer')
+    manufacturer_counts = qs.values('manufacturer').annotate(count=Count('id')).order_by('-count')
+
+    countries_counts = qs.values('country_manufacturer').annotate(count=Count('id')).order_by('-count')
+
+    # price range present in current qs (before price filtering)
+    prices = qs.exclude(price__isnull=True).values_list('price', flat=True)
+    if prices:
+        price_min = int(min(prices))
+        price_max = int(max(prices))
+    else:
+        price_min = 0
+        price_max = 0
+
+    # Apply GET filters: manufacturers (comma separated), countries (comma separated), price_min/price_max
+    manufacturers_filter = request.GET.get('m')
+    if manufacturers_filter:
+        manu_list = [x for x in manufacturers_filter.split(',') if x]
+        qs = qs.filter(manufacturer__in=manu_list)
+
+    countries_filter = request.GET.get('c')
+    if countries_filter:
+        country_list = [x for x in countries_filter.split(',') if x]
+        qs = qs.filter(country_manufacturer__in=country_list)
+
+    try:
+        price_min_filter = int(request.GET.get('price_min')) if request.GET.get('price_min') else None
+        price_max_filter = int(request.GET.get('price_max')) if request.GET.get('price_max') else None
+    except ValueError:
+        price_min_filter = price_max_filter = None
+
+    if price_min_filter is not None:
+        qs = qs.filter(price__gte=price_min_filter)
+    if price_max_filter is not None:
+        qs = qs.filter(price__lte=price_max_filter)
+
+    # pagination
+    page_size = 12
+    paginator = Paginator(qs.order_by('id'), page_size)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    types = Thermostats.objects.all()
+
+    # preserve current GET params except page (for pagination links)
+    params = request.GET.copy()
+    if 'page' in params:
+        params.pop('page')
+    current_get = params.urlencode()
+
+    return render(request, 'pages/thermostat_list.html', {
+        'page_obj': page_obj,
+        'types': types,
+        'selected_type': type_int,
+        'q': q or '',
+        'manufacturer_counts': manufacturer_counts,
+        'countries_counts': countries_counts,
+        'price_min': price_min,
+        'price_max': price_max,
+        'current_get': current_get,
+    })
+
+
+def thermostat_detail(request, pk):
+    thermostat = get_object_or_404(Thermostat, pk=pk)
+    images = ThermostatImages.objects.filter(thermostat_image=thermostat)
+
+    return render(request, 'pages/thermostat_detail.html', {
+        'thermostat': thermostat,
+        'images': images
+    })

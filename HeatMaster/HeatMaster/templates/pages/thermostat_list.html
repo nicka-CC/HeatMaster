@@ -1,0 +1,113 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="padding"></div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> /
+            <div class="bread_crump">Список терморегуляторов</div>
+        </div>
+
+        <div class="main-with-sidebar">
+            <aside class="sidebar-filters">
+                <div class="filter-box">
+                    <h4>По цене</h4>
+                    <form id="price-form" method="get" action="">
+                        <div class="price-row">
+                            <input type="number" name="price_min" placeholder="от" value="{{ request.GET.price_min|default:price_min }}"/>
+                            <input type="number" name="price_max" placeholder="до" value="{{ request.GET.price_max|default:price_max }}"/>
+                        </div>
+                        <button type="submit">Применить</button>
+                    </form>
+                </div>
+
+                <div class="filter-box">
+                    <h4>Производитель</h4>
+                    <form id="manufacturer-form" method="get" action="">
+                        {% for m in manufacturer_counts %}
+                        <div class="checkbox-row">
+                            <label>
+                                <input type="checkbox" name="m" value="{{ m.manufacturer }}" {% if request.GET.m and m.manufacturer in request.GET.m %}checked{% endif %} />
+                                {{ m.manufacturer }} <span class="count">{{ m.count }}</span>
+                            </label>
+                        </div>
+                        {% endfor %}
+                        <button type="submit">Фильтровать</button>
+                    </form>
+                </div>
+
+                <div class="filter-box">
+                    <h4>Страна производитель</h4>
+                    <form id="country-form" method="get" action="">
+                        {% for c in countries_counts %}
+                        <div class="checkbox-row">
+                            <label>
+                                <input type="checkbox" name="c" value="{{ c.country_manufacturer }}" {% if request.GET.c and c.country_manufacturer in request.GET.c %}checked{% endif %} />
+                                {{ c.country_manufacturer }} <span class="count">{{ c.count }}</span>
+                            </label>
+                        </div>
+                        {% endfor %}
+                        <button type="submit">Фильтровать</button>
+                    </form>
+                </div>
+            </aside>
+
+            <section class="list-section">
+                <div class="filters-row">
+                    <div class="types-list">
+                        <a href="{% url 'thermostat_list' %}" class="type-item {% if not selected_type %}active{% endif %}">Все типы</a>
+                        {% for t in types %}
+                        <a href="{% url 'thermostat_list_by_type' t.id %}" class="type-item {% if selected_type == t.id %}active{% endif %}">
+                            {% if t.icon %}<img src="{{ t.icon.url }}" alt="{{ t.type }}"/>{% endif %} {{ t.type }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                    <div class="search-box">
+                        <form method="get" action="{% url 'thermostat_list' %}">
+                            <input type="text" name="q" value="{{ q }}" placeholder="Поиск по названию или производителю"/>
+                            <button type="submit">Поиск</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="grid">
+            {% for item in page_obj.object_list %}
+            <div class="card">
+                <a href="{% url 'thermostat_detail' item.id %}">
+                    {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="card-image"/>
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="card-title">{{ item.name }}</div>
+                        <div class="card-price">{{ item.price }} грн.</div>
+                        <div class="card-manufacturer">{{ item.manufacturer }}</div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+                </div>
+
+                <div class="pagination">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}{% if current_get %}&{{ current_get }}{% endif %}">&laquo; Назад</a>
+                    {% endif %}
+
+                    <span>Стр. {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}{% if current_get %}&{{ current_get }}{% endif %}">Вперед &raquo;</a>
+                    {% endif %}
+                </div>
+
+            </section>
+        </div>
+
+    </div>
+    <div class="padding2"></div>
+</div>
+{% endblock %}

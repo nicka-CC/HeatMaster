@@ -24,6 +24,9 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('thermoregulator/',views.thermoregulator, name='thermoregulator'),
+    path('thermostats/', views.thermostat_list, name='thermostat_list'),
+    path('thermostats/type/<int:type_id>/', views.thermostat_list, name='thermostat_list_by_type'),
+    path('thermostat/<int:pk>/', views.thermostat_detail, name='thermostat_detail'),
     path('about/', views.about, name='about'),
     path('blog/', views.blog, name='blog'),
     path('create_blog/',views.create_blog, name='create_blog'),
@@ -33,6 +36,11 @@ urlpatterns = [
     path('signUp/', views.signUp, name='signUp'),
     path('signIn/', views.signIn, name='signIn'),
     path('calculate_price/', views.calculate_price, name='calculate_price'),
+    path('heated-mats/', views.heated_mats, name='heated_mats'),
+    path('contacts/', views.contacts, name='contacts'),
+    path('delivery-payment/', views.delivery_payment, name='delivery_payment'),
+    path('cooperation/', views.cooperation, name='cooperation'),
+    path('manufacturers/', views.manufacturers, name='manufacturers'),
     path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
 ]
 if settings.DEBUG:

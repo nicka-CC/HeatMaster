@@ -1,0 +1,50 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="padding"></div>
+    <div class="content_info single-thermostat">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <a href="{% url 'thermostat_list' %}">Терморегуляторы</a> /
+            <div class="bread_crump">{{ thermostat.name }}</div>
+        </div>
+
+        <div class="detail-grid">
+            <div class="gallery">
+                {% if thermostat.image %}
+                <img src="{{ thermostat.image.url }}" alt="{{ thermostat.name }}" class="main-image"/>
+                {% endif %}
+                <div class="thumbs">
+                    {% for img in images %}
+                    <img src="{{ img.image.url }}" alt="" class="thumb"/>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="info">
+                <h1>{{ thermostat.name }}</h1>
+                <div class="price">Цена: <span>{{ thermostat.price }} грн.</span></div>
+                <div class="meta">
+                    <div>Производитель: {{ thermostat.manufacturer }}</div>
+                    <div>Модель: {{ thermostat.model }}</div>
+                    <div>Страна: {{ thermostat.country_manufacturer }}</div>
+                    <div>Диапазон: {{ thermostat.control_range }}</div>
+                    <div>Макс. нагрузка: {{ thermostat.max_load }}</div>
+                </div>
+                <div class="description">{{ thermostat.description_block|safe }}</div>
+                <a class="btn-order" href="#">Заказать</a>
+            </div>
+        </div>
+
+        <div class="more-desc">
+            <h3>Описание</h3>
+            <p>{{ thermostat.description }}</p>
+        </div>
+
+    </div>
+    <div class="padding2"></div>
+</div>
+{% endblock %}

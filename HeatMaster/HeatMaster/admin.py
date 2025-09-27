@@ -14,20 +14,20 @@ class ThermostatsAdmin(admin.ModelAdmin):
     icon_preview.allow_tags = True
     icon_preview.short_description = "Превью"
 
-class ThermosatImageAdmin(admin.TabularInline):
+class ThermostatImageInline(admin.TabularInline):
     model = ThermostatImages
     extra = 1
 class ThermostatAdmin(admin.ModelAdmin):
     list_display = ('name', 'icon_preview')
 
     def icon_preview(self, obj):
-        if obj.icon:
+        if getattr(obj, 'image', None):
             return f'<img src="{obj.image.url}" width="50" height="50" style="border-radius: 5px;"/>'
         return "Нет изображения"
 
     icon_preview.allow_tags = True
     icon_preview.short_description = "Превью"
-    inlines = [ThermosatImageAdmin]
+    inlines = [ThermostatImageInline]
 
 class ImageBlogInline(admin.TabularInline):
     model = ImageBlog

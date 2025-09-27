@@ -99,12 +99,12 @@
             <div class="title">Терморегуляторы</div>
             <div class="termoregulators">
                 {% for thermostat in thermostats %}
-                <div class="thermoregulator">
+                <a href="{% url 'thermostat_list_by_type' thermostat.id %}" class="thermoregulator">
                     <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
                     <div class="thermoregulator_descripton">
                         <div>{{ thermostat.type }}</div>
                     </div>
-                </div>
+                </a>
                 {% endfor %}
             </div>
         </div>
