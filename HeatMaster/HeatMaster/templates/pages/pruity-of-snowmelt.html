@@ -1,0 +1,94 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
+<style>
+    .hero { margin:18px 0 24px 0; }
+    .hero img { width:100%; height:260px; object-fit:cover; border-radius:6px; }
+    .section { margin:22px 0; }
+    .features-list { margin:12px 0 18px 0; }
+    .features-list li { margin-bottom:6px; }
+    .table-prices { width:100%; border-collapse:collapse; margin-top:12px; }
+    .table-prices th, .table-prices td { padding:12px; border:1px solid #eee; }
+    .table-prices thead th { background:#f4a322; color:#fff; }
+    .cta-banner { margin:28px 0; background-image:url('{% static "on_siderbar/pol_vod-1.jpg" %}'); background-size:cover; background-position:center; border-radius:8px; padding:36px; color:#fff; display:flex; align-items:center; justify-content:space-between; }
+    .cta-banner .btn { background:#e64a2a; color:#fff; padding:12px 20px; border-radius:6px; text-decoration:none; }
+    .numbered-list li { margin-bottom:8px; }
+    .big-image { width:100%; height:320px; object-fit:cover; border-radius:6px; }
+    .bottom-contact { background:#f7f7f7; padding:24px; border-radius:8px; margin-top:18px; display:flex; align-items:center; justify-content:space-between; }
+    @media (max-width:768px) { .cta-banner { flex-direction:column; gap:12px; text-align:center; } .bottom-contact { flex-direction:column; gap:12px; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="padding"></div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> /
+            <div class="bread_crump">Система снеготаяния, обогрев труб и водостоков</div>
+        </div>
+
+        <h1>Система снеготаяния, обогрев труб и водостоков</h1>
+
+        <div class="hero">
+            <img src="{% static 'images/Frame_4.jpg' %}" alt="Система снеготаяния, обогрев труб и водостоков"/>
+        </div>
+
+        <div class="section">
+            <p>Забудьте о сосульках и ледяных пробках. Обогрев для безопасности вашего дома.</p>
+
+            <p>Системы обогрева полезны не только внутри дома, но и снаружи. Автоматический обогрев крыш, водостоков, труб и открытых площадок — это не роскошь, а технология, которая защищает ваш дом от повреждений, а вас — от травм и тяжелой физической работы.</p>
+           <p>Это специализированные греющие кабели (чаще всего саморегулирующиеся), которые монтируются вдоль желобов, внутри водостоков, по краю крыши, на ступенях, пандусах, а также вдоль труб водоснабжения.</p>
+            <p>Система подключается к терморегулятору с датчиками температуры и влажности. Как только температура опускается near нуля, и начинается снег или дождь, система автоматически включается, предотвращая образование наледи и снежных заторов.</p>
+
+            <h3>Ключевые преимущества:</h3>
+            <ul class="features-list">
+<li>Безопасность: Исключает образование сосулек и обледенения дорожек.</li>
+          <li>Защита имущества: Предотвращает повреждение кровли, водостоков и фасада от тяжести льда и застоявшейся воды.</li>
+           <li>Отсутствие замерзания труб: Незамерзающие трубы водоснабжения и канализации — гарантия комфорта в любое время года.</li>
+                <li>Автоматизация: Вам больше не нужно manually чистить снег и лед.</li>
+            </ul>
+
+
+
+        <div class="cta-banner">
+            <div>
+                <h2 style="margin:0 0 6px 0;">Рассчитайте стоимость</h2>
+                <p style="margin:0 0 6px 0;">Специалист свяжется с вами в ближайшее время, чтобы обсудить детали задачи и предложить оптимальное решение.</p>
+            </div>
+            <div>
+                <a class="btn" href="{% url 'calculate_price' %}">Приступить к расчету</a>
+            </div>
+        </div>
+ <div class="section">
+            <h3>Вывод:</h3>
+<p>Система антиобледенения — это разумное вложение в защиту вашего дома, которое избавляет от многих зимних проблем и рисков.</p>
+        </div>
+
+        <div class="bottom-contact">
+            <div>
+                <h3>Звоните или оставьте онлайн-заявку</h3>
+                <p>Мы свяжемся с вами в ближайшее время и поможем с расчетом и подбором материалов.</p>
+            </div>
+            <div style="min-width:260px;">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {% if success %}
+                        <div style="padding:8px; background:#e6ffed; color:#1a7f3a; border-radius:4px; margin-bottom:8px;">Заявка успешно отправлена.</div>
+                    {% endif %}
+                    <div style="display:flex; gap:8px;">
+                        <div style="flex:1;">{{ form.part }}</div>
+                        <div style="flex:1;">{{ form.phone }}</div>
+                    </div>
+                    <div style="margin-top:8px;">{{ form.description }}</div>
+                    <div style="margin-top:10px; text-align:right;"><button type="submit" class="btn-order">Отправить</button></div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="padding2"></div>
+</div>
+{% endblock %}

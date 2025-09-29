@@ -1,0 +1,96 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
+<style>
+    .hero { margin:18px 0 24px 0; }
+    .hero img { width:100%; height:260px; object-fit:cover; border-radius:6px; }
+    .section { margin:22px 0; }
+    .features-list { margin:12px 0 18px 0; }
+    .features-list li { margin-bottom:6px; }
+    .table-prices { width:100%; border-collapse:collapse; margin-top:12px; }
+    .table-prices th, .table-prices td { padding:12px; border:1px solid #eee; }
+    .table-prices thead th { background:#f4a322; color:#fff; }
+    .cta-banner { margin:28px 0; background-image:url('{% static "on_siderbar/pol_vod-1.jpg" %}'); background-size:cover; background-position:center; border-radius:8px; padding:36px; color:#fff; display:flex; align-items:center; justify-content:space-between; }
+    .cta-banner .btn { background:#e64a2a; color:#fff; padding:12px 20px; border-radius:6px; text-decoration:none; }
+    .numbered-list li { margin-bottom:8px; }
+    .big-image { width:100%; height:320px; object-fit:cover; border-radius:6px; }
+    .bottom-contact { background:#f7f7f7; padding:24px; border-radius:8px; margin-top:18px; display:flex; align-items:center; justify-content:space-between; }
+    @media (max-width:768px) { .cta-banner { flex-direction:column; gap:12px; text-align:center; } .bottom-contact { flex-direction:column; gap:12px; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="padding"></div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> /
+            <div class="bread_crump">Инфракрасная пленка</div>
+        </div>
+
+        <h1>Инфракрасная пленка</h1>
+
+        <div class="hero">
+            <img src="{% static 'images/Frame_4.jpg' %}" alt="Инфракрасная пленка"/>
+        </div>
+
+        <div class="section">
+            <p>Энергия солнца у вас дома. Инфракрасный пленочный теплый пол.</p>
+
+            <p>Самая современная и экономичная технология обогрева из доступных на рынке. Инфракрасная пленка работает по принципу солнечных лучей, нагревая не воздух, а предметы в комнате, создавая невероятно комфортное и здоровое тепло.</p>
+            <p>Это тонкая (около 0,5 мм) полимерная пленка, внутри которой запаяны карбоновые (углеродные) полосы или сплошное карбоновое напыление. При подаче электричества они генерируют безопасное длинноволновое инфракрасное излучение.</p>
+            <h3>Ключевых преимуществ несколько:</h3>
+            <ul class="features-list">
+                <li>Сухой и быстрый монтаж: Пленка просто расстилается под финишное покрытие, не требуя стяжки или клея. Система готова к использованию сразу после подключения и настила покрытия.</li>
+                <li>Высокий КПД и экономичность: Прямой нагрев предметов снижает теплопотери, что делает такой обогрев очень экономичным.</li>
+                <li>Здоровый микроклимат: Инфракрасное тепло не сушит воздух и не поднимает пыль, что важно для аллергиков.</li>
+                <li>Универсальность: Монтируется не только в пол, но и в стены, потолок, а также для локального обогрева (например, над рабочим столом).</li>
+            </ul>
+
+
+        <div class="section">
+            <h3>Область применения:</h3>
+          <p>Лучше всего подходит для сухих помещений под такие «плавающие» покрытия, как ламинат, паркетная доска, линолеум или ковролин. Не рекомендуется для прямого монтажа в плиточный клей без специальной технологии.</p>
+        </div>
+
+        <div class="cta-banner">
+            <div>
+                <h2 style="margin:0 0 6px 0;">Рассчитайте стоимость</h2>
+                <p style="margin:0 0 6px 0;">Специалист свяжется с вами в ближайшее время, чтобы обсудить детали задачи и предложить оптимальное решение.</p>
+            </div>
+            <div>
+                <a class="btn" href="{% url 'calculate_price' %}">Приступить к расчету</a>
+            </div>
+        </div>
+ <div class="section">
+            <h3>Вывод:</h3>
+<p>Инфракрасная пленка — это выбор для тех, кто хочет получить максимально комфортный, экономичный и современный обогрев с минимальными затратами времени на установку.</p>
+        </div>
+
+        <div class="bottom-contact">
+            <div>
+                <h3>Звоните или оставьте онлайн-заявку</h3>
+                <p>Мы свяжемся с вами в ближайшее время и поможем с расчетом и подбором материалов.</p>
+            </div>
+            <div style="min-width:260px;">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {% if success %}
+                        <div style="padding:8px; background:#e6ffed; color:#1a7f3a; border-radius:4px; margin-bottom:8px;">Заявка успешно отправлена.</div>
+                    {% endif %}
+                    <div style="display:flex; gap:8px;">
+                        <div style="flex:1;">{{ form.part }}</div>
+                        <div style="flex:1;">{{ form.phone }}</div>
+                    </div>
+                    <div style="margin-top:8px;">{{ form.description }}</div>
+                    <div style="margin-top:10px; text-align:right;"><button type="submit" class="btn-order">Отправить</button></div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="padding2"></div>
+</div>
+{% endblock %}

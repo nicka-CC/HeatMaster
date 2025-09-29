@@ -1,0 +1,98 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
+<style>
+    .hero { margin:18px 0 24px 0; }
+    .hero img { width:100%; height:260px; object-fit:cover; border-radius:6px; }
+    .section { margin:22px 0; }
+    .features-list { margin:12px 0 18px 0; }
+    .features-list li { margin-bottom:6px; }
+    .table-prices { width:100%; border-collapse:collapse; margin-top:12px; }
+    .table-prices th, .table-prices td { padding:12px; border:1px solid #eee; }
+    .table-prices thead th { background:#f4a322; color:#fff; }
+    .cta-banner { margin:28px 0; background-image:url('{% static "on_siderbar/pol_vod-1.jpg" %}'); background-size:cover; background-position:center; border-radius:8px; padding:36px; color:#fff; display:flex; align-items:center; justify-content:space-between; }
+    .cta-banner .btn { background:#e64a2a; color:#fff; padding:12px 20px; border-radius:6px; text-decoration:none; }
+    .numbered-list li { margin-bottom:8px; }
+    .big-image { width:100%; height:320px; object-fit:cover; border-radius:6px; }
+    .bottom-contact { background:#f7f7f7; padding:24px; border-radius:8px; margin-top:18px; display:flex; align-items:center; justify-content:space-between; }
+    @media (max-width:768px) { .cta-banner { flex-direction:column; gap:12px; text-align:center; } .bottom-contact { flex-direction:column; gap:12px; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="padding"></div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> /
+            <div class="bread_crump">Нагревательный кабель в стяжку</div>
+        </div>
+
+        <h1>Нагревательный кабель в стяжку</h1>
+
+        <div class="hero">
+            <img src="{% static 'images/Frame_4.jpg' %}" alt="Нагревательный кабель в стяжку"/>
+        </div>
+
+        <div class="section">
+            <p>Максимальная мощность и универсальность. Нагревательный кабель в стяжку — классика надежности.</p>
+
+            <p>Когда речь идет о создании основной системы отопления в помещении или обогреве больших площадей сложной формы, нет ничего надежнее, чем классический нагревательный кабель, укладываемый в цементно-песчаную стяжку.</p>
+<p>Это одножильный или двужильный резистивный кабель, который вы самостоятельно укладываете на черновой пол с определенным шагом, фиксируете монтажной лентой, а затем заливаете слоем стяжки (обычно 3-5 см). Стяжка выступает в роли аккумулятора тепла, обеспечивая равномерный и комфортный обогрев.</p>
+            <h3>Ключевых преимуществ несколько:</h3>
+            <ul class="features-list">
+                <li>Высокая теплоемкость: Стяжка долго нагревается, но и долго остывает, поддерживая стабильную температуру в помещении.</li>
+                <li>Универсальность и гибкость планировки: Вы можете огибать сложные участки, мебель и укладывать кабель в помещениях любой геометрической формы.</li>
+                <li>Прочность и долговечность: Защищенный слоем стяжки, кабель не подвержен механическим повреждениям и служит десятки лет.</li>
+                <li>Под любое покрытие: После застывания стяжки на нее можно укладывать абсолютно любое напольное покрытие: плитку, ламинат, паркет, линолеум, ковролин.</li>
+            </ul>
+
+
+        <div class="section">
+            <h3>Область применения:</h3>
+            <p>Идеален для капитального ремонта, нового строительства, а также для помещений с высокой влажностью. Часто используется как основная система отопления в частных домах.</p>
+
+        </div>
+
+        <div class="cta-banner">
+            <div>
+                <h2 style="margin:0 0 6px 0;">Рассчитайте стоимость</h2>
+                <p style="margin:0 0 6px 0;">Специалист свяжется с вами в ближайшее время, чтобы обсудить детали задачи и предложить оптимальное решение.</p>
+            </div>
+            <div>
+                <a class="btn" href="{% url 'calculate_price' %}">Приступить к расчету</a>
+            </div>
+        </div>
+ <div class="section">
+            <h3>Вывод:</h3>
+            <p>Если вы не ищете легких путей и ваша цель — создание долговечной, мощной и универсальной системы отопления «на века», то нагревательный кабель в стяжку — ваш выбор.</p>
+
+        </div>
+
+        <div class="bottom-contact">
+            <div>
+                <h3>Звоните или оставьте онлайн-заявку</h3>
+                <p>Мы свяжемся с вами в ближайшее время и поможем с расчетом и подбором материалов.</p>
+            </div>
+            <div style="min-width:260px;">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {% if success %}
+                        <div style="padding:8px; background:#e6ffed; color:#1a7f3a; border-radius:4px; margin-bottom:8px;">Заявка успешно отправлена.</div>
+                    {% endif %}
+                    <div style="display:flex; gap:8px;">
+                        <div style="flex:1;">{{ form.part }}</div>
+                        <div style="flex:1;">{{ form.phone }}</div>
+                    </div>
+                    <div style="margin-top:8px;">{{ form.description }}</div>
+                    <div style="margin-top:10px; text-align:right;"><button type="submit" class="btn-order">Отправить</button></div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="padding2"></div>
+</div>
+{% endblock %}

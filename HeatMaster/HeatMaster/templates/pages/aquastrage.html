@@ -1,0 +1,104 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
+<style>
+    .hero { margin:18px 0 24px 0; }
+    .hero img { width:100%; height:260px; object-fit:cover; border-radius:6px; }
+    .section { margin:22px 0; }
+    .features-list { margin:12px 0 18px 0; }
+    .features-list li { margin-bottom:6px; }
+    .table-prices { width:100%; border-collapse:collapse; margin-top:12px; }
+    .table-prices th, .table-prices td { padding:12px; border:1px solid #eee; }
+    .table-prices thead th { background:#f4a322; color:#fff; }
+    .cta-banner { margin:28px 0; background-image:url('{% static "on_siderbar/pol_vod-1.jpg" %}'); background-size:cover; background-position:center; border-radius:8px; padding:36px; color:#fff; display:flex; align-items:center; justify-content:space-between; }
+    .cta-banner .btn { background:#e64a2a; color:#fff; padding:12px 20px; border-radius:6px; text-decoration:none; }
+    .numbered-list li { margin-bottom:8px; }
+    .big-image { width:100%; height:320px; object-fit:cover; border-radius:6px; }
+    .bottom-contact { background:#f7f7f7; padding:24px; border-radius:8px; margin-top:18px; display:flex; align-items:center; justify-content:space-between; }
+    @media (max-width:768px) { .cta-banner { flex-direction:column; gap:12px; text-align:center; } .bottom-contact { flex-direction:column; gap:12px; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="padding"></div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> /
+            <div class="bread_crump">Аквасторож</div>
+        </div>
+
+        <h1>Аквасторож</h1>
+
+        <div class="hero">
+            <img src="{% static 'images/Frame_4.jpg' %}" alt="Аквасторож"/>
+        </div>
+
+        <div class="section">
+            <p>Что такое Аквасторож? Защита от протечек — незаметный страж вашего спокойствия.</p>
+
+            <p>Представьте, что вы вернулись домой после отпуска и обнаружили потоп. Эта кошмарная ситуация может стать реальностью из-за лопнувшего шланга стиральной машины, протекающего смесителя или прорвавшейся трубы. Технология «Аквасторож» создана, чтобы навсегда избавить вас от подобных страхов.</p>
+            <h3>«Аквасторож» — это комплексная система защиты от протечек воды. Она состоит из трех ключевых элементов:</h3>
+            <ul class="features-list">
+<li>Датчики протечки: Небольшие устройства, которые размещаются в местах возможного протекания (под ванной, раковиной, стиральной машиной). При попадании на них воды они мгновенно подают сигнал.</li>
+      <li>Контроллер (блок управления): «Мозг» системы, который непрерывно опрашивает датчики.</li>
+          <li>Шаровые краны с электроприводом: Устанавливаются на входе водопровода в квартиру или дом. Получив сигнал от датчика, контроллер за доли секунды отправляет команду, и краны автоматически перекрывают воду.</li>
+            </ul>
+
+            <h3>Ключевые преимущества:</h3>
+            <ul class="features-list">
+
+                <li>Мгновенная реакция: Вода перекрывается в течение 3-5 секунд после обнаружения протечки.</li>
+                <li>Полная автономность: Система работает даже при отключении электроэнергии, благодаря резервным источникам питания.</li>
+                <li>Надежность: Предотвращает крупные аварии, ущерб от которых может исчисляться сотнями тысяч рублей.</li>
+                <li>Спокойствие: Вы можете спокойно уезжать из дома, не переживая за возможные потопы.</li>
+            </ul>
+
+<h3>«Аквасторож» — это комплексная система защиты от протечек воды. Она состоит из трех ключевых элементов:</h3>
+            <ul class="features-list">
+<li>Датчики протечки: Небольшие устройства, которые размещаются в местах возможного протекания (под ванной, раковиной, стиральной машиной). При попадании на них воды они мгновенно подают сигнал.</li>
+      <li>Контроллер (блок управления): «Мозг» системы, который непрерывно опрашивает датчики.</li>
+          <li>Шаровые краны с электроприводом: Устанавливаются на входе водопровода в квартиру или дом. Получив сигнал от датчика, контроллер за доли секунды отправляет команду, и краны автоматически перекрывают воду.</li>
+            </ul>
+
+        <div class="cta-banner">
+            <div>
+                <h2 style="margin:0 0 6px 0;">Рассчитайте стоимость</h2>
+                <p style="margin:0 0 6px 0;">Специалист свяжется с вами в ближайшее время, чтобы обсудить детали задачи и предложить оптимальное решение.</p>
+            </div>
+            <div>
+                <a class="btn" href="{% url 'calculate_price' %}">Приступить к расчету</a>
+            </div>
+        </div>
+ <div class="section">
+            <h3>Вывод:</h3>
+<p>«Аквасторож» и подобные ему системы — это не гаджет, а необходимая инженерная защита современного жилья, такая же важная, как УЗО в электросети или пожарная сигнализация. Это инвестиция в ваше спокойствие и безопасность вашего имущества.</p>
+        </div>
+
+        <div class="bottom-contact">
+            <div>
+                <h3>Звоните или оставьте онлайн-заявку</h3>
+                <p>Мы свяжемся с вами в ближайшее время и поможем с расчетом и подбором материалов.</p>
+            </div>
+            <div style="min-width:260px;">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {% if success %}
+                        <div style="padding:8px; background:#e6ffed; color:#1a7f3a; border-radius:4px; margin-bottom:8px;">Заявка успешно отправлена.</div>
+                    {% endif %}
+                    <div style="display:flex; gap:8px;">
+                        <div style="flex:1;">{{ form.part }}</div>
+                        <div style="flex:1;">{{ form.phone }}</div>
+                    </div>
+                    <div style="margin-top:8px;">{{ form.description }}</div>
+                    <div style="margin-top:10px; text-align:right;"><button type="submit" class="btn-order">Отправить</button></div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="padding2"></div>
+</div>
+{% endblock %}
