@@ -119,60 +119,79 @@
                 this.classList.add("active-category");
 
                 // Переходим на новый путь
-                window.location.href = "/" +   categoryPaths[this.textContent.trim()];
+                window.location.href = "/" + categoryPaths[this.textContent.trim()];
             });
         });
     });
 </script>
- <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const button = document.querySelector(".adaptive_main_category_products");
-                const bottomHeader = document.querySelector(".adaptive_category_products");
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const button = document.querySelector(".adaptive_main_category_products");
+        const bottomHeader = document.querySelector(".adaptive_category_products");
 
-                // Скрываем .bottom_header при загрузке страницы
+        // Скрываем .bottom_header при загрузке страницы
+        bottomHeader.style.display = "none";
+
+        button.addEventListener("click", function () {
+            // Переключаем отображение
+            if (bottomHeader.style.display === "none") {
+                bottomHeader.style.display = "block";
+
+            } else {
                 bottomHeader.style.display = "none";
 
-                button.addEventListener("click", function () {
-                    // Переключаем отображение
-                    if (bottomHeader.style.display === "none") {
-                        bottomHeader.style.display = "block";
+            }
+        });
 
-                    } else {
-                        bottomHeader.style.display = "none";
-
-                    }
-                });
-
-            });
-        </script>
+    });
+</script>
 <div class="background_header_adaptive">
     <div class="bottom_header_adaptive">
 
         <div class="bottom_header_adaptive_content">
-<!--            <div class="bottom_header_adaptive_close">-->
-                <button class="button_chh"><img class="icon_x" src="{% static 'icon/x.svg' %}" alt="x"/></button>
-<!--            </div>-->
+            <!--            <div class="bottom_header_adaptive_close">-->
+            <button class="button_chh"><img class="icon_x" src="{% static 'icon/x.svg' %}" alt="x"/></button>
+            <!--            </div>-->
             <div class="bottom_header_item">
                 <div class="adaptive_main_category_products">категории продукции</div>
             </div>
             <div class="adaptive_category_products">
-               <div class="adaptive_category_products_item">Нагревательные маты</div>
-                <div class="adaptive_category_products_item">Нагревательный кабель в стяжку</div>
-                <div class="adaptive_category_products_item">Тонкий нагревательный кабель</div>
-                <div class="adaptive_category_products_item">Инфракрасная пленка</div>
-                <div class="adaptive_category_products_item">Теплый пол под ламинат</div>
+                <a href="{% url 'heated_mats' %}">
+                   <div class="adaptive_category_products_item">Нагревательные маты</div>
+                </a>
+                <a href="{% url 'cable' %}">
+                    <div class="adaptive_category_products_item">Нагревательный кабель в стяжку</div>
+                </a>
+                <a href="{% url 'thin-cable' %}">
+                     <div class="adaptive_category_products_item">Тонкий нагревательный кабель</div>
+                </a>
+                <a href="{% url 'infrared-cable'%}">
+                    <div class="adaptive_category_products_item">Инфракрасная пленка</div>
+                </a>
+                <a href="{% url 'thin-laminate-cable'%}">
+                   <div class="adaptive_category_products_item">Теплый пол под ламинат</div>
+                </a>
+
             </div>
 
+            <a href="{% url 'manufacturers' %}">
+                <div class="bottom_header_item">Производители</div>
+            </a>
 
-            <div class="bottom_header_item">Производители</div>
             <a href="{% url 'calculate_price' %}" class="a_about">
                 <div class="bottom_header_item">Расчет стоимости</div>
             </a>
-            <div class="bottom_header_item">Доставка и оплата</div>
-            <a href="{% url 'blog %" class="a_about"><div class="bottom_header_item">Блог</div></a>
+            <a href="{% url 'delivery_payment' %}">
+                <div class="bottom_header_item">Доставка и оплата</div>
+            </a>
+
+            <a href="{% url 'blog' %" class="a_about">
+                <div class="bottom_header_item">Блог</div>
+            </a>
             <a href="{% url 'about' %}" class="a_about">
                 <div class="bottom_header_item">О нас</div>
             </a>
+            <a href="{% url 'contacts' %}"></a>
             <div class="bottom_header_item">Контакты</div>
 
             <div class="header_small_cart_adaptive">
@@ -206,32 +225,43 @@
 <div class="bottom_header">
     <div class="bottom_header_item_u">
         <img src="{% static 'icon/lll.svg'%}" alt="|||"/>
-        <div>категории продукции</div><div class="main_category_products">
-               <div class="adaptive_category_products_item">Нагревательные маты</div>
-                <div class="adaptive_category_products_item">Нагревательный кабель в стяжку</div>
-                <div class="adaptive_category_products_item">Тонкий нагревательный кабель</div>
-                <div class="adaptive_category_products_item">Инфракрасная пленка</div>
-                <div class="adaptive_category_products_item">Теплый пол под ламинат</div>
-            </div>
+        <div>категории продукции</div>
+        <div class="main_category_products">
+            <a href="{% url 'heated_mats' %}">
+                   <div class="adaptive_category_products_item">Нагревательные маты</div>
+                </a>
+                <a href="{% url 'cable' %}">
+                    <div class="adaptive_category_products_item">Нагревательный кабель в стяжку</div>
+                </a>
+                <a href="{% url 'thin-cable' %}">
+                     <div class="adaptive_category_products_item">Тонкий нагревательный кабель</div>
+                </a>
+                <a href="{% url 'infrared-cable' %}">
+                    <div class="adaptive_category_products_item">Инфракрасная пленка</div>
+                </a>
+                <a href="{% url 'thin-laminate-cable'%}">
+                   <div class="adaptive_category_products_item">Теплый пол под ламинат</div>
+                </a>
+        </div>
     </div>
- <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const button = document.querySelector(".bottom_header_item_u");
-                const bottomHeader = document.querySelector(".main_category_products");
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const button = document.querySelector(".bottom_header_item_u");
+            const bottomHeader = document.querySelector(".main_category_products");
 
-                // Скрываем .bottom_header при загрузке страницы
-                bottomHeader.style.display = "none";
+            // Скрываем .bottom_header при загрузке страницы
+            bottomHeader.style.display = "none";
 
-                button.addEventListener("click", function () {
-                    // Переключаем отображение
-                    if (bottomHeader.style.display === "none") {
-                        bottomHeader.style.display = "flex";
-                    } else {
-                        bottomHeader.style.display = "none";
-                    }
-                });
+            button.addEventListener("click", function () {
+                // Переключаем отображение
+                if (bottomHeader.style.display === "none") {
+                    bottomHeader.style.display = "flex";
+                } else {
+                    bottomHeader.style.display = "none";
+                }
             });
-        </script>
+        });
+    </script>
     <div class="bottom_header_item">Производители</div>
     <a href="{% url 'calculate_price' %}" class="a_about">
         <div class="bottom_header_item">
@@ -239,7 +269,9 @@
         </div>
     </a>
     <div class="bottom_header_item">Доставка и оплата</div>
-    <a href="{% url 'blog'%}" class="a_about"><div class="bottom_header_item">Блог</div></a>
+    <a href="{% url 'blog' %}" class="a_about">
+        <div class="bottom_header_item">Блог</div>
+    </a>
 
     <a href="{% url 'about' %}" class="a_about">
         <div class="bottom_header_item">О нас</div>

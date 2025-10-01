@@ -25,11 +25,11 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('thermoregulator/', views.thermoregulator, name='thermoregulator'),
     path('aquastrage/', views.aquastrage, name='aquastrage'),
-    path('cable/', views.cable, name='aquastrage'),
+    path('cable/', views.cable, name='cable'),
     path('infrared-cable/', views.infraredCable, name='infrared-cable'),
     path('pruity-of-snowmelt/', views.pruityOfSnowmelt, name='pruity-of-snowmelt'),
     path('thin-laminate-cable/', views.thinLaminateCable, name='thin-laminate-cable'),
-    path('thin-cable/', views.thinCable, name='aquastrage'),
+    path('thin-cable/', views.thinCable, name='thin-cable'),
     path('thermostats/', views.thermostat_list, name='thermostat_list'),
     path('thermostats/type/<int:type_id>/', views.thermostat_list, name='thermostat_list_by_type'),
     path('thermostat/<int:pk>/', views.thermostat_detail, name='thermostat_detail'),
@@ -78,4 +78,5 @@ if settings.DEBUG:
 #     path('cooperation/', views.cooperation, name='cooperation'),
 #     path('manufacturers/', views.manufacturers, name='manufacturers'),
 #     path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
-#TODO: header and footer
+#TODO: ru | eng
+#TODO: получить скидку

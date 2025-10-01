@@ -15,13 +15,25 @@
                       <a href="{% url 'home' %}"><img src="{% static 'icon/lightlogo.svg' %}" alt="logo" class="lightLogo"/></a>
 
                        <div class="footer_top_text_title">Навигация</div>
+                      <a href="{% url 'cable' %}">
                        <div class="footer_top_text">Нагревательный кабель</div>
+                      </a>
+                      <a href="{% url 'heated_mats' %}">
                        <div class="footer_top_text">Нагревательные маты</div>
+                      </a>
+                      <a href="{% url 'infrared-cable'%}">
                        <div class="footer_top_text">Инфракрасный теплый пол</div>
-                       <div class="footer_top_text">Системы снеготаяния</div>
-                       <div class="footer_top_text">Терморегуляторы для теплого пола</div>
-                       <div class="footer_top_text">Сотрудничество</div>
-                       <div class="footer_top_text">Доставка и оплата</div>
+                      </a>
+                      <a href="{% url 'pruity-of-snowmelt' %}">
+                         <div class="footer_top_text">Системы снеготаяния</div>
+                      </a>
+                      <a href="{% url 'cooperation' %}">
+                          <div class="footer_top_text">Сотрудничество</div>
+                      </a>
+                       <a href="{% url 'delivery_payment' %}">
+                           <div class="footer_top_text">Доставка и оплата</div>
+                       </a>
+
                        <a href="{% url 'blog' %}"><div class="footer_top_text">Блог</div></a>
                       <a href="{% url 'videos' %}"><div class="footer_top_text">Видео</div></a>
                   </div>
