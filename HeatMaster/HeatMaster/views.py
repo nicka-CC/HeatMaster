@@ -110,91 +110,6 @@ def heated_mats(request):
 
     mats = HeatedMats.objects.all()
     return render(request, 'pages/heated_mats.html', {'form': form, 'mats': mats})
-def aquastrage(request):
-    # simple content page with application form (create Applications record)
-    if request.method == 'POST':
-        form = ApplicationForm(request.POST)
-        if form.is_valid():
-            app = form.save(commit=False)
-            app.status = 'new'
-            app.save()
-            return render(request, 'pages/aquastrage.html', {'form': ApplicationForm(), 'success': True})
-    else:
-        form = ApplicationForm()
-
-    mats = HeatedMats.objects.all()
-    return render(request, 'pages/aquastrage.html', {'form': form, 'mats': mats})
-def cable(request):
-    # simple content page with application form (create Applications record)
-    if request.method == 'POST':
-        form = ApplicationForm(request.POST)
-        if form.is_valid():
-            app = form.save(commit=False)
-            app.status = 'new'
-            app.save()
-            return render(request, 'pages/cable.html', {'form': ApplicationForm(), 'success': True})
-    else:
-        form = ApplicationForm()
-
-    mats = HeatedMats.objects.all()
-    return render(request, 'pages/cable.html', {'form': form, 'mats': mats})
-def thinCable(request):
-    # simple content page with application form (create Applications record)
-    if request.method == 'POST':
-        form = ApplicationForm(request.POST)
-        if form.is_valid():
-            app = form.save(commit=False)
-            app.status = 'new'
-            app.save()
-            return render(request, 'pages/thin-cable.html', {'form': ApplicationForm(), 'success': True})
-    else:
-        form = ApplicationForm()
-
-    mats = HeatedMats.objects.all()
-    return render(request, 'pages/thin-cable.html', {'form': form, 'mats': mats})
-def infraredCable(request):
-    # simple content page with application form (create Applications record)
-    if request.method == 'POST':
-        form = ApplicationForm(request.POST)
-        if form.is_valid():
-            app = form.save(commit=False)
-            app.status = 'new'
-            app.save()
-            return render(request, 'pages/infrared-cable.html', {'form': ApplicationForm(), 'success': True})
-    else:
-        form = ApplicationForm()
-
-    mats = HeatedMats.objects.all()
-    return render(request, 'pages/thin-laminate-cable.html', {'form': form, 'mats': mats})
-
-def thinLaminateCable(request):
-    # simple content page with application form (create Applications record)
-    if request.method == 'POST':
-        form = ApplicationForm(request.POST)
-        if form.is_valid():
-            app = form.save(commit=False)
-            app.status = 'new'
-            app.save()
-            return render(request, 'pages/thin-laminate-cable.html', {'form': ApplicationForm(), 'success': True})
-    else:
-        form = ApplicationForm()
-        mats = HeatedMats.objects.all()
-        return render(request, 'pages/thin-laminate-cable.html', {'form': form, 'mats': mats})
-
-def pruityOfSnowmelt(request):
-    # simple content page with application form (create Applications record)
-    if request.method == 'POST':
-        form = ApplicationForm(request.POST)
-        if form.is_valid():
-            app = form.save(commit=False)
-            app.status = 'new'
-            app.save()
-            return render(request, 'pages/pruity-of-snowmelt.html', {'form': ApplicationForm(), 'success': True})
-    else:
-        form = ApplicationForm()
-        mats = HeatedMats.objects.all()
-        return render(request, 'pages/pruity-of-snowmelt.html', {'form': form, 'mats': mats})
-
 
 
 def contacts(request):
@@ -212,6 +127,103 @@ def contacts(request):
         form = ApplicationForm()
 
     return render(request, 'pages/contacts.html', {'form': form, 'submitted': submitted})
+
+def aquastrage(request):
+    # Contact page with Yandex map and short contact form (reuse ApplicationForm)
+    submitted = False
+    if request.method == 'POST':
+        form = ApplicationForm(request.POST)
+        if form.is_valid():
+            app = form.save(commit=False)
+            app.status = 'new'
+            app.save()
+            submitted = True
+            form = ApplicationForm()
+    else:
+        form = ApplicationForm()
+
+    return render(request, 'pages/aquastrage.html', {'form': form, 'submitted': submitted})
+
+def cable(request):
+    # Contact page with Yandex map and short contact form (reuse ApplicationForm)
+    submitted = False
+    if request.method == 'POST':
+        form = ApplicationForm(request.POST)
+        if form.is_valid():
+            app = form.save(commit=False)
+            app.status = 'new'
+            app.save()
+            submitted = True
+            form = ApplicationForm()
+    else:
+        form = ApplicationForm()
+
+    return render(request, 'pages/cable.html', {'form': form, 'submitted': submitted})
+
+def infraredCable(request):
+    # Contact page with Yandex map and short contact form (reuse ApplicationForm)
+    submitted = False
+    if request.method == 'POST':
+        form = ApplicationForm(request.POST)
+        if form.is_valid():
+            app = form.save(commit=False)
+            app.status = 'new'
+            app.save()
+            submitted = True
+            form = ApplicationForm()
+    else:
+        form = ApplicationForm()
+
+    return render(request, 'pages/infrared-cable.html', {'form': form, 'submitted': submitted})
+
+def pruityOfSnowmelt(request):
+    # Contact page with Yandex map and short contact form (reuse ApplicationForm)
+    submitted = False
+    if request.method == 'POST':
+        form = ApplicationForm(request.POST)
+        if form.is_valid():
+            app = form.save(commit=False)
+            app.status = 'new'
+            app.save()
+            submitted = True
+            form = ApplicationForm()
+    else:
+        form = ApplicationForm()
+
+    return render(request, 'pages/pruity-of-snowmelt.html', {'form': form, 'submitted': submitted})
+
+def thinLaminateCable(request):
+    # Contact page with Yandex map and short contact form (reuse ApplicationForm)
+    submitted = False
+    if request.method == 'POST':
+        form = ApplicationForm(request.POST)
+        if form.is_valid():
+            app = form.save(commit=False)
+            app.status = 'new'
+            app.save()
+            submitted = True
+            form = ApplicationForm()
+    else:
+        form = ApplicationForm()
+
+    return render(request, 'pages/thin-laminate-cable.html', {'form': form, 'submitted': submitted})
+
+def thinCable(request):
+    # Contact page with Yandex map and short contact form (reuse ApplicationForm)
+    submitted = False
+    if request.method == 'POST':
+        form = ApplicationForm(request.POST)
+        if form.is_valid():
+            app = form.save(commit=False)
+            app.status = 'new'
+            app.save()
+            submitted = True
+            form = ApplicationForm()
+    else:
+        form = ApplicationForm()
+
+    return render(request, 'pages/thin-cable.html', {'form': form, 'submitted': submitted})
+
 
 
 def delivery_payment(request):

@@ -51,7 +51,7 @@ urlpatterns = [
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-# TODO: fix videos, fix blog: item, comment, list, fix:slider, fix, img in clculate, fix home page, fix user list info, fix logout
+# TODO:
 #   path('', views.home, name='home'),
 #     path('thermoregulator/', views.thermoregulator, name='thermoregulator'),
 #     path('aquastrage/', views.aquastrage, name='aquastrage'),
@@ -63,15 +63,9 @@ if settings.DEBUG:
 #     path('thermostats/', views.thermostat_list, name='thermostat_list'),
 #     path('thermostats/type/<int:type_id>/', views.thermostat_list, name='thermostat_list_by_type'),
 #     path('thermostat/<int:pk>/', views.thermostat_detail, name='thermostat_detail'),
-#     path('about/', views.about, name='about'),
-#     path('blog/', views.blog, name='blog'),
-#     path('create_blog/', views.create_blog, name='create_blog'),
-#     path('blog/<int:blog_id>/', views.blog_detail, name='blog_detail'),
 #     path('admin/', admin.site.urls),
-#     path('videos/', views.videos, name='videos'),
 #     path('signUp/', views.signUp, name='signUp'),
 #     path('signIn/', views.signIn, name='signIn'),
-#     path('calculate_price/', views.calculate_price, name='calculate_price'),
 #     path('heated-mats/', views.heated_mats, name='heated_mats'),
 #     path('contacts/', views.contacts, name='contacts'),
 #     path('delivery-payment/', views.delivery_payment, name='delivery_payment'),

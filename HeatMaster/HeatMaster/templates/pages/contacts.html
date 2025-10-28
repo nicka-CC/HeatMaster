@@ -4,7 +4,6 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 <link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
- <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=b64b9bc0-f824-4f50-b7bf-9c2b7b818201" defer></script>
 <style>
 .contact-top { display:flex; gap:12px; align-items:center; margin-bottom:14px; }
 .contact-top .info { display:flex; gap:14px; align-items:center; }
@@ -43,7 +42,10 @@
       <div class="tab" style="background:#fff; color:#333; border:1px solid #f4a322;">г. Харьков, просп. Московский 247</div>
     </div>
 
-    <div id="map"></div>
+    <div class="map-block">
+      <!-- Yandex map iframe embed -->
+      <iframe class="map-iframe" src="https://yandex.ru/map-widget/v1/?um=constructor%3Aexample&width=100%&height=400&lang=ru_RU" allowfullscreen></iframe>
+    </div>
 
     <div class="request-banner">
       <div style="flex:1">
@@ -68,35 +70,4 @@
   </div>
   <div class="padding2"></div>
 </div>
-<script>
-window.onload = function() {
-    ymaps.ready(init);
-
-    function init() {
-        const coords = [56.319224, 30.537805];
-        const map = new ymaps.Map('map', {
-            center: coords,
-            zoom: 10,
-            controls: ['zoomControl','fullscreenControl']
-        });
-
-        const placemark = new ymaps.Placemark(coords, {
-            balloonContent: '<b>Здесь</b><br>Моё нужное место'
-        }, { preset: 'islands#redIcon' });
-
-        map.geoObjects.add(placemark);
-    }
-};
-</script>
-
-<style>
-    html,body{ height: 100%; margin:0; padding:0; }
-    #map {
-  width: 100%;
-  height: 360px;
-  border-radius: 6px;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-  </style>
 {% endblock %}
