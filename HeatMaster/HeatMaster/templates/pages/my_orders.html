@@ -1,0 +1,36 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="padding"></div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <div class="bread_crump">Мои заказы</div></div>
+
+        <div class="white-box">
+            {% if orders %}
+                {% for order in orders %}
+                <div class="order-card" style="padding:12px; border-bottom:1px solid #eee;">
+                    <div><strong>Заказ №{{ order.id }}</strong> — {{ order.get_status_display }} — {{ order.created_at|date:"d.m.Y H:i" }}</div>
+                    <div>Сумма: {{ order.total_amount }} грн.</div>
+                    <ul>
+                        {% for it in order.items.all %}
+                        <li>{{ it.thermostat.name }} × {{ it.quantity }} — {{ it.subtotal }} грн.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>У вас пока нет заказов.</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="padding2"></div>
+</div>
+{% endblock %}
+
+

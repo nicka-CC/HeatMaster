@@ -88,6 +88,14 @@
                         <div class="card-manufacturer">{{ item.manufacturer }}</div>
                     </div>
                 </a>
+                <form action="{% url 'add_to_cart' item.id %}" method="post" class="card-actions">
+                    {% csrf_token %}
+                    {% if item.available > 0 %}
+                    <button type="submit">В корзину</button>
+                    {% else %}
+                    <span class="out-of-stock">Нет в наличии</span>
+                    {% endif %}
+                </form>
             </div>
             {% endfor %}
                 </div>

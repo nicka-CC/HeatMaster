@@ -1,0 +1,25 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="padding"></div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <div class="bread_crump">Заказ оформлен</div></div>
+        <div class="card white-box">
+            <h2>Спасибо! Ваш заказ №{{ order.id }} успешно оформлен.</h2>
+            <p>Статус: {{ order.get_status_display }}</p>
+            <p>Сумма: {{ order.total_amount }} грн.</p>
+            <a class="btn-order" href="{% url 'thermostat_list' %}">Продолжить покупки</a>
+        </div>
+    </div>
+    <div class="padding2"></div>
+    
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,59 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="padding"></div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <div class="bread_crump">Корзина</div></div>
+
+        <div class="card white-box">
+            {% if cart.items.all %}
+            <table class="cart-table">
+                <thead>
+                    <tr><th>Товар</th><th>Цена</th><th>Кол-во</th><th>Сумма</th><th></th></tr>
+                </thead>
+                <tbody>
+                    {% for item in cart.items.all %}
+                    <tr>
+                        <td>
+                            <a class="cart-item-title" href="{% url 'thermostat_detail' item.thermostat.id %}">{{ item.thermostat.name }}</a>
+                        </td>
+                        <td><span class="price-text">{{ item.thermostat.price }} грн.</span></td>
+                        <td>
+                            <form class="inline-form" method="post" action="{% url 'update_cart_item' item.id %}">
+                                {% csrf_token %}
+                                <input class="qty-input" type="number" name="quantity" min="1" max="{{ item.thermostat.available }}" value="{{ item.quantity }}" />
+                                <button class="btn-secondary" type="submit">Обновить</button>
+                            </form>
+                        </td>
+                        <td><strong>{{ item.subtotal }} грн.</strong></td>
+                        <td>
+                            <form method="post" action="{% url 'remove_cart_item' item.id %}">
+                                {% csrf_token %}
+                                <button class="btn-link" type="submit">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="cart-footer">
+                <div class="cart-total">Итого: {{ cart.total_price }} грн.</div>
+                <div class="cart-actions"><a class="btn-order" href="{% url 'checkout' %}">Оформить заказ</a></div>
+            </div>
+            {% else %}
+            <p>Корзина пуста.</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="padding2"></div>
+</div>
+{% endblock %}
+
+

@@ -35,7 +35,15 @@
                     <div>Макс. нагрузка: {{ thermostat.max_load }}</div>
                 </div>
                 <div class="description">{{ thermostat.description_block|safe }}</div>
-                <a class="btn-order" href="#">Заказать</a>
+                {% if thermostat.available > 0 %}
+                <form action="{% url 'add_to_cart' thermostat.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="number" name="quantity" value="1" min="1" max="{{ thermostat.available }}" />
+                    <button class="btn-order" type="submit">В корзину</button>
+                </form>
+                {% else %}
+                <div class="out-of-stock">Нет в наличии</div>
+                {% endif %}
             </div>
         </div>
 
@@ -43,7 +51,48 @@
             <h3>Описание</h3>
             <p>{{ thermostat.description }}</p>
         </div>
+        <div class="white-box" style="margin-top:16px;">
+            <h3>Комментарии</h3>
+            <div class="comments">
+                {% for c in comments %}
+                <div class="comment-item">
+                    <div class="comment-head">
+                        <strong>{{ c.user.username }}</strong>
+                        <span>Оценка: {{ c.rating }}/5</span>
+                        <span class="date">{{ c.created_at|date:"d.m.Y H:i" }}</span>
+                    </div>
+                    <div class="comment-text">{{ c.text }}</div>
+                    {% if user.is_authenticated and user.id == c.user.id or user.is_staff %}
+                    <div class="comment-actions">
+                        <form method="post" action="{% url 'delete_comment' c.id %}" style="display:inline-block;">
+                            {% csrf_token %}
+                            <button class="btn-link" type="submit">Удалить</button>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <p>Пока нет комментариев.</p>
+                {% endfor %}
+            </div>
 
+            {% if user.is_authenticated %}
+            <form method="post" action="{% url 'create_comment' thermostat.id %}" style="margin-top:12px;">
+                {% csrf_token %}
+                <div class="form-row">
+                    <label>Ваш комментарий</label>
+                    <textarea class="text-area" name="text" rows="3" placeholder="Поделитесь впечатлениями"></textarea>
+                </div>
+                <div class="form-row">
+                    <label>Оценка</label>
+                    <input class="text-input" type="number" name="rating" min="1" max="5" value="5" />
+                </div>
+                <button class="btn-order" type="submit">Отправить</button>
+            </form>
+            {% else %}
+            <p>Чтобы оставить комментарий, <a href="{% url 'signIn' %}">войдите</a>.</p>
+            {% endif %}
+        </div>
     </div>
     <div class="padding2"></div>
 </div>

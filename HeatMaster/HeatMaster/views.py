@@ -2,8 +2,9 @@ from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import CalculatePriceForm, CustomUserCreationForm, CustomAuthenticationForm, CommentBlogForm, BlogForm, \
-    ImageBlogForm
-from .models import Thermostats, Blog, CommentBlog, ImageBlog, Thermostat, ThermostatImages, Applications, HeatedMats, Produce
+    ImageBlogForm, ThermostatCommentForm
+from .models import Thermostats, Blog, CommentBlog, ImageBlog, Thermostat, ThermostatImages, Applications, HeatedMats, Produce, \
+    Cart, CartItem, Order, OrderItem, ThermostatComment
 from .forms import ApplicationForm
 from django.core.paginator import Paginator
 from django.db.models import Q, Count
@@ -247,7 +248,8 @@ def thermostat_list(request, type_id=None):
     URL can provide `type_id` as path param (via thermostats/type/<id>/) or GET param `type_id`.
     Sidebar includes manufacturers and countries with counts and price range.
     """
-    qs = Thermostat.objects.filter(available=True)
+    # show only items with positive stock
+    qs = Thermostat.objects.filter(available__gt=0)
 
     # allow type in path or GET
     type_param = type_id or request.GET.get('type_id')
@@ -332,8 +334,160 @@ def thermostat_list(request, type_id=None):
 def thermostat_detail(request, pk):
     thermostat = get_object_or_404(Thermostat, pk=pk)
     images = ThermostatImages.objects.filter(thermostat_image=thermostat)
+    comments = ThermostatComment.objects.filter(thermostat=thermostat).select_related('user').order_by('-created_at')
+
+    form = None
+    if request.user.is_authenticated:
+        form = ThermostatCommentForm()
 
     return render(request, 'pages/thermostat_detail.html', {
         'thermostat': thermostat,
-        'images': images
+        'images': images,
+        'comments': comments,
+        'comment_form': form,
     })
+
+
+def create_comment(request, thermostat_id):
+    if not request.user.is_authenticated:
+        return redirect('signIn')
+    thermostat = get_object_or_404(Thermostat, id=thermostat_id)
+    if request.method == 'POST':
+        form = ThermostatCommentForm(request.POST)
+        if form.is_valid():
+            ThermostatComment.objects.create(
+                thermostat=thermostat,
+                user=request.user,
+                text=form.cleaned_data['text'],
+                rating=form.cleaned_data['rating']
+            )
+    return redirect('thermostat_detail', pk=thermostat.id)
+
+
+def edit_comment(request, comment_id):
+    comment = get_object_or_404(ThermostatComment, id=comment_id)
+    if not request.user.is_authenticated or (request.user != comment.user and not request.user.is_staff):
+        return redirect('thermostat_detail', pk=comment.thermostat.id)
+    if request.method == 'POST':
+        form = ThermostatCommentForm(request.POST)
+        if form.is_valid():
+            comment.text = form.cleaned_data['text']
+            comment.rating = form.cleaned_data['rating']
+            comment.save()
+            return redirect('thermostat_detail', pk=comment.thermostat.id)
+    return redirect('thermostat_detail', pk=comment.thermostat.id)
+
+
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(ThermostatComment, id=comment_id)
+    if request.user.is_authenticated and (request.user == comment.user or request.user.is_staff):
+        thermostat_id = comment.thermostat.id
+        comment.delete()
+        return redirect('thermostat_detail', pk=thermostat_id)
+    return redirect('thermostat_detail', pk=comment.thermostat.id)
+
+
+def my_orders(request):
+    if not request.user.is_authenticated:
+        return redirect('signIn')
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'pages/my_orders.html', {'orders': orders})
+
+
+# --- Cart and checkout flows ---
+def _get_or_create_cart(user):
+    cart, _ = Cart.objects.get_or_create(user=user)
+    return cart
+
+
+def add_to_cart(request, thermostat_id):
+    if not request.user.is_authenticated:
+        return redirect('signIn')
+
+    thermostat = get_object_or_404(Thermostat, id=thermostat_id)
+    quantity = 1
+    try:
+        quantity = int(request.POST.get('quantity', '1'))
+    except ValueError:
+        quantity = 1
+    if quantity < 1:
+        quantity = 1
+
+    cart = _get_or_create_cart(request.user)
+    item, created = CartItem.objects.get_or_create(cart=cart, thermostat=thermostat)
+    new_qty = item.quantity + quantity if not created else quantity
+    # clamp by stock
+    new_qty = min(new_qty, max(0, thermostat.available))
+    item.quantity = new_qty
+    item.save()
+    return redirect('cart_view')
+
+
+def cart_view(request):
+    if not request.user.is_authenticated:
+        return redirect('signIn')
+    cart = _get_or_create_cart(request.user)
+    return render(request, 'pages/cart.html', {'cart': cart})
+
+
+def update_cart_item(request, item_id):
+    if not request.user.is_authenticated:
+        return redirect('signIn')
+    item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
+    try:
+        qty = int(request.POST.get('quantity', '1'))
+    except ValueError:
+        qty = 1
+    qty = max(1, qty)
+    qty = min(qty, max(0, item.thermostat.available))
+    item.quantity = qty
+    item.save()
+    return redirect('cart_view')
+
+
+def remove_cart_item(request, item_id):
+    if not request.user.is_authenticated:
+        return redirect('signIn')
+    item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
+    item.delete()
+    return redirect('cart_view')
+
+
+def checkout(request):
+    if not request.user.is_authenticated:
+        return redirect('signIn')
+    cart = _get_or_create_cart(request.user)
+    if request.method == 'POST':
+        address = request.POST.get('shipping_address', '')
+        comment = request.POST.get('comment', '')
+
+        if cart.items.count() == 0:
+            return redirect('cart_view')
+
+        order = Order.objects.create(user=request.user, shipping_address=address, comment=comment, status=Order.STATUS_PAID)
+
+        total = 0
+        for item in cart.items.select_related('thermostat').all():
+            if item.quantity <= 0:
+                continue
+            # ensure stock available
+            if item.thermostat.available < item.quantity:
+                # clip to available
+                qty = max(0, item.thermostat.available)
+            else:
+                qty = item.quantity
+            if qty == 0:
+                continue
+            OrderItem.objects.create(order=order, thermostat=item.thermostat, quantity=qty,
+                                     price_at_purchase=item.thermostat.price)
+            total += item.thermostat.price * qty
+            # decrement stock
+            item.thermostat.available = max(0, item.thermostat.available - qty)
+            item.thermostat.save(update_fields=['available'])
+        order.total_amount = total
+        order.save(update_fields=['total_amount'])
+        # clear cart
+        cart.items.all().delete()
+        return render(request, 'pages/order_success.html', {'order': order})
+
+    return render(request, 'pages/checkout.html', {'cart': cart})

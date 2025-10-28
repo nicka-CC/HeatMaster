@@ -18,7 +18,8 @@ class Thermostat(models.Model):
     manufacturer = models.CharField(max_length=120)
     country_manufacturer = models.CharField(max_length=120)
     model = models.CharField(max_length=120)
-    available = models.BooleanField(default=True)
+    # Stock available for purchase (integer). When 0, item considered out of stock.
+    available = models.IntegerField(default=0)
     description = models.CharField(max_length=12000)
     description_block = models.CharField(max_length=12000)
     charge_block = models.CharField(max_length=120)
@@ -166,3 +167,84 @@ class CalculatePrice(models.Model):
     history = models.CharField(max_length=120)
     def __str__(self):
         return self.subject
+
+# --- Simple e-commerce models ---
+class Cart(models.Model):
+    user = models.ForeignKey('auth.User', related_name='carts', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Cart #{self.pk} for {self.user.username}"
+
+    @property
+    def total_price(self):
+        items = getattr(self, 'items', None)
+        if items is None:
+            return 0
+        return sum(item.subtotal for item in items.all())
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
+    thermostat = models.ForeignKey(Thermostat, related_name='cart_items', on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        unique_together = ('cart', 'thermostat')
+
+    def __str__(self):
+        return f"{self.thermostat.name} x{self.quantity}"
+
+    @property
+    def subtotal(self):
+        return float(self.thermostat.price) * int(self.quantity)
+
+
+class Order(models.Model):
+    STATUS_NEW = 'new'
+    STATUS_PAID = 'paid'
+    STATUS_SHIPPED = 'shipped'
+    STATUS_COMPLETED = 'completed'
+    STATUS_CANCELLED = 'cancelled'
+    STATUS_CHOICES = (
+        (STATUS_NEW, 'Новый'),
+        (STATUS_PAID, 'Оплачен'),
+        (STATUS_SHIPPED, 'Отправлен'),
+        (STATUS_COMPLETED, 'Завершен'),
+        (STATUS_CANCELLED, 'Отменен'),
+    )
+
+    user = models.ForeignKey('auth.User', related_name='orders', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_NEW)
+    total_amount = models.FloatField(default=0)
+    shipping_address = models.CharField(max_length=500, blank=True, default='')
+    comment = models.CharField(max_length=500, blank=True, default='')
+
+    def __str__(self):
+        return f"Order #{self.pk} ({self.get_status_display()})"
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    thermostat = models.ForeignKey(Thermostat, related_name='order_items', on_delete=models.PROTECT)
+    quantity = models.PositiveIntegerField()
+    price_at_purchase = models.FloatField()
+
+    @property
+    def subtotal(self):
+        return float(self.price_at_purchase) * int(self.quantity)
+
+
+class ThermostatComment(models.Model):
+    thermostat = models.ForeignKey(Thermostat, related_name='comments', on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User', related_name='thermostat_comments', on_delete=models.CASCADE)
+    text = models.CharField(max_length=1000)
+    rating = models.PositiveIntegerField(default=5)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.username}: {self.text[:20]}"

@@ -185,3 +185,12 @@ class ApplicationForm(forms.ModelForm):
             'part': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Название/часть'}),
             'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Телефон'}),
         }
+
+class ThermostatCommentForm(forms.ModelForm):
+    class Meta:
+        model = __import__('{}.models'.format(__name__.split('.')[0]), fromlist=['ThermostatComment']).ThermostatComment
+        fields = ['text', 'rating']
+        widgets = {
+            'text': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Ваш комментарий'}),
+            'rating': forms.NumberInput(attrs={'class': 'form-control', 'min': 1, 'max': 5}),
+        }

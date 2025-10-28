@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Thermostats, Thermostat, ThermostatImages, HeatedMats, Blog, ImageBlog, Part, WarmFloor, ModelRange, \
-    MethodPay, Produce, HistoryApplication, Applications, History, HotCable, LetsCooperate, CalculatePrice, CommentBlog
+    MethodPay, Produce, HistoryApplication, Applications, History, HotCable, LetsCooperate, CalculatePrice, CommentBlog, \
+    Cart, CartItem, Order, OrderItem
 
 
 class ThermostatsAdmin(admin.ModelAdmin):
@@ -18,7 +19,8 @@ class ThermostatImageInline(admin.TabularInline):
     model = ThermostatImages
     extra = 1
 class ThermostatAdmin(admin.ModelAdmin):
-    list_display = ('name', 'icon_preview')
+    list_display = ('name', 'available', 'price', 'icon_preview')
+    list_editable = ('available', 'price')
 
     def icon_preview(self, obj):
         if getattr(obj, 'image', None):
@@ -28,6 +30,8 @@ class ThermostatAdmin(admin.ModelAdmin):
     icon_preview.allow_tags = True
     icon_preview.short_description = "Превью"
     inlines = [ThermostatImageInline]
+
+    # 'available' is the actual integer stock field; no extra display method needed.
 
 class ImageBlogInline(admin.TabularInline):
     model = ImageBlog
@@ -114,3 +118,26 @@ admin.site.register(History)
 admin.site.register(HotCable, HotCableAdmin)
 admin.site.register(LetsCooperate)
 admin.site.register(CalculatePrice)
+
+
+class CartItemInline(admin.TabularInline):
+    model = CartItem
+    extra = 0
+
+
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'created_at', 'updated_at')
+    inlines = [CartItemInline]
+
+
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    extra = 0
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'status', 'total_amount', 'created_at')
+    list_filter = ('status',)
+    inlines = [OrderItemInline]

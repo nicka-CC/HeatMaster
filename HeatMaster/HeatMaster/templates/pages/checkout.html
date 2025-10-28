@@ -1,0 +1,34 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="padding"></div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <a href="{% url 'cart_view' %}">Корзина</a> / <div class="bread_crump">Оформление заказа</div></div>
+        <div class="card white-box">
+            <h2>Доставка и комментарий</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <label>Адрес доставки</label>
+                    <input class="text-input" type="text" name="shipping_address" placeholder="Город, улица, дом..." />
+                </div>
+                <div class="form-row">
+                    <label>Комментарий</label>
+                    <textarea class="text-area" name="comment" rows="3" placeholder="Пожелания к доставке"></textarea>
+                </div>
+                <div class="cart-total">Итого к оплате: {{ cart.total_price }} грн.</div>
+                <button type="submit" class="btn-order">Подтвердить заказ</button>
+            </form>
+        </div>
+    </div>
+    <div class="padding2"></div>
+</div>
+{% endblock %}
+
+

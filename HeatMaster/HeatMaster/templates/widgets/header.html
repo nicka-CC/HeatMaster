@@ -36,6 +36,14 @@
             <div>8 (800) 555-35-35</div>
         </div>
     </div>
+    <div class="header_cart_link">
+        <a href="{% url 'cart_view' %}">Корзина</a>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="header_cart_link">
+        <a href="{% url 'my_orders' %}">Мои заказы</a>
+    </div>
+    {% endif %}
     <div class="red_button">
         Получить скидку
     </div>
