@@ -70,9 +70,7 @@ if settings.DEBUG:
 #     path('pruity-of-snowmelt/', views.pruityOfSnowmelt, name='pruity-of-snowmelt'),
 #     path('thin-laminate-cable/', views.thinLaminateCable, name='thin-laminate-cable'),
 #     path('thin-cable/', views.thinCable, name='aquastrage'),
-#     path('thermostats/', views.thermostat_list, name='thermostat_list'),
-#     path('thermostats/type/<int:type_id>/', views.thermostat_list, name='thermostat_list_by_type'),
-#     path('thermostat/<int:pk>/', views.thermostat_detail, name='thermostat_detail'),
+#     path('cart') count products in cart
 #     path('admin/', admin.site.urls),
 #     path('signUp/', views.signUp, name='signUp'),
 #     path('signIn/', views.signIn, name='signIn'),
