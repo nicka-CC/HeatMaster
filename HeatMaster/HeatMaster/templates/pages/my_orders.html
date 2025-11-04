@@ -11,21 +11,66 @@
     <div class="content_info">
         <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <div class="bread_crump">Мои заказы</div></div>
 
-        <div class="white-box">
+        <div class="orders-container">
+            <h2 class="orders-title">История заказов</h2>
+            
             {% if orders %}
                 {% for order in orders %}
-                <div class="order-card" style="padding:12px; border-bottom:1px solid #eee;">
-                    <div><strong>Заказ №{{ order.id }}</strong> — {{ order.get_status_display }} — {{ order.created_at|date:"d.m.Y H:i" }}</div>
-                    <div>Сумма: {{ order.total_amount }} грн.</div>
-                    <ul>
-                        {% for it in order.items.all %}
-                        <li>{{ it.thermostat.name }} × {{ it.quantity }} — {{ it.subtotal }} грн.</li>
-                        {% endfor %}
-                    </ul>
+                <div class="white-box order-card-wrapper">
+                    <div class="order-header-info">
+                        <div class="order-header-left">
+                            <div class="order-number">Заказ №{{ order.id }}</div>
+                            <div class="order-date">{{ order.created_at|date:"d.m.Y в H:i" }}</div>
+                        </div>
+                        <span class="status-badge status-{{ order.status }}">{{ order.get_status_display }}</span>
+                    </div>
+                    
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Товар</th>
+                                <th>Количество</th>
+                                <th>Цена</th>
+                                <th>Сумма</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for it in order.items.all %}
+                            <tr>
+                                <td class="order-item-name">{{ it.thermostat.name }}</td>
+                                <td class="order-item-qty">{{ it.quantity }} шт.</td>
+                                <td class="order-item-price">{{ it.price_at_purchase|floatformat:2 }} грн.</td>
+                                <td class="order-item-total">{{ it.subtotal|floatformat:2 }} грн.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            {% if order.shipping_address %}
+                            <tr class="order-info-row">
+                                <td colspan="2" class="order-info-label">Адрес доставки:</td>
+                                <td colspan="2" class="order-info-value">{{ order.shipping_address }}</td>
+                            </tr>
+                            {% endif %}
+                            {% if order.comment %}
+                            <tr class="order-info-row">
+                                <td colspan="2" class="order-info-label">Комментарий:</td>
+                                <td colspan="2" class="order-info-value">{{ order.comment }}</td>
+                            </tr>
+                            {% endif %}
+                            <tr class="order-total-row">
+                                <td colspan="3" class="order-total-label">Итого:</td>
+                                <td class="order-total-value">{{ order.total_amount|floatformat:2 }} грн.</td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
                 {% endfor %}
             {% else %}
-                <p>У вас пока нет заказов.</p>
+                <div class="orders-empty">
+                    <div class="orders-empty-icon">📦</div>
+                    <p>У вас пока нет заказов</p>
+                    <a class="btn-start-shopping" href="{% url 'thermostat_list' %}">Начать покупки</a>
+                </div>
             {% endif %}
         </div>
     </div>

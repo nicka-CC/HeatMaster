@@ -63,7 +63,7 @@
                         <a href="{% url 'thermostat_list' %}" class="type-item {% if not selected_type %}active{% endif %}">Все типы</a>
                         {% for t in types %}
                         <a href="{% url 'thermostat_list_by_type' t.id %}" class="type-item {% if selected_type == t.id %}active{% endif %}">
-                            {% if t.icon %}<img src="{{ t.icon.url }}" alt="{{ t.type }}"/>{% endif %} {{ t.type }}
+                          {{ t.type }}
                         </a>
                         {% endfor %}
                     </div>
@@ -102,13 +102,39 @@
 
                 <div class="pagination">
                     {% if page_obj.has_previous %}
-                        <a href="?page={{ page_obj.previous_page_number }}{% if current_get %}&{{ current_get }}{% endif %}">&laquo; Назад</a>
+                        <a href="?page=1{% if current_get %}&{{ current_get }}{% endif %}" class="pagination-link pagination-first" title="Первая страница">««</a>
+                        <a href="?page={{ page_obj.previous_page_number }}{% if current_get %}&{{ current_get }}{% endif %}" class="pagination-link pagination-prev">‹ Назад</a>
+                    {% else %}
+                        <span class="pagination-link pagination-disabled">««</span>
+                        <span class="pagination-link pagination-disabled">‹ Назад</span>
                     {% endif %}
 
-                    <span>Стр. {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+                    <div class="pagination-numbers">
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <span class="pagination-number pagination-active">{{ num }}</span>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <a href="?page={{ num }}{% if current_get %}&{{ current_get }}{% endif %}" class="pagination-number">{{ num }}</a>
+                            {% elif num == 1 %}
+                                <a href="?page=1{% if current_get %}&{{ current_get }}{% endif %}" class="pagination-number">1</a>
+                                {% if page_obj.number > 4 %}
+                                    <span class="pagination-ellipsis">...</span>
+                                {% endif %}
+                            {% elif num == page_obj.paginator.num_pages %}
+                                {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %}
+                                    <span class="pagination-ellipsis">...</span>
+                                {% endif %}
+                                <a href="?page={{ num }}{% if current_get %}&{{ current_get }}{% endif %}" class="pagination-number">{{ num }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
 
                     {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}{% if current_get %}&{{ current_get }}{% endif %}">Вперед &raquo;</a>
+                        <a href="?page={{ page_obj.next_page_number }}{% if current_get %}&{{ current_get }}{% endif %}" class="pagination-link pagination-next">Вперед ›</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}{% if current_get %}&{{ current_get }}{% endif %}" class="pagination-link pagination-last" title="Последняя страница">»»</a>
+                    {% else %}
+                        <span class="pagination-link pagination-disabled">Вперед ›</span>
+                        <span class="pagination-link pagination-disabled">»»</span>
                     {% endif %}
                 </div>
 

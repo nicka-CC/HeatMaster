@@ -10,21 +10,47 @@
     <div class="padding"></div>
     <div class="content_info">
         <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <a href="{% url 'cart_view' %}">Корзина</a> / <div class="bread_crump">Оформление заказа</div></div>
-        <div class="card white-box">
-            <h2>Доставка и комментарий</h2>
-            <form method="post">
-                {% csrf_token %}
-                <div class="form-row">
-                    <label>Адрес доставки</label>
-                    <input class="text-input" type="text" name="shipping_address" placeholder="Город, улица, дом..." />
+        
+        <div class="checkout-container">
+            <div class="white-box checkout-form-box">
+                <h2 class="checkout-title">Оформление заказа</h2>
+                <form method="post" class="checkout-form">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <label class="form-label">Адрес доставки <span class="required">*</span></label>
+                        <input class="text-input" type="text" name="shipping_address" placeholder="Город, улица, дом, квартира..." required />
+                    </div>
+                    <div class="form-row">
+                        <label class="form-label">Комментарий к заказу</label>
+                        <textarea class="text-area" name="comment" rows="4" placeholder="Пожелания к доставке, дополнительная информация..."></textarea>
+                    </div>
+                    <div class="checkout-summary">
+                        <div class="checkout-total">
+                            <span class="checkout-total-label">Итого к оплате:</span>
+                            <span class="checkout-total-value">{{ cart.total_price|floatformat:2 }} грн.</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-checkout-submit">Подтвердить заказ</button>
+                </form>
+            </div>
+            
+            <div class="white-box checkout-order-summary">
+                <h3 class="summary-title">Состав заказа</h3>
+                <div class="order-items-list">
+                    {% for item in cart.items.all %}
+                    <div class="order-summary-item">
+                        <div class="summary-item-name">{{ item.thermostat.name }}</div>
+                        <div class="summary-item-details">
+                            <span>{{ item.quantity }} шт. × {{ item.thermostat.price|floatformat:2 }} грн.</span>
+                            <span class="summary-item-total">{{ item.subtotal|floatformat:2 }} грн.</span>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
-                <div class="form-row">
-                    <label>Комментарий</label>
-                    <textarea class="text-area" name="comment" rows="3" placeholder="Пожелания к доставке"></textarea>
+                <div class="order-summary-total">
+                    <strong>Всего: {{ cart.total_price|floatformat:2 }} грн.</strong>
                 </div>
-                <div class="cart-total">Итого к оплате: {{ cart.total_price }} грн.</div>
-                <button type="submit" class="btn-order">Подтвердить заказ</button>
-            </form>
+            </div>
         </div>
     </div>
     <div class="padding2"></div>

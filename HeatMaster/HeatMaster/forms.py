@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-from .models import CalculatePrice, Thermostats, Produce, CommentBlog, Blog, ImageBlog
+from .models import CalculatePrice, Thermostats, Produce, CommentBlog, Blog, ImageBlog, ThermostatComment
 
 
 class CalculatePriceForm(forms.ModelForm):
@@ -184,4 +184,14 @@ class ApplicationForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Короткое описание заявки'}),
             'part': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Название/часть'}),
             'phone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Телефон'}),
+        }
+
+
+class ThermostatCommentForm(forms.ModelForm):
+    class Meta:
+        model = ThermostatComment
+        fields = ['text', 'rating']
+        widgets = {
+            'text': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Ваш комментарий'}),
+            'rating': forms.NumberInput(attrs={'class': 'form-control', 'min': 1, 'max': 5}),
         }
