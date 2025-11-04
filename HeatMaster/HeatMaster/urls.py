@@ -62,23 +62,12 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # TODO:
-#   path('', views.home, name='home'),
+#     path('', views.home, name='home'),
 #     path('thermoregulator/', views.thermoregulator, name='thermoregulator'),
-#     path('aquastrage/', views.aquastrage, name='aquastrage'),
-#     path('cable/', views.cable, name='aquastrage'),
-#     path('infrared-cable/', views.infraredCable, name='infrared-cable'),
-#     path('pruity-of-snowmelt/', views.pruityOfSnowmelt, name='pruity-of-snowmelt'),
-#     path('thin-laminate-cable/', views.thinLaminateCable, name='thin-laminate-cable'),
-#     path('thin-cable/', views.thinCable, name='aquastrage'),
 #     path('cart') count products in cart
 #     path('admin/', admin.site.urls),
 #     path('signUp/', views.signUp, name='signUp'),
 #     path('signIn/', views.signIn, name='signIn'),
-#     path('heated-mats/', views.heated_mats, name='heated_mats'),
 #     path('contacts/', views.contacts, name='contacts'),
 #     path('delivery-payment/', views.delivery_payment, name='delivery_payment'),
-#     path('cooperation/', views.cooperation, name='cooperation'),
 #     path('manufacturers/', views.manufacturers, name='manufacturers'),
-#     path('logout/', LogoutView.as_view(next_page='home'), name='logout'),
-#TODO: ru | eng
-#TODO: получить скидку
