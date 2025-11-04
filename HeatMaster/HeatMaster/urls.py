@@ -65,9 +65,6 @@ if settings.DEBUG:
 #     path('', views.home, name='home'),
 #     path('thermoregulator/', views.thermoregulator, name='thermoregulator'),
 #     path('cart') count products in cart
-#     path('admin/', admin.site.urls),
-#     path('signUp/', views.signUp, name='signUp'),
-#     path('signIn/', views.signIn, name='signIn'),
 #     path('contacts/', views.contacts, name='contacts'),
 #     path('delivery-payment/', views.delivery_payment, name='delivery_payment'),
 #     path('manufacturers/', views.manufacturers, name='manufacturers'),
