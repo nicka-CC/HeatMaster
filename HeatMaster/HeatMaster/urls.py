@@ -61,10 +61,4 @@ urlpatterns = [
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-# TODO:
-#     path('', views.home, name='home'),
-#     path('thermoregulator/', views.thermoregulator, name='thermoregulator'),
-#     path('cart') count products in cart
-#     path('contacts/', views.contacts, name='contacts'),
-#     path('delivery-payment/', views.delivery_payment, name='delivery_payment'),
-#     path('manufacturers/', views.manufacturers, name='manufacturers'),
+# TODO: path('cart') count products in cart

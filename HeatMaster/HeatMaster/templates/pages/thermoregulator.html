@@ -20,19 +20,6 @@
         <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> /
             <div class="bread_crump">Терморегуляторы</div>
         </div>
-        {% if user.is_authenticated %}
-        <p>Привет, {{ user.first_name }} {{user.last_name}}!</p>
-        <form action="{% url 'logout' %}" method="post" style="display:inline;">
-
-        {% csrf_token %}
-
-        <button type="submit">Выйти</button>
-
-    </form>
-        {% else %}
-        <a href="{% url 'signIn'%}" >Войти</a> |
-        <a href="{% url 'signUp' %}">Регистрация</a>
-        {% endif %}
         <div>
             <div class="title">Терморегуляторы</div>
             <div class="termoregulators">

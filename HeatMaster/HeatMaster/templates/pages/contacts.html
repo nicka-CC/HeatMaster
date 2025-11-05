@@ -19,7 +19,41 @@
 .request-banner .btn-order { background:#e64a2a; color:#fff; padding:12px 22px; border-radius:6px; text-decoration:none; border:none; }
 </style>
 {% endblock %}
+{% block extra_js %}
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=b64b9bc0-f824-4f50-b7bf-9c2b7b818201" type="text/javascript"></script>
+<script type="text/javascript">
+    ymaps.ready(init);
 
+    function init() {
+        try {
+            // Более точные координаты для ул. Радищева 12/16 в СПб
+            var myMap = new ymaps.Map("map", {
+                center: [59.941004, 30.361407], // уточненные координаты
+                zoom: 12,
+                controls: ['zoomControl', 'fullscreenControl']
+            });
+
+            // Добавляем метку
+            var myPlacemark = new ymaps.Placemark([59.941004, 30.361407], {
+                hintContent: 'г. Санкт-Петербург, ул. Радищева 12/16',
+                balloonContent: 'Наш офис<br>г. Санкт-Петербург, ул. Радищева 12/16'
+            }, {
+                preset: 'islands#orangeIcon',
+                iconColor: '#f4a322'
+            });
+
+            myMap.geoObjects.add(myPlacemark);
+
+            console.log('Карта успешно загружена');
+
+        } catch (error) {
+            console.error('Ошибка при загрузке карты:', error);
+            // Показываем сообщение об ошибке
+            document.getElementById('map').innerHTML = '<div style="padding:20px; text-align:center; color:#666;">Карта временно недоступна</div>';
+        }
+    }
+</script>
+{% endblock %}
 {% block content %}
 <div class="content">
   <div class="padding"></div>
@@ -30,22 +64,23 @@
 
     <div class="contact-top">
       <div class="info">
-        <div><img src="{% static 'icon/phone.svg' %}" alt="phone" style="width:18px;"> +38 (098) 552 97 87</div>
-        <div><img src="{% static 'icon/phone.svg' %}" alt="phone" style="width:18px;"> +38 (050) 552 97 87</div>
-        <div><img src="{% static 'icon/mail.svg' %}" alt="mail" style="width:18px;"> zakaz@heatingfloor.com.ua</div>
+        <div><img src="{% static 'icon/phone.png' %}" alt="phone" style="width:18px;"> +38 (098) 552 97 87</div>
+        <div><img src="{% static 'icon/phone.png' %}" alt="phone" style="width:18px;"> +38 (050) 552 97 87</div>
+        <div><img src="{% static 'icon/mail.png' %}" alt="mail" style="width:18px;"> heat_master@gmail.com</div>
       </div>
-      <div style="margin-left:auto; display:flex; gap:8px;"><a href="#" style="display:inline-block; width:34px; height:34px; background:#fff; border-radius:6px; text-align:center; line-height:34px;">f</a><a href="#" style="display:inline-block; width:34px; height:34px; background:#fff; border-radius:6px; text-align:center; line-height:34px;">ig</a></div>
+<!--      <div style="margin-left:auto; display:flex; gap:8px;"><a href="#" style="display:inline-block; width:34px; height:34px; background:#fff; border-radius:6px; text-align:center; line-height:34px;">f</a><a href="#" style="display:inline-block; width:34px; height:34px; background:#fff; border-radius:6px; text-align:center; line-height:34px;">ig</a></div>-->
     </div>
 
     <div class="location-tabs">
-      <div class="tab">г. Киев, ул. Радищева 12/16</div>
-      <div class="tab" style="background:#fff; color:#333; border:1px solid #f4a322;">г. Харьков, просп. Московский 247</div>
+      <div class="tab">г. Санакт-Петербург, ул. Радищева 12/16</div>
     </div>
 
     <div class="map-block">
-      <!-- Yandex map iframe embed -->
-      <iframe class="map-iframe" src="https://yandex.ru/map-widget/v1/?um=constructor%3Aexample&width=100%&height=400&lang=ru_RU" allowfullscreen></iframe>
+    <div id="map" style="width:100%; height:100%;">
+        <div style="padding:20px; text-align:center; color:#666;">
+        </div>
     </div>
+</div>
 
     <div class="request-banner">
       <div style="flex:1">

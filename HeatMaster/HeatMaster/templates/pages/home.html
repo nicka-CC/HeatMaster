@@ -83,17 +83,18 @@
 
 
         {% if user.is_authenticated %}
-        <p>Привет, {{ user.first_name }} {{user.last_name}}!</p>
-        <form action="{% url 'logout' %}" method="post" style="display:inline;">
-
-            {% csrf_token %}
-
-            <button type="submit">Выйти</button>
-
-        </form>
+        <div style="margin: 10px 0;">Привет, {{ user.first_name }} {{ user.last_name }}!</div>
+        <div class="header_actions">
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline">Выйти</button>
+            </form>
+        </div>
         {% else %}
-        <a href="{% url 'signIn'%}">Войти</a> |
-        <a href="{% url 'signUp' %}">Регистрация</a>
+        <div class="header_actions" style="margin: 10px 0;">
+            <a class="btn btn-primary" href="{% url 'signIn' %}">Войти</a>
+            <a class="btn btn-outline" href="{% url 'signUp' %}">Регистрация</a>
+        </div>
         {% endif %}
         <div>
             <div class="title">Терморегуляторы</div>
