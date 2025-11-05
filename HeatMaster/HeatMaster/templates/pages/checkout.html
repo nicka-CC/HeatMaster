@@ -27,7 +27,7 @@
                     <div class="checkout-summary">
                         <div class="checkout-total">
                             <span class="checkout-total-label">Итого к оплате:</span>
-                            <span class="checkout-total-value">{{ cart.total_price|floatformat:2 }} грн.</span>
+                            <span class="checkout-total-value">{{ cart.total_price|floatformat:2 }} р.</span>
                         </div>
                     </div>
                     <button type="submit" class="btn-checkout-submit">Подтвердить заказ</button>
@@ -41,14 +41,14 @@
                     <div class="order-summary-item">
                         <div class="summary-item-name">{{ item.thermostat.name }}</div>
                         <div class="summary-item-details">
-                            <span>{{ item.quantity }} шт. × {{ item.thermostat.price|floatformat:2 }} грн.</span>
-                            <span class="summary-item-total">{{ item.subtotal|floatformat:2 }} грн.</span>
+                            <span>{{ item.quantity }} шт. × {{ item.thermostat.price|floatformat:2 }} р.</span>
+                            <span class="summary-item-total">{{ item.subtotal|floatformat:2 }} р.</span>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
                 <div class="order-summary-total">
-                    <strong>Всего: {{ cart.total_price|floatformat:2 }} грн.</strong>
+                    <strong>Всего: {{ cart.total_price|floatformat:2 }} р.</strong>
                 </div>
             </div>
         </div>

@@ -36,20 +36,20 @@
                             </div>
                         </td>
                         <td class="cart-cell-price">
-                            <span class="price-value">{{ item.thermostat.price|floatformat:2 }}</span> грн.
+                            <span class="price-value">{{ item.thermostat.price|floatformat:2 }}</span> р.
                         </td>
                         <td class="cart-cell-quantity">
                             <form class="qty-form" method="post" action="{% url 'update_cart_item' item.id %}" data-item-id="{{ item.id }}" data-price="{{ item.thermostat.price }}">
                                 {% csrf_token %}
                                 <div class="quantity-controls">
-                                    <button type="button" class="qty-btn qty-minus" onclick="changeQuantity({{ item.id }}, -1, {{ item.thermostat.available }})">−</button>
-                                    <input class="qty-input" type="number" name="quantity" id="qty-{{ item.id }}" min="1" max="{{ item.thermostat.available }}" value="{{ item.quantity }}" readonly />
-                                    <button type="button" class="qty-btn qty-plus" onclick="changeQuantity({{ item.id }}, 1, {{ item.thermostat.available }})">+</button>
+                                    <button type="button" class="qty-btn qty-minus" onclick="changeQuantity({{ item.id }}, -1)">−</button>
+                                    <input class="qty-input" type="number" name="quantity" id="qty-{{ item.id }}" min="1" value="{{ item.quantity }}" readonly />
+                                    <button type="button" class="qty-btn qty-plus" onclick="changeQuantity({{ item.id }}, 1)">+</button>
                                 </div>
                             </form>
                         </td>
                         <td class="cart-cell-subtotal">
-                            <span class="subtotal-value" data-item-id="{{ item.id }}">{{ item.subtotal|floatformat:2 }}</span> грн.
+                            <span class="subtotal-value" data-item-id="{{ item.id }}">{{ item.subtotal|floatformat:2 }}</span> р.
                         </td>
                         <td class="cart-cell-remove">
                             <form method="post" action="{% url 'remove_cart_item' item.id %}">
@@ -64,7 +64,7 @@
                     <tr>
                         <td colspan="3" class="cart-footer-total-label">Итого к оплате:</td>
                         <td colspan="2" class="cart-footer-total-value">
-                            <span id="cart-total">{{ cart.total_price|floatformat:2 }}</span> грн.
+                            <span id="cart-total">{{ cart.total_price|floatformat:2 }}</span> р.
                         </td>
                     </tr>
                     <tr>
@@ -87,13 +87,12 @@
 </div>
 
 <script>
-function changeQuantity(itemId, change, maxQty) {
+function changeQuantity(itemId, change) {
     const input = document.getElementById('qty-' + itemId);
     const currentQty = parseInt(input.value);
     let newQty = currentQty + change;
     
     if (newQty < 1) newQty = 1;
-    if (newQty > maxQty) newQty = maxQty;
     
     input.value = newQty;
     updateCartItem(itemId);

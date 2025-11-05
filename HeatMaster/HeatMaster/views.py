@@ -416,8 +416,6 @@ def add_to_cart(request, thermostat_id):
     cart = _get_or_create_cart(request.user)
     item, created = CartItem.objects.get_or_create(cart=cart, thermostat=thermostat)
     new_qty = item.quantity + quantity if not created else quantity
-    # clamp by stock
-    new_qty = min(new_qty, max(0, thermostat.available))
     item.quantity = new_qty
     item.save()
     return redirect('cart_view')
@@ -439,7 +437,6 @@ def update_cart_item(request, item_id):
     except ValueError:
         qty = 1
     qty = max(1, qty)
-    qty = min(qty, max(0, item.thermostat.available))
     item.quantity = qty
     item.save()
     return redirect('cart_view')
@@ -470,19 +467,12 @@ def checkout(request):
         for item in cart.items.select_related('thermostat').all():
             if item.quantity <= 0:
                 continue
-            # ensure stock available
-            if item.thermostat.available < item.quantity:
-                # clip to available
-                qty = max(0, item.thermostat.available)
-            else:
-                qty = item.quantity
-            if qty == 0:
-                continue
+            qty = item.quantity
             OrderItem.objects.create(order=order, thermostat=item.thermostat, quantity=qty,
                                      price_at_purchase=item.thermostat.price)
             total += item.thermostat.price * qty
-            # decrement stock
-            item.thermostat.available = max(0, item.thermostat.available - qty)
+            # decrement stock by ordered quantity (may go negative)
+            item.thermostat.available = item.thermostat.available - qty
             item.thermostat.save(update_fields=['available'])
         order.total_amount = total
         order.save(update_fields=['total_amount'])

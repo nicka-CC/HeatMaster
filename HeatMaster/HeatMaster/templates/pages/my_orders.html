@@ -39,8 +39,8 @@
                             <tr>
                                 <td class="order-item-name">{{ it.thermostat.name }}</td>
                                 <td class="order-item-qty">{{ it.quantity }} шт.</td>
-                                <td class="order-item-price">{{ it.price_at_purchase|floatformat:2 }} грн.</td>
-                                <td class="order-item-total">{{ it.subtotal|floatformat:2 }} грн.</td>
+                                <td class="order-item-price">{{ it.price_at_purchase|floatformat:2 }} р.</td>
+                                <td class="order-item-total">{{ it.subtotal|floatformat:2 }} р.</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -59,7 +59,7 @@
                             {% endif %}
                             <tr class="order-total-row">
                                 <td colspan="3" class="order-total-label">Итого:</td>
-                                <td class="order-total-value">{{ order.total_amount|floatformat:2 }} грн.</td>
+                                <td class="order-total-value">{{ order.total_amount|floatformat:2 }} р.</td>
                             </tr>
                         </tfoot>
                     </table>

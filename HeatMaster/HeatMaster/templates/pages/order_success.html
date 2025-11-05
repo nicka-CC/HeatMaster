@@ -13,7 +13,7 @@
         <div class="card white-box">
             <h2>Спасибо! Ваш заказ №{{ order.id }} успешно оформлен.</h2>
             <p>Статус: {{ order.get_status_display }}</p>
-            <p>Сумма: {{ order.total_amount }} грн.</p>
+            <p>Сумма: {{ order.total_amount }} р.</p>
             <a class="btn-order" href="{% url 'thermostat_list' %}">Продолжить покупки</a>
         </div>
     </div>
