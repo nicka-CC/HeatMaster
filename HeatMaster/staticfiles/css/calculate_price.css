@@ -1,0 +1,212 @@
+.after_form_container{
+    display: flex;
+    gap:30px;
+    border-radius: 20px;
+    padding-left:20px;
+    background: rgba(69, 156, 175, 0.17);
+}
+.con-cp{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+.after_text{
+    font-size: 24px;
+    color:#C47344;
+}
+.container_blog_detail{
+    display: flex;
+    flex-direction: column;
+}
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    gap: 30px;
+    margin-bottom: 84px;
+    margin-top: 56px;
+    width: 700px;
+}
+.form-instal{
+    display: flex;
+    flex-direction: row;
+}
+.tfi{
+    width:200px;
+    margin: 0 10%;
+}
+.form-control {
+    overflow-y: hidden;
+    background: #cf9776;
+    width: 330px;
+    padding: 15px 10px;
+    border: 1px solid #CECECE;
+    border-radius: 4px;
+}
+
+.form-check-input {
+    display: flex;
+    gap: 10px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+
+.row {
+    display: flex;
+}
+body {
+    overflow-x: hidden;
+}
+
+.content {
+    overflow-x: hidden;
+}
+
+.content_info {
+    overflow-x: hidden;
+}
+
+.content_body {
+    overflow-x: hidden;
+}
+
+.pic {
+        width: 700px;
+    height: auto;
+    position: relative;
+    right: -5px;
+    overflow: hidden;
+    object-fit: cover;
+}
+.form-install{
+    display:flex;
+    flex-direction: row;
+    gap:40px;
+    /*margin: 0 10%;*/
+}
+.padding {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    padding-top: 94px;
+}
+
+.padding2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    margin-top: auto;
+    padding-bottom: 94px;
+}
+
+.submitBtncl {
+    padding: 6px 100px;
+    margin: 0 auto;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    overflow-y: hidden;
+}
+
+.content_info {
+
+    width: 100%;
+    overflow-y: hidden;
+    margin: 0 0 0 7%;
+}
+
+.bread_crump {
+    color: #C47344;
+}
+
+.bread_crumps {
+    padding: 20px 0;
+    display: flex;
+    gap: 2px;
+    font-size: 14px;
+    color: #CECECE;
+}
+
+.title {
+    padding: 20px 0;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.content_body {
+    display: flex;
+    overflow-y: hidden !important;
+}
+
+.bread_crumps a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.bread_crumps a:visited {
+    color: inherit;
+}
+
+.bread_crumps a:active {
+    color: inherit;
+}
+
+.bread_crumps a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .padding {
+        display: none;
+    }
+
+    .form-control {
+        width: 210px;
+    }
+
+    .form-container {
+        width: 470px;
+    }
+}
+
+@media (max-width: 600px) {
+    .padding {
+        display: none;
+    }
+
+    .form-control {
+        overflow-y: hidden;
+        width: 80vw;
+    }
+
+    .form-container {
+        overflow-y: hidden;
+        width: 100%;
+    }
+
+    .row {
+        overflow-y: hidden;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .content_body {
+        max-width: 100%;
+        overflow-y: hidden;
+        flex-direction: column;
+    }
+
+    .pic {
+        overflow-y: hidden;
+        width: 90vw;
+    }
+    .submitBtncl{
+         margin:0;
+    }
+}

@@ -1,0 +1,49 @@
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;/
+}
+
+.content_info {
+    width: 65%;
+
+    margin: 0 10%;
+}
+
+.padding {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    padding-top: 94px;
+}
+.padding2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+    margin-top: auto;
+    padding-bottom: 94px;
+}
+
+.heatmastericon {
+    justify-content: center;
+    max-width: 100%;
+    height: auto;
+}
+.bread_crump{
+color:#C47344;
+}
+.bread_crumps{
+    padding: 20px 0;
+    display: flex;
+    gap:2px;
+    font-size: 14px;
+    color:#CECECE;
+}
+.title{
+    padding: 20px 0;
+    font-size: 36px;
+    font-weight: bold;
+
+}

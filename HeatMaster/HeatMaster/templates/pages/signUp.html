@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends './layout.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Tibtle</title>
+    {% load static %}
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/calculate_price.css' %}">
+    {% endblock %}
+
+</head>
+<body>
+{% block content %}
+<div class="content">
+    <div class="padding">
+        <img src="{% static 'icon/+.svg' %}" alt="+"/>
+    </div>
+
+    <div class="content_info">
+        <div class="title">Регистрация</div>
+        <div class="content_body">
+            <form method="post" class="form-container">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="mb-3">
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
+                        {% if form.username.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.username.errors.0 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3">
+                        {{ form.password1.label_tag }}
+                        {{ form.password1 }}
+                        {% if form.password1.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.password1.errors.0 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-3">
+                        {{ form.password2.label_tag }}
+                        {{ form.password2 }}
+                        {% if form.password2.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.password2.errors.0 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3">
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.email.errors.0 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3">
+                        {{ form.first_name.label_tag }}
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.first_name.errors.0 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3">
+                        {{ form.last_name.label_tag }}
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.last_name.errors.0 }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="row">
+                    <div class="mb-3">
+                        <button type="submit" class="submitBtncl" id="submitBtn">Войти</button>
+                    </div>
+                </div>
+            </form>
+            <script>
+                // Функция для изменения цвета кнопки при наведении
+                document.getElementById("submitBtn").addEventListener("mouseover", function () {
+                    this.style.color = "white";
+                    this.style.backgroundColor = "#C47344";
+                });
+
+                document.getElementById("submitBtn").addEventListener("mouseout", function () {
+                    this.style.color = "";
+                    this.style.backgroundColor = "";
+                });
+                document.querySelectorAll(".form-control").forEach(function (input) {
+                    input.addEventListener("focus", function () {
+                        this.style.backgroundColor = '#eadcd4';
+                    });
+
+                    input.addEventListener("blur", function () {
+                        this.style.backgroundColor = "";
+                    });
+                });
+            </script>
+<!--            <div>-->
+<!--                <img src="{% static 'icon/pic.jpg' %}" alt="pic" class="pic"/>-->
+<!--            </div>-->
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+</body>
+</html>

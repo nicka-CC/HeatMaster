@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends './layout.html' %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    {% endblock %}
+
+</head>
+<body>
+
+{% block content %}
+<div class="content">
+    <div class="padding">
+        <img src="{% static 'icon/+.svg'%}" alt="+"/>
+    </div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> /
+            <div class="bread_crump">Блог</div>
+        </div>
+        <div>
+            <div class="title">Блог</div>
+            <div class="blog_container">
+               {% if user.is_superuser or user.is_staff %}
+                <a href="{% url 'create_blog' %}" class="create_blog_btn"><div class="blog_btns">Создать новый блог</div></a>
+                {% endif %}
+                {% for blog in blogs %}
+                <div class="blog">
+                    {% for image in blog.blod.all %}
+                    {% if image.status == 'header'%}
+                    <img src="{{ image.image.url }}" alt="Изображение" class="blog_img_t">
+                    <div class="blog_body">
+                        <h3>{{ blog.article }}</h3>
+                        <p style="font-size: 14px">{{ blog.text|truncatewords:20 }}</p>
+                        <a href="{% url 'blog_detail' blog.id %}">
+                            <div class="blog_btn">Читать статью</div>
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% empty %}
+                    <p>Нет изображений</p>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+    <div class="padding2">
+        <img src="{% static 'icon/+.svg'%}" alt="+"/>
+    </div>
+</div>
+{% endblock %}
+
+</body>
+</html>

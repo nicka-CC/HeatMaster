@@ -1,0 +1,95 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
+<style>
+    .hero { margin:18px 0 24px 0; }
+    .hero img { width:100%; height:260px; object-fit:cover; border-radius:6px; }
+    .section { margin:22px 0; }
+    .features-list { margin:12px 0 18px 0; }
+    .features-list li { margin-bottom:6px; }
+    .table-prices { width:100%; border-collapse:collapse; margin-top:12px; }
+    .table-prices th, .table-prices td { padding:12px; border:1px solid #eee; }
+    .table-prices thead th { background:#f4a322; color:#fff; }
+    .cta-banner { margin:28px 0; background-image:url('{% static "on_siderbar/pol_vod-1.jpg" %}'); background-size:cover; background-position:center; border-radius:8px; padding:36px; color:#fff; display:flex; align-items:center; justify-content:space-between; }
+    .cta-banner .btn { background:#e64a2a; color:#fff; padding:12px 20px; border-radius:6px; text-decoration:none; }
+    .numbered-list li { margin-bottom:8px; }
+    .big-image { width:100%; height:320px; object-fit:cover; border-radius:6px; }
+    .bottom-contact { background:#f7f7f7; padding:24px; border-radius:8px; margin-top:18px; display:flex; align-items:center; justify-content:space-between; }
+    @media (max-width:768px) { .cta-banner { flex-direction:column; gap:12px; text-align:center; } .bottom-contact { flex-direction:column; gap:12px; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="padding"></div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> /
+            <div class="bread_crump">Теплый пол под ламинат</div>
+        </div>
+
+        <h1>Теплый пол под ламинат</h1>
+
+        <div class="hero">
+            <img src="{% static 'images/Frame_4.jpg' %}" alt="Теплый пол под ламинат"/>
+        </div>
+
+        <div class="section">
+            <p>Теплый ламинат — реальность. Как правильно выбрать и установить систему обогрева.</p>
+
+            <p>Ламинат — популярное напольное покрытие, но ходить по нему босиком бывает прохладно. К счастью, современные технологии позволяют с комфортом обогреть ламинат, главное — сделать это правильно.</p>
+            <h3>Какие системы подходят?</h3>
+            <ul class="features-list">
+<li>Инфракрасная пленка: Лучший и самый популярный вариант. Она укладывается непосредственно под ламинат на теплоотражающую подложку. Монтаж очень быстрый, а награв равномерный.</li>
+          <li>Тонкие нагревательные маты: Также отличное решение. Мат укладывается в тонкий слой клея или наливного пола, сверху настилается ламинат. Этот вариант надежен и обеспечивает хорошую теплоотдачу.</li>
+            </ul>
+            <h3>На что обратить внимание?</h3>
+            <ul class="features-list">
+<li>Маркировка ламината: Убедитесь, что ваш ламинат имеет специальную маркировку, разрешающую использование с системами теплого пола. Обычно это пиктограмма с зигзагообразной линией.</li>
+          <li>Терморегулятор: Обязателен для контроля температуры и предотвращения перегрева как системы, так и самого покрытия.</li>
+           <li>Теплоизоляционная подложка: Используйте только специальную тонкую подложку с высокой теплопроводностью, чтобы не создавать барьер для тепла.</li>
+            </ul>
+
+
+
+        <div class="cta-banner">
+            <div>
+                <h2 style="margin:0 0 6px 0;">Рассчитайте стоимость</h2>
+                <p style="margin:0 0 6px 0;">Специалист свяжется с вами в ближайшее время, чтобы обсудить детали задачи и предложить оптимальное решение.</p>
+            </div>
+            <div>
+                <a class="btn" href="{% url 'calculate_price' %}">Приступить к расчету</a>
+            </div>
+        </div>
+ <div class="section">
+            <h3>Вывод:</h3>
+            <p>Теплый пол под ламинат — это легко реализуемая задача. Используя инфракрасную пленку или тонкие маты и соблюдая простые правила, вы получите комфортное и теплое покрытие на долгие годы.</p>
+        </div>
+
+        <div class="bottom-contact">
+            <div>
+                <h3>Звоните или оставьте онлайн-заявку</h3>
+                <p>Мы свяжемся с вами в ближайшее время и поможем с расчетом и подбором материалов.</p>
+            </div>
+            <div style="min-width:260px;">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {% if success %}
+                        <div style="padding:8px; background:#e6ffed; color:#1a7f3a; border-radius:4px; margin-bottom:8px;">Заявка успешно отправлена.</div>
+                    {% endif %}
+                    <div style="display:flex; gap:8px;">
+                        <div style="flex:1;">{{ form.part }}</div>
+                        <div style="flex:1;">{{ form.phone }}</div>
+                    </div>
+                    <div style="margin-top:8px;">{{ form.description }}</div>
+                    <div style="margin-top:10px; text-align:right;"><button type="submit" class="btn-order">Отправить</button></div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="padding2"></div>
+</div>
+{% endblock %}

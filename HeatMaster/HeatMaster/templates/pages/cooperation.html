@@ -1,0 +1,36 @@
+{% extends './layout.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
+<style>
+.coop-hero img { width:100%; height:160px; object-fit:cover; border-radius:6px; }
+.benefits { display:flex; gap:18px; margin-top:18px; }
+.benefit { flex:1; text-align:center; }
+.benefit img { width:48px; height:48px; }
+</style>
+{% endblock %}
+{% block content %}
+<div class="content">
+  <div class="padding"></div>
+  <div class="content_info">
+    <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <div class="bread_crump">Сотрудничество</div></div>
+    <h1>Сотрудничество</h1>
+
+    <div class="coop-hero"><img src="{% static 'images/Frame_4_A1WqvDL.jpg' %}" alt="cooperation"/></div>
+
+    <p><strong>Основа Тепло</strong> – компания, занимающаяся продажей и монтажом теплых полов и комплектующих к ним.</p>
+    <p>Чтобы наполнить помещение теплом и уютом мы предлагаем своим клиентам только лучшие варианты электрических теплых полов, они универсальны и безопасны.</p>
+
+    <h3>Почему вы захотите стать партнёром команды Heating Floor? Пять неоспоримых плюсов сотрудничества с нашей компанией:</h3>
+    <div class="benefits">
+      <div class="benefit"><img src="{% static 'icon/fast.svg' %}" alt=""><h4>Мы работаем быстро</h4><p>У нас есть свой склад в Киеве и заказ можно получить в день его оформления.</p></div>
+      <div class="benefit"><img src="{% static 'icon/quality.svg' %}" alt=""><h4>Мы уверены в качестве</h4><p>Сотрудничаем напрямую с производителями материалов.</p></div>
+      <div class="benefit"><img src="{% static 'icon/discount.svg' %}" alt=""><h4>Скидки и бонусы</h4><p>Гарантируем постоянным клиентам скидки и бонусы.</p></div>
+      <div class="benefit"><img src="{% static 'icon/support.svg' %}" alt=""><h4>Поддержка</h4><p>Обеспечиваем техническую поддержку в любое время.</p></div>
+    </div>
+
+  </div>
+  <div class="padding2"></div>
+</div>
+{% endblock %}

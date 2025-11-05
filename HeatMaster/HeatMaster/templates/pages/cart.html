@@ -1,0 +1,135 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="padding"></div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <div class="bread_crump">Корзина</div></div>
+
+        <div class="white-box cart-container">
+            {% if cart.items.all %}
+            <h2 class="cart-title">Корзина</h2>
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Товар</th>
+                        <th>Цена</th>
+                        <th>Количество</th>
+                        <th>Сумма</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart.items.all %}
+                    <tr class="cart-row" data-item-id="{{ item.id }}">
+                        <td class="cart-cell-product">
+                            <div class="product-cell-content">
+                                {% if item.thermostat.image %}
+                                <img src="{{ item.thermostat.image.url }}" alt="{{ item.thermostat.name }}" class="product-image" />
+                                {% endif %}
+                                <a href="{% url 'thermostat_detail' item.thermostat.id %}" class="product-name">{{ item.thermostat.name }}</a>
+                            </div>
+                        </td>
+                        <td class="cart-cell-price">
+                            <span class="price-value">{{ item.thermostat.price|floatformat:2 }}</span> р.
+                        </td>
+                        <td class="cart-cell-quantity">
+                            <form class="qty-form" method="post" action="{% url 'update_cart_item' item.id %}" data-item-id="{{ item.id }}" data-price="{{ item.thermostat.price }}">
+                                {% csrf_token %}
+                                <div class="quantity-controls">
+                                    <button type="button" class="qty-btn qty-minus" onclick="changeQuantity({{ item.id }}, -1)">−</button>
+                                    <input class="qty-input" type="number" name="quantity" id="qty-{{ item.id }}" min="1" value="{{ item.quantity }}" readonly />
+                                    <button type="button" class="qty-btn qty-plus" onclick="changeQuantity({{ item.id }}, 1)">+</button>
+                                </div>
+                            </form>
+                        </td>
+                        <td class="cart-cell-subtotal">
+                            <span class="subtotal-value" data-item-id="{{ item.id }}">{{ item.subtotal|floatformat:2 }}</span> р.
+                        </td>
+                        <td class="cart-cell-remove">
+                            <form method="post" action="{% url 'remove_cart_item' item.id %}">
+                                {% csrf_token %}
+                                <button class="btn-remove" type="submit" title="Удалить">×</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="cart-footer-total-label">Итого к оплате:</td>
+                        <td colspan="2" class="cart-footer-total-value">
+                            <span id="cart-total">{{ cart.total_price|floatformat:2 }}</span> р.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" class="cart-footer-actions">
+                            <a class="btn-checkout" href="{% url 'checkout' %}">Оформить заказ</a>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            {% else %}
+            <div class="cart-empty">
+                <div class="cart-empty-icon">🛒</div>
+                <p>Ваша корзина пуста</p>
+                <a class="btn-continue-shopping" href="{% url 'thermostat_list' %}">Продолжить покупки</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="padding2"></div>
+</div>
+
+<script>
+function changeQuantity(itemId, change) {
+    const input = document.getElementById('qty-' + itemId);
+    const currentQty = parseInt(input.value);
+    let newQty = currentQty + change;
+    
+    if (newQty < 1) newQty = 1;
+    
+    input.value = newQty;
+    updateCartItem(itemId);
+}
+
+function updateCartItem(itemId) {
+    const form = document.querySelector(`.qty-form[data-item-id="${itemId}"]`);
+    const price = parseFloat(form.dataset.price);
+    const input = document.getElementById('qty-' + itemId);
+    const quantity = parseInt(input.value);
+    const subtotal = price * quantity;
+    
+    // Обновляем сумму для конкретного товара
+    const subtotalElement = document.querySelector(`.subtotal-value[data-item-id="${itemId}"]`);
+    if (subtotalElement) {
+        subtotalElement.textContent = subtotal.toFixed(2);
+    }
+    
+    // Пересчитываем общую сумму
+    let total = 0;
+    document.querySelectorAll('.qty-form').forEach(f => {
+        const itemId = f.dataset.itemId;
+        const qty = parseInt(document.getElementById('qty-' + itemId).value);
+        const itemPrice = parseFloat(f.dataset.price);
+        total += qty * itemPrice;
+    });
+    
+    // Обновляем итоговую сумму
+    const totalElement = document.getElementById('cart-total');
+    if (totalElement) {
+        totalElement.textContent = total.toFixed(2);
+    }
+    
+    // Автоматически отправляем форму
+    form.submit();
+}
+</script>
+{% endblock %}
+
+

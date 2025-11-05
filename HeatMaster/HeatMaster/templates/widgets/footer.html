@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     {% load static %}
+     <link rel="stylesheet" href="{% static 'css/header.css' %}">
+</head>
+<body>
+<div>
+        <div class="footer_top">
+
+             <div class="footer_top_body">
+                  <div class="footer_top_body_column">
+                      <a href="{% url 'home' %}"><img src="{% static 'icon/lightlogo.svg' %}" alt="logo" class="lightLogo"/></a>
+
+                       <div class="footer_top_text_title">Навигация</div>
+                      <a href="{% url 'cable' %}">
+                       <div class="footer_top_text">Нагревательный кабель</div>
+                      </a>
+                      <a href="{% url 'heated_mats' %}">
+                       <div class="footer_top_text">Нагревательные маты</div>
+                      </a>
+                      <a href="{% url 'infrared-cable'%}">
+                       <div class="footer_top_text">Инфракрасный теплый пол</div>
+                      </a>
+                      <a href="{% url 'pruity-of-snowmelt' %}">
+                         <div class="footer_top_text">Системы снеготаяния</div>
+                      </a>
+                      <a href="{% url 'cooperation' %}">
+                          <div class="footer_top_text">Сотрудничество</div>
+                      </a>
+                       <a href="{% url 'delivery_payment' %}">
+                           <div class="footer_top_text">Доставка и оплата</div>
+                       </a>
+
+                       <a href="{% url 'blog' %}"><div class="footer_top_text">Блог</div></a>
+                      <a href="{% url 'videos' %}"><div class="footer_top_text">Видео</div></a>
+                  </div>
+                  <div class="footer_top_body_column">
+                      <div class="lightLogo"></div>
+                       <div class="footer_top_text_title">Производители теплого пола</div>
+                       <div class="footer_top_body_developer">
+                            <div class="footer_top_body_column">
+                                 <div class="footer_top_text">AHT</div>
+                                 <div class="footer_top_text">Arnold Rak</div>
+                                 <div class="footer_top_text">Devi</div>
+                                 <div class="footer_top_text">Evro-Termo</div>
+                                 <div class="footer_top_text">Electra</div>
+                                 <div class="footer_top_text">EasyTherm</div>
+                            </div>
+                            <div class="footer_top_body_column">
+                                <div class="footer_top_text">Extherm</div>
+                                 <div class="footer_top_text">Nexans</div>
+                                 <div class="footer_top_text">Fenix</div>
+                                 <div class="footer_top_text">In Term</div>
+                                 <div class="footer_top_text">Grayhot</div>
+                                 <div class="footer_top_text">Grand Meyer</div>
+                            </div>
+                            <div class="footer_top_body_column">
+                                <div class="footer_top_text">Hemstedt</div>
+                                 <div class="footer_top_text">Profi-Therm</div>
+                                 <div class="footer_top_text">Profi-Therm Eco</div>
+                                 <div class="footer_top_text">Raychem</div>
+                                 <div class="footer_top_text">Ratey</div>
+                                 <div class="footer_top_text">Thermoland</div>
+                            </div>
+                            <div class="footer_top_body_column">
+                                <div class="footer_top_text">Veria</div>
+                                 <div class="footer_top_text">Woks</div>
+                                 <div class="footer_top_text">Наш Комфорт</div>
+                                 <div class="footer_top_text">Теплолюкс</div>
+                                 <div class="footer_top_text">Эксон</div>
+                                 <div class="footer_top_text">Shtoller</div>
+                            </div>
+                       </div>
+                  </div>
+                  <div>
+                       <div class="footer_top_body_column">
+                           <div class="lightLogo"></div>
+                           <div class="footer_top_text_title">Контакты</div>
+                           <div class="footer_top_text_contacts">Россия, г. Санкт-Петербург</div>
+                           <div class="footer_top_text_contacts">+8 (800) 555 35 35</div>
+                           <div class="footer_top_text_contacts">heat_master@gmail.com</div>
+                       </div>
+                       <div class="header_top_contact_method">
+                           <a href="http://t.me/heat_masterbot"><img src="{% static 'icon/telegram.svg' %}" alt="tgbot"/></a>
+                           <img src="{% static 'icon/mailIcon.svg' %}" alt="mail" class="mailIcon"/>
+                       </div>
+                  </div>
+             </div>
+        </div>
+        <div class="footer_bottom">
+             <div>Copyright © 2025 Nicka_CC opensource</div>
+             <div>Разработан сайт:     Nicka_CC</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends './layout.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Tibtle</title>
+    {% load static %}
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/calculate_price.css' %}">
+    {% endblock %}
+
+</head>
+<body>
+{% block content %}
+<div class="content">
+    <div class="padding">
+        <img src="{% static 'icon/+.svg' %}" alt="+"/>
+    </div>
+
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> /
+            <div class="bread_crump">Расчет стоимости</div>
+        </div>
+        <div class="title">Расчет стоимости</div>
+        <div class="content_body">
+            {% if form %}
+
+            <form method="post" class="form-container">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="mb-3">{{ form.subject }}</div>
+                    <div class="row">
+                        <div>Этаж:</div>
+                        {{ form.stage }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3">{{ form.type }}</div>
+                    <div class="mb-3"> {{ form.produce }}</div>
+                </div>
+                <div class="row">
+                    <div class="mb-3">{{ form.type_across }}</div>
+                    <div class="form-instal">
+                        <div class="tfi">Установка пола:</div>
+                        {{ form.install }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3">{{ form.name }}</div>
+                    <div class="mb-3">{{ form.phone }}</div>
+                </div>
+                <button type="submit" class="submitBtncl" id="submitBtn">Отправить</button>
+            </form>
+            {% else %}
+            <div class="container_blog_detail">
+                <h5 class="after_text">Заявка на расчёт стоимости успешно отправлена!</h5>
+                <div class="con-cp">
+                    {% for field, value in form_data.items %}
+                    <div class="after_form_container">
+                        <p class="value_after_form">
+                            {% if field == "subject" %}Тема{% elif field == "stage" %}Этаж
+                            {% elif field == "type" %}Тип{% elif field == "produce" %}Производство
+                            {% elif field == "type_across" %}Тип укладки
+                            {% elif field == "install" %}Установка пола
+                            {% elif field == "name" %}Имя
+                            {% elif field == "phone" %}Телефон
+                            {% else %}{{ field }}{% endif %}:
+                        </p>
+                        <p class="value_after_form">
+                            {% if value is not None %}{{ value }}{% else %}Empty{% endif %}
+                        </p>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            {% endif %}
+            <script>
+                // Функция для изменения цвета кнопки при наведении
+                document.getElementById("submitBtn").addEventListener("mouseover", function () {
+                    this.style.color = "white";
+                    this.style.backgroundColor = "#C47344";
+                });
+
+                document.getElementById("submitBtn").addEventListener("mouseout", function () {
+                    this.style.color = "";
+                    this.style.backgroundColor = "";
+                });
+                document.querySelectorAll(".form-control").forEach(function (input) {
+                    input.addEventListener("focus", function () {
+                        this.style.backgroundColor = '#eadcd4';
+                    });
+
+                    input.addEventListener("blur", function () {
+                        this.style.backgroundColor = "";
+                    });
+                });
+            </script>
+
+            <div>
+                <img src="{% static 'icon/pic.jpg' %}" alt="pic" class="pic"/>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+</body>
+</html>

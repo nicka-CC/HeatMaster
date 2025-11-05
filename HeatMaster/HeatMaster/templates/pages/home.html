@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends './layout.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Tibtle</title>
+    {% load static %}
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    {% endblock %}
+
+</head>
+<body>
+{% block content %}
+<div class="content">
+    <div class="padding">
+        <img src="{% static 'icon/+.svg' %}" alt="+"/>
+    </div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> /
+            <div class="bread_crump">Терморегуляторы</div>
+        </div>
+
+        <div class="sidebar">
+            <div class="slider-container">
+                <div class="slider">
+                    <div class="slide active">
+                        <img src="{% static 'on_siderbar/1a135b7cc423295b98cd92f86a6c363f-e1650569525748.jpeg'%}" alt="Фото 1">
+                    </div>
+                    <div class="slide active">
+                        <img src="{% static 'on_siderbar/9472036f337d6269923115a81be23f75.jpg'%}" alt="Фото 1">
+                    </div>
+                    <div class="slide active">
+                        <img src="{% static 'on_siderbar/pol_vod-1.jpg'%}" alt="Фото 1">
+                    </div>
+                </div>
+
+                <!-- Стрелки -->
+                <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+                <button class="next" onclick="changeSlide(1)">&#10095;</button>
+
+                <!-- Индикаторы -->
+                <div class="dots-container">
+                    <span class="dot active" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                </div>
+            </div>
+        </div>
+        <script>
+        let currentIndex = 0;
+        const slides = document.querySelectorAll(".sidebar .slide");
+        const dots = document.querySelectorAll(".sidebar .dot");
+
+        function showSlide(index) {
+            if (index >= slides.length) {
+                currentIndex = 0;
+            } else if (index < 0) {
+                currentIndex = slides.length - 1;
+            } else {
+                currentIndex = index;
+            }
+
+            document.querySelector(".sidebar .slider").style.transform = `translateX(${-currentIndex * 100}%)`;
+
+            dots.forEach(dot => dot.classList.remove("active"));
+            dots[currentIndex].classList.add("active");
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentIndex + direction);
+        }
+
+        function currentSlide(index) {
+            showSlide(index - 1);
+        }
+
+        setInterval(() => {
+            changeSlide(1);
+        }, 3000);
+
+        </script>
+
+
+        {% if user.is_authenticated %}
+        <div style="margin: 10px 0;">Привет, {{ user.first_name }} {{ user.last_name }}!</div>
+        <div class="header_actions">
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline">Выйти</button>
+            </form>
+        </div>
+        {% else %}
+        <div class="header_actions" style="margin: 10px 0;">
+            <a class="btn btn-primary" href="{% url 'signIn' %}">Войти</a>
+            <a class="btn btn-outline" href="{% url 'signUp' %}">Регистрация</a>
+        </div>
+        {% endif %}
+        <div>
+            <div class="title">Терморегуляторы</div>
+            <div class="termoregulators">
+                {% for thermostat in thermostats %}
+                <a href="{% url 'thermostat_list_by_type' thermostat.id %}" class="thermoregulator">
+                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    <div class="thermoregulator_descripton">
+                        <div>{{ thermostat.type }}</div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div>
+            <div class="title">Основные категории продукции</div>
+            <div class="termoregulators">
+                <a href="{% url 'heated_mats' %}" class="thermoregulator">
+                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    <div class="thermoregulator_descripton">
+                        <div>Нагревательные маты</div>
+                    </div>
+                </a>
+                 <a href="{% url 'cable' %}" class="thermoregulator">
+                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    <div class="thermoregulator_descripton">
+                        <div>Нагревательный кабель в стяжку</div>
+                    </div>
+                </a>
+                <a href="{% url 'thin-cable' %}" class="thermoregulator">
+                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    <div class="thermoregulator_descripton">
+                        <div>Тонкий нагревательный кабель</div>
+                    </div>
+                </a>
+                <a href="{% url 'infrared-cable'  %}" class="thermoregulator">
+                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    <div class="thermoregulator_descripton">
+                        <div>Инфракрасная пленка</div>
+                    </div>
+                </a>
+                <a href="{% url 'thin-laminate-cable'%}" class="thermoregulator">
+                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    <div class="thermoregulator_descripton">
+                        <div>Теплый пол под ламинат</div>
+                    </div>
+                </a>
+                <a href="{% url 'home' %}" class="thermoregulator">
+                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    <div class="thermoregulator_descripton">
+                        <div>Терморегуляторы</div>
+                    </div>
+                </a>
+                <a href="{% url 'pruity-of-snowmelt' %}" class="thermoregulator">
+                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    <div class="thermoregulator_descripton">
+                        <div>Система снеготаяния, обогрев труб и водостоков</div>
+                    </div>
+                </a>
+                <a href="{% url 'aquastrage' %}" class="thermoregulator">
+                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    <div class="thermoregulator_descripton">
+                        <div>Аквасторож</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+                <div class="padding2">
+                    <img src="{% static 'icon/+.svg' %}" alt="+"/>
+                </div>
+</div>
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="padding"></div>
+    <div class="content_info single-thermostat">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <a href="{% url 'thermostat_list' %}">Терморегуляторы</a> /
+            <div class="bread_crump">{{ thermostat.name }}</div>
+        </div>
+
+        <div class="detail-grid">
+            <div class="gallery">
+                {% if thermostat.image %}
+                <img src="{{ thermostat.image.url }}" alt="{{ thermostat.name }}" class="main-image"/>
+                {% endif %}
+                <div class="thumbs">
+                    {% for img in images %}
+                    <img src="{{ img.image.url }}" alt="" class="thumb"/>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="info">
+                <h1>{{ thermostat.name }}</h1>
+                <div class="price">Цена: <span>{{ thermostat.price }} р.</span></div>
+                <div class="meta">
+                    <div>Производитель: {{ thermostat.manufacturer }}</div>
+                    <div>Модель: {{ thermostat.model }}</div>
+                    <div>Страна: {{ thermostat.country_manufacturer }}</div>
+                    <div>Диапазон: {{ thermostat.control_range }}</div>
+                    <div>Макс. нагрузка: {{ thermostat.max_load }}</div>
+                </div>
+                <div class="description">{{ thermostat.description_block|safe }}</div>
+                {% if thermostat.available > 0 %}
+                <form action="{% url 'add_to_cart' thermostat.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="number" name="quantity" value="1" min="1" />
+                    <button class="btn-order" type="submit">В корзину</button>
+                </form>
+                {% else %}
+                <div class="out-of-stock">Нет в наличии</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="more-desc">
+            <h3>Описание</h3>
+            <p>{{ thermostat.description }}</p>
+        </div>
+        <div class="white-box" style="margin-top:16px;">
+            <h3>Комментарии</h3>
+            <div class="comments">
+                {% for c in comments %}
+                <div class="comment-item">
+                    <div class="comment-head">
+                        <strong>{{ c.user.username }}</strong>
+                        <span>Оценка: {{ c.rating }}/5</span>
+                        <span class="date">{{ c.created_at|date:"d.m.Y H:i" }}</span>
+                    </div>
+                    <div class="comment-text">{{ c.text }}</div>
+                    {% if user.is_authenticated and user.id == c.user.id or user.is_staff %}
+                    <div class="comment-actions">
+                        <form method="post" action="{% url 'delete_comment' c.id %}" style="display:inline-block;">
+                            {% csrf_token %}
+                            <button class="btn-link" type="submit">Удалить</button>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <p>Пока нет комментариев.</p>
+                {% endfor %}
+            </div>
+
+            {% if user.is_authenticated %}
+            <form method="post" action="{% url 'create_comment' thermostat.id %}" style="margin-top:12px;">
+                {% csrf_token %}
+                <div class="form-row">
+                    <label>Ваш комментарий</label>
+                    <textarea class="text-area" name="text" rows="3" placeholder="Поделитесь впечатлениями"></textarea>
+                </div>
+                <div class="form-row">
+                    <label>Оценка</label>
+                    <input class="text-input" type="number" name="rating" min="1" max="5" value="5" />
+                </div>
+                <button class="btn-order" type="submit">Отправить</button>
+            </form>
+            {% else %}
+            <p>Чтобы оставить комментарий, <a href="{% url 'signIn' %}">войдите</a>.</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="padding2"></div>
+</div>
+{% endblock %}
