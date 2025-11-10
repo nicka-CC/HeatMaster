@@ -128,7 +128,6 @@
                             {% endif %}
                         {% endfor %}
                     </div>
-
                     {% if page_obj.has_next %}
                         <a href="?page={{ page_obj.next_page_number }}{% if current_get %}&{{ current_get }}{% endif %}" class="pagination-link pagination-next">Вперед ›</a>
                         <a href="?page={{ page_obj.paginator.num_pages }}{% if current_get %}&{{ current_get }}{% endif %}" class="pagination-link pagination-last" title="Последняя страница">»»</a>
