@@ -1,0 +1,26 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="padding"></div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <a href="{% url 'all_orders' %}">Все заказы</a> / <div class="bread_crump">Удалить заказ №{{ order.id }}</div></div>
+
+        <div class="orders-container">
+            <h2 class="orders-title">Удалить заказ №{{ order.id }}</h2>
+            <p>Вы уверены, что хотите удалить этот заказ? Это действие необратимо.</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-delete">Да, удалить</button>
+                <a href="{% url 'all_orders' %}" class="btn-cancel">Отмена</a>
+            </form>
+        </div>
+    </div>
+    <div class="padding2"></div>
+</div>
+{% endblock %}

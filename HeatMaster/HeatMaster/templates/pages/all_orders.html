@@ -9,10 +9,19 @@
 <div class="content">
     <div class="padding"></div>
     <div class="content_info">
-        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <div class="bread_crump">Мои заказы</div></div>
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <div class="bread_crump">Все заказы</div></div>
 
         <div class="orders-container">
-            <h2 class="orders-title">История заказов</h2>
+            <h2 class="orders-title">Все заказы</h2>
+
+            <form method="get" class="filter-form">
+                <select name="status" onchange="this.form.submit()">
+                    <option value="">Все статусы</option>
+                    {% for status_val, status_name in status_choices %}
+                    <option value="{{ status_val }}" {% if current_status == status_val %}selected{% endif %}>{{ status_name }}</option>
+                    {% endfor %}
+                </select>
+            </form>
             
             {% if page_obj.object_list %}
                 {% for order in page_obj %}
@@ -21,6 +30,7 @@
                         <div class="order-header-left">
                             <div class="order-number">Заказ №{{ order.id }}</div>
                             <div class="order-date">{{ order.created_at|date:"d.m.Y в H:i" }}</div>
+                            <div class="order-user">Пользователь: {{ order.user.username }}</div>
                         </div>
                         <span class="status-badge status-{{ order.status }}">{{ order.get_status_display }}</span>
                     </div>
@@ -63,6 +73,10 @@
                             </tr>
                         </tfoot>
                     </table>
+                    <div class="order-actions">
+                        <a href="{% url 'edit_order' order.id %}" class="btn-edit">Редактировать</a>
+                        <a href="{% url 'delete_order' order.id %}" class="btn-delete">Удалить</a>
+                    </div>
                 </div>
                 {% endfor %}
 
@@ -71,8 +85,7 @@
             {% else %}
                 <div class="orders-empty">
                     <div class="orders-empty-icon">📦</div>
-                    <p>У вас пока нет заказов</p>
-                    <a class="btn-start-shopping" href="{% url 'thermostat_list' %}">Начать покупки</a>
+                    <p>Нет заказов для отображения</p>
                 </div>
             {% endif %}
         </div>

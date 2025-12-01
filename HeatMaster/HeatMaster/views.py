@@ -2,7 +2,7 @@ from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import CalculatePriceForm, CustomUserCreationForm, CustomAuthenticationForm, CommentBlogForm, BlogForm, \
-    ImageBlogForm, ThermostatCommentForm
+    ImageBlogForm, ThermostatCommentForm, OrderForm
 from .models import Thermostats, Blog, CommentBlog, ImageBlog, Thermostat, ThermostatImages, Applications, HeatedMats, Produce, \
     Cart, CartItem, Order, OrderItem, ThermostatComment
 from .forms import ApplicationForm
@@ -390,8 +390,60 @@ def delete_comment(request, comment_id):
 def my_orders(request):
     if not request.user.is_authenticated:
         return redirect('signIn')
-    orders = Order.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'pages/my_orders.html', {'orders': orders})
+    order_list = Order.objects.filter(user=request.user).order_by('-created_at')
+    
+    paginator = Paginator(order_list, 10)  # Show 10 orders per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, 'pages/my_orders.html', {'page_obj': page_obj})
+
+
+from .decorators import manager_required
+
+@manager_required
+def all_orders(request):
+    order_list = Order.objects.all().order_by('-created_at')
+    
+    # Filtering
+    status_filter = request.GET.get('status')
+    if status_filter:
+        order_list = order_list.filter(status=status_filter)
+        
+    paginator = Paginator(order_list, 10)  # Show 10 orders per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    # For filter dropdown
+    status_choices = Order.STATUS_CHOICES
+    
+    return render(request, 'pages/all_orders.html', {
+        'page_obj': page_obj, 
+        'status_choices': status_choices,
+        'current_status': status_filter
+    })
+
+@manager_required
+def edit_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('all_orders')
+    else:
+        form = OrderForm(instance=order)
+    return render(request, 'pages/edit_order.html', {'form': form, 'order': order})
+
+@manager_required
+def delete_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    if request.method == 'POST':
+        order.delete()
+        return redirect('all_orders')
+    return render(request, 'pages/delete_order.html', {'order': order})
+
+
 
 
 # --- Cart and checkout flows ---

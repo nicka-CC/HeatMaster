@@ -195,3 +195,15 @@ class ThermostatCommentForm(forms.ModelForm):
             'text': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Ваш комментарий'}),
             'rating': forms.NumberInput(attrs={'class': 'form-control', 'min': 1, 'max': 5}),
         }
+
+from .models import Order
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['status', 'shipping_address', 'comment']
+        widgets = {
+            'status': forms.Select(attrs={'class': 'form-control'}),
+            'shipping_address': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'comment': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+        }
