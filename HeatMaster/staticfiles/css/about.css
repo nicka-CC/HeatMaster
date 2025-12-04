@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-/ overflow-x: hidden;
+ overflow-x: hidden;
     font-size: 20px;
     margin-bottom: 59px;
 }
@@ -34,6 +34,7 @@
 .content_info {
     overflow-y: hidden;
     width: 60vw;
+    overflow-x: hidden;
     /*margin: 0 1%;*/
 }
 
@@ -409,7 +410,7 @@ a {
 .blog_img_t{
     max-width: 300px; border-top-left-radius: 20px;border-bottom-left-radius: 20px;
 }
-@media (max-width: 360px) {
+@media (max-width: 480px) {
     .form-container {
     display: flex;
     flex-wrap: wrap;
