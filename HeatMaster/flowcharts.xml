@@ -1,0 +1,214 @@
+<mxfile host="app.diagrams.net" modified="2023-12-02T00:00:00.000Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36" etag="YOUR_ETAG" version="22.1.8" type="device">
+  <diagram id="flowcharts" name="Page-1">
+    <mxGraphModel dx="1275" dy="774" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageEnabled="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Registration Flowchart -->
+        <mxCell id="reg_start" value="Пользователь открывает страницу регистрации" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="50" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="reg_input" value="Вводит данные" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="150" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="reg_validate" value="Данные валидны?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="125" y="250" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="reg_create_account" value="Создается новая учетная запись" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="370" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="reg_authenticate" value="Пользователь аутентифицируется" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="470" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="reg_redirect" value="Перенаправление на главную страницу" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="570" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="reg_error" value="Отображаются ошибки валидации" style="whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="350" y="250" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="reg_e1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="reg_start" target="reg_input">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="reg_e2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="reg_input" target="reg_validate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="reg_e3" value="Да" style="edgeStyle=orthogonalEdgeStyle;html=1;align=center;verticalAlign=top;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="reg_validate" target="reg_create_account">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="reg_e4" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="reg_create_account" target="reg_authenticate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="reg_e5" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="reg_authenticate" target="reg_redirect">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="reg_e6" value="Нет" style="edgeStyle=orthogonalEdgeStyle;html=1;align=center;verticalAlign=top;jettySize=auto;orthogonalLoop=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="reg_validate" target="reg_error">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <Object x="275" y="290" />
+              <Object x="450" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="reg_e7" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="reg_error" target="reg_input">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <Object x="450" y="340" />
+              <Object x="450" y="180" />
+              <Object x="300" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Authorization Flowchart (offset from registration) -->
+        <mxCell id="auth_start" value="Пользователь открывает страницу входа" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="50" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_input" value="Вводит логин и пароль" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="150" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_validate" value="Данные верны?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="625" y="250" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_authenticate" value="Пользователь аутентифицируется" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="370" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_redirect" value="Перенаправление на главную страницу" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="470" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_error" value="Отображается ошибка" style="whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="850" y="250" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="auth_e1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="auth_start" target="auth_input">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_e2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="auth_input" target="auth_validate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_e3" value="Да" style="edgeStyle=orthogonalEdgeStyle;html=1;align=center;verticalAlign=top;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="auth_validate" target="auth_authenticate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_e4" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="auth_authenticate" target="auth_redirect">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_e5" value="Нет" style="edgeStyle=orthogonalEdgeStyle;html=1;align=center;verticalAlign=top;jettySize=auto;orthogonalLoop=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="auth_validate" target="auth_error">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <Object x="775" y="290" />
+              <Object x="950" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="auth_e6" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="auth_error" target="auth_input">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <Object x="950" y="340" />
+              <Object x="950" y="180" />
+              <Object x="800" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Order Process Flowchart (offset further down) -->
+        <mxCell id="ord_add_to_cart" value="Пользователь нажимает &quot;Добавить в корзину&quot;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="650" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_item_added" value="Товар добавляется в корзину" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="750" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_go_to_cart" value="Пользователь переходит в корзину" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="375" y="850" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_cart_content" value="Отображается содержимое корзины" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="970" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_checkout_btn" value="Нажимает &quot;Оформить заказ&quot;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="375" y="1070" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_checkout_page" value="Открывается страница оформления заказа" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="1190" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_fill_address" value="Вводит адрес доставки и комментарий" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="1290" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_confirm" value="Нажимает &quot;Подтвердить заказ&quot;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="375" y="1390" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_create_order" value="Создается новый заказ" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="1510" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_clear_cart" value="Очищается корзина" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="1610" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_success_page" value="Отображается страница успешного заказа" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="1710" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_manager_sees" value="Менеджер видит новый заказ в 'Все заказы'" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="600" y="1510" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_manager_process" value="Обрабатывает заказ" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="600" y="1610" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_manager_status" value="Меняет статус заказа" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="600" y="1710" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_manager_update" value="Заказ обновляется" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="600" y="1810" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ord_e1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ord_add_to_cart" target="ord_item_added">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_e2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ord_item_added" target="ord_go_to_cart">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_e3" value="Да" style="edgeStyle=orthogonalEdgeStyle;html=1;align=center;verticalAlign=top;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ord_go_to_cart" target="ord_cart_content">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_e4" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ord_cart_content" target="ord_checkout_btn">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_e5" value="Да" style="edgeStyle=orthogonalEdgeStyle;html=1;align=center;verticalAlign=top;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ord_checkout_btn" target="ord_checkout_page">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_e6" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ord_checkout_page" target="ord_fill_address">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_e7" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ord_fill_address" target="ord_confirm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_e8" value="Да" style="edgeStyle=orthogonalEdgeStyle;html=1;align=center;verticalAlign=top;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ord_confirm" target="ord_create_order">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_e9" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ord_create_order" target="ord_clear_cart">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_e10" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ord_clear_cart" target="ord_success_page">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_e11" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ord_create_order" target="ord_manager_sees">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <Object x="550" y="1540" />
+              <Object x="570" y="1540" />
+              <Object x="570" y="1540" />
+              <Object x="570" y="1540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ord_e12" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ord_manager_sees" target="ord_manager_process">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_e13" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ord_manager_process" target="ord_manager_status">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ord_e14" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ord_manager_status" target="ord_manager_update">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

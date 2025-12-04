@@ -392,11 +392,16 @@ def my_orders(request):
         return redirect('signIn')
     order_list = Order.objects.filter(user=request.user).order_by('-created_at')
     
-    paginator = Paginator(order_list, 10)  # Show 10 orders per page.
+    paginator = Paginator(order_list, 3)  # Show 5 orders per page.
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+
+    params = request.GET.copy()
+    if 'page' in params:
+        params.pop('page')
+    current_get = params.urlencode()
     
-    return render(request, 'pages/my_orders.html', {'page_obj': page_obj})
+    return render(request, 'pages/my_orders.html', {'page_obj': page_obj, 'current_get': current_get})
 
 
 from .decorators import manager_required
@@ -410,17 +415,23 @@ def all_orders(request):
     if status_filter:
         order_list = order_list.filter(status=status_filter)
         
-    paginator = Paginator(order_list, 10)  # Show 10 orders per page.
+    paginator = Paginator(order_list, 3)  # Show 5 orders per page.
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
     # For filter dropdown
     status_choices = Order.STATUS_CHOICES
+
+    params = request.GET.copy()
+    if 'page' in params:
+        params.pop('page')
+    current_get = params.urlencode()
     
     return render(request, 'pages/all_orders.html', {
         'page_obj': page_obj, 
         'status_choices': status_choices,
-        'current_status': status_filter
+        'current_status': status_filter,
+        'current_get': current_get
     })
 
 @manager_required

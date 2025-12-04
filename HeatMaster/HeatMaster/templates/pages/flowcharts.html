@@ -1,0 +1,63 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <div class="padding"></div>
+    <div class="content_info">
+        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <div class="bread_crump">Блок-схемы</div></div>
+        <h2>Блок-схемы процессов</h2>
+        <pre class="mermaid">
+graph TD
+    subgraph "Регистрация"
+        A_reg[Пользователь открывает страницу регистрации] --> B_reg{Вводит данные};
+        B_reg --> C_reg{Данные валидны?};
+        C_reg -- Да --> D_reg[Создается новая учетная запись];
+        D_reg --> E_reg[Пользователь аутентифицируется];
+        E_reg --> F_reg[Перенаправление на главную страницу];
+        C_reg -- Нет --> G_reg[Отображаются ошибки валидации];
+        G_reg --> B_reg;
+    end
+        </pre>
+        <pre class="mermaid">
+graph TD
+    subgraph "Авторизация"
+        A_auth[Пользователь открывает страницу входа] --> B_auth{Вводит логин и пароль};
+        B_auth --> C_auth{Данные верны?};
+        C_auth -- Да --> D_auth[Пользователь аутентифицируется];
+        D_auth --> E_auth[Перенаправление на главную страницу];
+        C_auth -- Нет --> F_auth[Отображается ошибка];
+        F_auth --> B_auth;
+    end
+        </pre>
+        <pre class="mermaid">
+graph TD
+    subgraph "Процесс заказа"
+        A_ord[Пользователь нажимает "Добавить в корзину"] --> B_ord[Товар добавляется в корзину];
+        B_ord --> C_ord{Пользователь переходит в корзину};
+        C_ord --> D_ord[Отображается содержимое корзины];
+        D_ord --> E_ord{Нажимает "Оформить заказ"};
+        E_ord --> F_ord[Открывается страница оформления заказа];
+        F_ord --> G_ord{Вводит адрес доставки и комментарий};
+        G_ord --> H_ord{Нажимает "Подтвердить заказ"};
+        H_ord --> I_ord[Создается новый заказ];
+        I_ord --> J_ord[Очищается корзина];
+        J_ord --> K_ord[Отображается страница успешного заказа];
+        subgraph "Обработка заказа (менеджер)"
+            L_ord[Менеджер видит новый заказ в 'Все заказы'] --> M_ord{Обрабатывает заказ};
+            M_ord --> N_ord[Меняет статус заказа];
+            N_ord --> O_ord[Заказ обновляется];
+        end
+        I_ord --> L_ord;
+    end
+        </pre>
+    </div>
+    <div class="padding2"></div>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+</script>
+{% endblock %}

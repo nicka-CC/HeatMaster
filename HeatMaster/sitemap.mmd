@@ -1,0 +1,97 @@
+graph TD
+    subgraph "Макет (layout.html)"
+        direction TB
+        L_Header["Хедер (widgets/header.html)"]
+        L_Main["Основное содержимое (main)"]
+        L_Footer["Футер (widgets/footer.html)"]
+        L_Header --> L_Main --> L_Footer
+    end
+
+    subgraph "Страницы"
+        direction LR
+        P_Home["Главная (home.html)"]
+        P_Thermoregulator["Терморегуляторы (thermoregulator.html)"]
+        P_About["О нас (about.html)"]
+        P_CalculatePrice["Расчет цены (calculate_price.html)"]
+        P_SignUp["Регистрация (signUp.html)"]
+        P_SignIn["Вход (signIn.html)"]
+        P_Blog["Блог (blog.html)"]
+        P_BlogDetail["Детали блога (blog_detail.html)"]
+        P_CreateBlog["Создать блог (create_blog.html)"]
+        P_Videos["Видео (videos.html)"]
+        P_HeatedMats["Нагревательные маты (heated_mats.html)"]
+        P_Contacts["Контакты (contacts.html)"]
+        P_DeliveryPayment["Доставка и оплата (delivery_payment.html)"]
+        P_Cooperation["Сотрудничество (cooperation.html)"]
+        P_Manufacturers["Производители (manufacturers.html)"]
+        P_ThermostatList["Список термостатов (thermostat_list.html)"]
+        P_ThermostatDetail["Детали термостата (thermostat_detail.html)"]
+        P_Cart["Корзина (cart.html)"]
+        P_Checkout["Оформление заказа (checkout.html)"]
+        P_MyOrders["Мои заказы (my_orders.html)"]
+        P_AllOrders["Все заказы (all_orders.html)"]
+
+        P_Blog --> P_BlogDetail
+        P_Blog --> P_CreateBlog
+        P_ThermostatList --> P_ThermostatDetail
+        P_Cart --> P_Checkout
+        P_Home --> P_ThermostatList
+        P_Home --> P_HeatedMats
+        P_Home --> P_Blog
+    end
+
+    P_Home --> L_Main
+    P_Thermoregulator --> L_Main
+    P_About --> L_Main
+    P_CalculatePrice --> L_Main
+    P_SignUp --> L_Main
+    P_SignIn --> L_Main
+    P_Blog --> L_Main
+    P_BlogDetail --> L_Main
+    P_CreateBlog --> L_Main
+    P_Videos --> L_Main
+    P_HeatedMats --> L_Main
+    P_Contacts --> L_Main
+    P_DeliveryPayment --> L_Main
+    P_Cooperation --> L_Main
+    P_Manufacturers --> L_Main
+    P_ThermostatList --> L_Main
+    P_ThermostatDetail --> L_Main
+    P_Cart --> L_Main
+    P_Checkout --> L_Main
+    P_MyOrders --> L_Main
+    P_AllOrders --> L_Main
+
+    subgraph "Структура главной страницы (home.html)"
+        direction TB
+        H_Content["Блок 'content'"]
+        H_Slider["Слайдер (div.slider-container)"]
+        H_Auth["Блок аутентификации"]
+        H_Thermo["Терморегуляторы (div.termoregulators)"]
+        H_Categories["Категории (div.termoregulators)"]
+        H_Content --> H_Slider
+        H_Content --> H_Auth
+        H_Content --> H_Thermo
+        H_Content --> H_Categories
+    end
+
+    P_Home -.-> H_Content
+
+    subgraph "Структура хедера (widgets/header.html)"
+        direction TB
+        Header_Top["Верхний хедер (div.topHeader)"]
+        Header_Main["Основной хедер (div.header)"]
+        Header_Bottom["Нижний хедер (div.bottom_header)"]
+        Header_Top --> Header_Main --> Header_Bottom
+    end
+
+    L_Header -.-> Header_Top
+
+    subgraph "Структура футера (widgets/footer.html)"
+        direction TB
+        Footer_Top["Верхний футер (div.footer_top)"]
+        Footer_Bottom["Нижний футер (div.footer_bottom)"]
+        Footer_Top --> Footer_Bottom
+    end
+
+    L_Footer -.-> Footer_Top

@@ -1,0 +1,66 @@
+@startuml
+skinparam componentStyle rectangle
+
+package "Макет (layout.html)" {
+  [Хедер (widgets/header.html)] as Header
+  [Основное содержимое (main)] as Main
+  [Футер (widgets/footer.html)] as Footer
+  Header --> Main
+  Main --> Footer
+}
+
+package "Страницы" {
+  [Главная (home.html)] as Home
+  [Терморегуляторы (thermoregulator.html)] as Thermoregulator
+  [О нас (about.html)] as About
+  [Расчет цены (calculate_price.html)] as CalculatePrice
+  [Регистрация (signUp.html)] as SignUp
+  [Вход (signIn.html)] as SignIn
+  [Блог (blog.html)] as Blog
+  [Детали блога (blog_detail.html)] as BlogDetail
+  [Создать блог (create_blog.html)] as CreateBlog
+  [Видео (videos.html)] as Videos
+  [Нагревательные маты (heated_mats.html)] as HeatedMats
+  [Контакты (contacts.html)] as Contacts
+  [Доставка и оплата (delivery_payment.html)] as DeliveryPayment
+  [Сотрудничество (cooperation.html)] as Cooperation
+  [Производители (manufacturers.html)] as Manufacturers
+  [Список термостатов (thermostat_list.html)] as ThermostatList
+  [Детали термостата (thermostat_detail.html)] as ThermostatDetail
+  [Корзина (cart.html)] as Cart
+  [Оформление заказа (checkout.html)] as Checkout
+  [Мои заказы (my_orders.html)] as MyOrders
+  [Все заказы (all_orders.html)] as AllOrders
+}
+
+Home --> Main
+Thermoregulator --> Main
+About --> Main
+CalculatePrice --> Main
+SignUp --> Main
+SignIn --> Main
+Blog --> Main
+BlogDetail --> Main
+CreateBlog --> Main
+Videos --> Main
+HeatedMats --> Main
+Contacts --> Main
+DeliveryPayment --> Main
+Cooperation --> Main
+Manufacturers --> Main
+ThermostatList --> Main
+ThermostatDetail --> Main
+Cart --> Main
+Checkout --> Main
+MyOrders --> Main
+AllOrders --> Main
+
+Blog --> BlogDetail
+Blog --> CreateBlog
+ThermostatList --> ThermostatDetail
+Cart --> Checkout
+Home --> ThermostatList
+Home --> HeatedMats
+Home --> Blog
+
+@enduml

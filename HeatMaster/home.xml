@@ -1,0 +1,30 @@
+<root><html lang="en"><head><meta charset="UTF-8"><title>Tibtle</title><link rel="stylesheet" href=""><body><div class="content"><div class="padding"><img src="" alt="+" /></div><div class="content_info"><div class="bread_crumps">/<a href="">Главная</a><div class="bread_crump">Терморегуляторы</div></div><div class="sidebar"><div class="slider-container"><div class="slider"><div class="slide active"><img src="" alt="Фото 1"><div class="slide active"><img src="" alt="Фото 1"><div class="slide active"><img src="" alt="Фото 1"><button class="prev" onclick="changeSlide(-1)">❮</button><button class="next" onclick="changeSlide(1)">❯</button><div class="dots-container"><span class="dot active" onclick="currentSlide(1)" /><span class="dot" onclick="currentSlide(2)" /><span class="dot" onclick="currentSlide(3)" /></div><script>let currentIndex = 0;
+        const slides = document.querySelectorAll(".sidebar .slide");
+        const dots = document.querySelectorAll(".sidebar .dot");
+
+        function showSlide(index) {
+            if (index &gt;= slides.length) {
+                currentIndex = 0;
+            } else if (index &lt; 0) {
+                currentIndex = slides.length - 1;
+            } else {
+                currentIndex = index;
+            }
+
+            document.querySelector(".sidebar .slider").style.transform = `translateX(${-currentIndex * 100}%)`;
+
+            dots.forEach(dot =&gt; dot.classList.remove("active"));
+            dots[currentIndex].classList.add("active");
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentIndex + direction);
+        }
+
+        function currentSlide(index) {
+            showSlide(index - 1);
+        }
+
+        setInterval(() =&gt; {
+            changeSlide(1);
+        }, 3000);</script><div style="margin: 10px 0;">Привет,  !</div><div class="header_actions"><form action="" method="post" style="display:inline;"><button type="submit" class="btn btn-outline">Выйти</button></form></div><div class="header_actions" style="margin: 10px 0;"><a class="btn btn-primary" href="">Войти</a><a class="btn btn-outline" href="">Регистрация</a></div><div><div class="title">Терморегуляторы</div><div class="termoregulators"><a href="" class="thermoregulator"><img src="" alt="" class="img_termoregulator" /><div class="thermoregulator_descripton"><div /></div></a></div></div><div><div class="title">Основные категории продукции</div><div class="termoregulators"><a href="" class="thermoregulator"><img src="" alt="" class="img_termoregulator" /><div class="thermoregulator_descripton"><div>Нагревательные маты</div></div></a><a href="" class="thermoregulator"><img src="" alt="" class="img_termoregulator" /><div class="thermoregulator_descripton"><div>Нагревательный кабель в стяжку</div></div></a><a href="" class="thermoregulator"><img src="" alt="" class="img_termoregulator" /><div class="thermoregulator_descripton"><div>Тонкий нагревательный кабель</div></div></a><a href="" class="thermoregulator"><img src="" alt="" class="img_termoregulator" /><div class="thermoregulator_descripton"><div>Инфракрасная пленка</div></div></a><a href="" class="thermoregulator"><img src="" alt="" class="img_termoregulator" /><div class="thermoregulator_descripton"><div>Теплый пол под ламинат</div></div></a><a href="" class="thermoregulator"><img src="" alt="" class="img_termoregulator" /><div class="thermoregulator_descripton"><div>Терморегуляторы</div></div></a><a href="" class="thermoregulator"><img src="" alt="" class="img_termoregulator" /><div class="thermoregulator_descripton"><div>Система снеготаяния, обогрев труб и водостоков</div></div></a><a href="" class="thermoregulator"><img src="" alt="" class="img_termoregulator" /><div class="thermoregulator_descripton"><div>Аквасторож</div></div></a></div></div><div class="padding2"><img src="" alt="+" /></div></img></div></img></div></img></div></div></div></div></div></div></body></link></meta></head></html></root>
