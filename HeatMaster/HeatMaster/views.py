@@ -334,7 +334,18 @@ def thermostat_list(request, type_id=None):
 def thermostat_detail(request, pk):
     thermostat = get_object_or_404(Thermostat, pk=pk)
     images = ThermostatImages.objects.filter(thermostat_image=thermostat)
-    comments = ThermostatComment.objects.filter(thermostat=thermostat).select_related('user').order_by('-created_at')
+    comments_qs = ThermostatComment.objects.filter(thermostat=thermostat).select_related('user').order_by('-created_at')
+
+    comments = []
+    for c in comments_qs:
+        comments.append({
+            'id': c.id,
+            'user': c.user,
+            'text': c.text,
+            'rating': c.rating,
+            'created_at': c.created_at,
+            'missing_stars': 5 - c.rating
+        })
 
     form = None
     if request.user.is_authenticated:
@@ -476,10 +487,13 @@ def add_to_cart(request, thermostat_id):
     if quantity < 1:
         quantity = 1
 
+    include_installation = request.POST.get('include_installation') == 'on'
+
     cart = _get_or_create_cart(request.user)
     item, created = CartItem.objects.get_or_create(cart=cart, thermostat=thermostat)
     new_qty = item.quantity + quantity if not created else quantity
     item.quantity = new_qty
+    item.include_installation = include_installation
     item.save()
     return redirect('cart_view')
 
@@ -501,6 +515,7 @@ def update_cart_item(request, item_id):
         qty = 1
     qty = max(1, qty)
     item.quantity = qty
+    item.include_installation = request.POST.get('include_installation') == 'on'
     item.save()
     return redirect('cart_view')
 
@@ -531,9 +546,16 @@ def checkout(request):
             if item.quantity <= 0:
                 continue
             qty = item.quantity
-            OrderItem.objects.create(order=order, thermostat=item.thermostat, quantity=qty,
-                                     price_at_purchase=item.thermostat.price)
-            total += item.thermostat.price * qty
+            price_at_purchase = item.thermostat.price
+            
+            order_item = OrderItem.objects.create(
+                order=order,
+                thermostat=item.thermostat,
+                quantity=qty,
+                price_at_purchase=price_at_purchase,
+                include_installation=item.include_installation
+            )
+            total += order_item.subtotal
             # decrement stock by ordered quantity (may go negative)
             item.thermostat.available = item.thermostat.available - qty
             item.thermostat.save(update_fields=['available'])

@@ -44,11 +44,16 @@
             {% if user|has_group:"Manager" %}
                 <a class="btn btn-primary" href="{% url 'all_orders' %}">Все заказы</a>
             {% endif %}
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline">Выйти</button>
+            </form>
+        {% else %}
+            <a class="btn btn-primary" href="{% url 'signIn' %}">Войти</a>
+            <a class="btn btn-outline" href="{% url 'signUp' %}">Регистрация</a>
         {% endif %}
     </div>
-    <div class="red_button">
-        Получить скидку
-    </div>
+
     <div>
         <div class="button_ch">||||</div>
         <script>
@@ -85,12 +90,6 @@
             });
         </script>
 
-    </div>
-    <div>
-        <select name="pets" class="selector" id="pet-select">
-            <option value="">ru</option>
-            <option value="cat">eng</option>
-        </select>
     </div>
 </div>
 <script>
@@ -224,10 +223,6 @@
                     <div>8 (800) 555-35-35</div>
                 </div>
             </div>
-            <select name="pets" class="selector_adaptive">
-                <option value="">ru</option>
-                <option value="cat">eng</option>
-            </select>
 
         </div>
     </div>
