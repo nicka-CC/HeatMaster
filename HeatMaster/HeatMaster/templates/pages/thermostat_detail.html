@@ -29,6 +29,7 @@
                 <h1>{{ thermostat.name }}</h1>
                 <div class="price">Цена: <span>{{ thermostat.price }} р.</span></div>
                 <div class="product-characteristics">
+                    <h3>Характеристики</h3>
                     <div class="characteristic-item">
                         <span class="characteristic-label">Производитель:</span>
                         <span class="characteristic-value">{{ thermostat.manufacturer }}</span>
@@ -65,11 +66,6 @@
                 <div class="out-of-stock">Нет в наличии</div>
                 {% endif %}
             </div>
-        </div>
-
-        <div class="more-desc">
-            <h3>Описание</h3>
-            <p>{{ thermostat.description }}</p>
         </div>
 
         <div class="comments-section">

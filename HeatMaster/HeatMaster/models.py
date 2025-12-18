@@ -190,6 +190,7 @@ class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
     thermostat = models.ForeignKey(Thermostat, related_name='cart_items', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+    include_installation = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ('cart', 'thermostat')
@@ -199,7 +200,10 @@ class CartItem(models.Model):
 
     @property
     def subtotal(self):
-        return float(self.thermostat.price) * int(self.quantity)
+        price = self.thermostat.price
+        if self.include_installation:
+            price += 100
+        return float(price) * int(self.quantity)
 
 
 class Order(models.Model):
@@ -233,10 +237,14 @@ class OrderItem(models.Model):
     thermostat = models.ForeignKey(Thermostat, related_name='order_items', on_delete=models.PROTECT)
     quantity = models.PositiveIntegerField()
     price_at_purchase = models.FloatField()
+    include_installation = models.BooleanField(default=False)
 
     @property
     def subtotal(self):
-        return float(self.price_at_purchase) * int(self.quantity)
+        price = self.price_at_purchase
+        if self.include_installation:
+            price += 100
+        return float(price) * int(self.quantity)
 
 
 class ThermostatComment(models.Model):

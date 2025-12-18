@@ -95,10 +95,10 @@
             </div>
         </div>
         <div>
-            <div class="title">Основные категории продукции</div>
+            <div class="title">Справочные материалы</div>
             <div class="termoregulators">
                 <a href="{% url 'heated_mats' %}" class="thermoregulator">
-                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    <img src="{% static 'icon/nagrevatelnyj-mat.jpg' %}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
                     <div class="thermoregulator_descripton">
                         <div>Нагревательные маты</div>
                     </div>

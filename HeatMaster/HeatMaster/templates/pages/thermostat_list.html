@@ -90,6 +90,10 @@
                 </a>
                 <form action="{% url 'add_to_cart' item.id %}" method="post" class="card-actions">
                     {% csrf_token %}
+                    <div class="installation-option">
+                        <input type="checkbox" name="include_installation" id="installation_{{ item.id }}">
+                        <label for="installation_{{ item.id }}">Установить (+100 р.)</label>
+                    </div>
                     {% if item.available > 0 %}
                     <button type="submit">В корзину</button>
                     {% else %}

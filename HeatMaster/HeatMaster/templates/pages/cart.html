@@ -37,6 +37,9 @@
                         </td>
                         <td class="cart-cell-price">
                             <span class="price-value">{{ item.thermostat.price|floatformat:2 }}</span> р.
+                            {% if item.include_installation %}
+                                <div class="installation-badge">+ 100 р. (установка)</div>
+                            {% endif %}
                         </td>
                         <td class="cart-cell-quantity">
                             <form class="qty-form" method="post" action="{% url 'update_cart_item' item.id %}" data-item-id="{{ item.id }}" data-price="{{ item.thermostat.price }}">
@@ -45,6 +48,10 @@
                                     <button type="button" class="qty-btn qty-minus" onclick="changeQuantity({{ item.id }}, -1)">−</button>
                                     <input class="qty-input" type="number" name="quantity" id="qty-{{ item.id }}" min="1" value="{{ item.quantity }}" readonly />
                                     <button type="button" class="qty-btn qty-plus" onclick="changeQuantity({{ item.id }}, 1)">+</button>
+                                </div>
+                                <div class="installation-option">
+                                    <input type="checkbox" name="include_installation" id="installation_{{ item.id }}" {% if item.include_installation %}checked{% endif %} onchange="updateCartItem({{ item.id }})">
+                                    <label for="installation_{{ item.id }}">Установить</label>
                                 </div>
                             </form>
                         </td>
@@ -103,7 +110,14 @@ function updateCartItem(itemId) {
     const price = parseFloat(form.dataset.price);
     const input = document.getElementById('qty-' + itemId);
     const quantity = parseInt(input.value);
-    const subtotal = price * quantity;
+    const installationCheckbox = document.getElementById('installation_' + itemId);
+    const includeInstallation = installationCheckbox.checked;
+
+    let itemPrice = price;
+    if (includeInstallation) {
+        itemPrice += 100;
+    }
+    const subtotal = itemPrice * quantity;
     
     // Обновляем сумму для конкретного товара
     const subtotalElement = document.querySelector(`.subtotal-value[data-item-id="${itemId}"]`);
@@ -116,7 +130,11 @@ function updateCartItem(itemId) {
     document.querySelectorAll('.qty-form').forEach(f => {
         const itemId = f.dataset.itemId;
         const qty = parseInt(document.getElementById('qty-' + itemId).value);
-        const itemPrice = parseFloat(f.dataset.price);
+        let itemPrice = parseFloat(f.dataset.price);
+        const chk = document.getElementById('installation_' + itemId);
+        if (chk.checked) {
+            itemPrice += 100;
+        }
         total += qty * itemPrice;
     });
     

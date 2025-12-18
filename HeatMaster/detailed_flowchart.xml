@@ -1,0 +1,217 @@
+<mxfile host="app.diagrams.net" modified="2025-12-04T12:00:00.000Z" agent="Gemini CLI" etag="A1B2C3D4" version="22.1.8" type="device">
+  <diagram id="detailed_flowcharts" name="Detailed-Flows">
+    <mxGraphModel dx="1400" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="2000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Swimlanes -->
+        <mxCell id="swimlane_user" value="User (Browser)" style="swimlane;startSize=23;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="300" height="1800" as="geometry" />
+        </mxCell>
+        <mxCell id="swimlane_view" value="Django View" style="swimlane;startSize=23;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="350" y="50" width="300" height="1800" as="geometry" />
+        </mxCell>
+        <mxCell id="swimlane_db" value="Django Models (DB)" style="swimlane;startSize=23;horizontal=0;" vertex="1" parent="1">
+          <mxGeometry x="650" y="50" width="300" height="1800" as="geometry" />
+        </mxCell>
+
+        <!-- Flow 1: Product List and Detail View -->
+        <mxCell id="user_req_list" value="GET /thermostats" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="swimlane_user">
+          <mxGeometry x="50" y="50" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="view_list" value="thermostat_list view" style="whiteSpace=wrap;html=1;" vertex="1" parent="swimlane_view">
+          <mxGeometry x="50" y="50" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="db_get_thermostats" value="Thermostat.objects.all()" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="swimlane_db">
+          <mxGeometry x="50" y="50" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="view_render_list" value="Render thermostat_list.html with products" style="whiteSpace=wrap;html=1;" vertex="1" parent="swimlane_view">
+          <mxGeometry x="50" y="150" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="user_see_list" value="User sees list of thermostats" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="swimlane_user">
+          <mxGeometry x="50" y="150" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="user_click_item" value="Clicks on a product link (GET /thermostat/&lt;id&gt;)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="swimlane_user">
+          <mxGeometry x="50" y="250" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="view_detail" value="thermostat_detail view" style="whiteSpace=wrap;html=1;" vertex="1" parent="swimlane_view">
+          <mxGeometry x="50" y="250" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="db_get_single" value="get_object_or_404(Thermostat, pk=pk)" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="swimlane_db">
+          <mxGeometry x="50" y="250" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="db_get_comments" value="ThermostatComment.objects.filter(thermostat=thermostat)" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="swimlane_db">
+          <mxGeometry x="50" y="350" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="view_is_auth_check" value="User authenticated?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="swimlane_view">
+            <mxGeometry x="75" y="450" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="view_render_detail_auth" value="Render thermostat_detail.html with product, comments, and comment form" style="whiteSpace=wrap;html=1;" vertex="1" parent="swimlane_view">
+            <mxGeometry x="50" y="570" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="view_render_detail_no_auth" value="Render thermostat_detail.html with product and comments" style="whiteSpace=wrap;html=1;" vertex="1" parent="swimlane_view">
+            <mxGeometry x="280" y="450" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="user_see_detail" value="User sees product details and comments" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="swimlane_user">
+          <mxGeometry x="50" y="570" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Flow 2: Add Comment -->
+        <mxCell id="user_submit_comment" value="Submits comment form (POST /comment/create/&lt;id&gt;)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="swimlane_user">
+            <mxGeometry x="50" y="700" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="view_create_comment" value="create_comment view" style="whiteSpace=wrap;html=1;" vertex="1" parent="swimlane_view">
+            <mxGeometry x="50" y="700" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="view_is_auth_check2" value="User authenticated?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="swimlane_view">
+            <mxGeometry x="75" y="800" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="db_create_comment" value="ThermostatComment.objects.create(...)" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="swimlane_db">
+            <mxGeometry x="50" y="920" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="view_redirect_detail" value="Redirect to thermostat_detail" style="whiteSpace=wrap;html=1;" vertex="1" parent="swimlane_view">
+            <mxGeometry x="50" y="920" width="200" height="60" as="geometry" />
+        </mxCell>
+         <mxCell id="view_redirect_login" value="Redirect to /signIn" style="whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="swimlane_view">
+            <mxGeometry x="280" y="800" width="200" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Flow 3: Manager Views -->
+        <mxCell id="user_manager_header" value="Manager sees 'All Orders' in header" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="swimlane_user">
+            <mxGeometry x="50" y="1100" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="user_click_all_orders" value="GET /orders/all" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="swimlane_user">
+            <mxGeometry x="50" y="1200" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="view_all_orders" value="@manager_required all_orders view" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="swimlane_view">
+            <mxGeometry x="50" y="1200" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="db_get_all_orders" value="Order.objects.all()" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="swimlane_db">
+            <mxGeometry x="50" y="1200" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="view_render_all_orders" value="Render all_orders.html with all orders" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="swimlane_view">
+            <mxGeometry x="50" y="1300" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="user_sees_all_orders" value="Manager sees all orders" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="swimlane_user">
+            <mxGeometry x="50" y="1300" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="user_click_edit_delete" value="Clicks 'Edit' or 'Delete' (GET /orders/edit/&lt;id&gt;)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="swimlane_user">
+            <mxGeometry x="50" y="1400" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="view_edit_delete" value="edit_order or delete_order view" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="swimlane_view">
+            <mxGeometry x="50" y="1400" width="200" height="60" as="geometry" />
+        </mxCell>
+         <mxCell id="db_update_delete" value="order.save() or order.delete()" style="shape=cylinder;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="swimlane_db">
+            <mxGeometry x="50" y="1400" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="view_redirect_all_orders" value="Redirect to all_orders" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="swimlane_view">
+            <mxGeometry x="50" y="1500" width="200" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrows -->
+        <mxCell id="arrow_1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="user_req_list" target="view_list">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_list" target="db_get_thermostats">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_3" value="data" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="db_get_thermostats" target="view_list">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_4" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_list" target="view_render_list">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_5" value="HTML" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_render_list" target="user_see_list">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_6" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="user_see_list" target="user_click_item">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_7" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="user_click_item" target="view_detail">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_8" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_detail" target="db_get_single">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_9" value="data" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="db_get_single" target="view_detail">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_10" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_detail" target="db_get_comments">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="380" as="sourcePoint" />
+            <mxPoint x="650" y="380" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="450" y="380" />
+              <mxPoint x="650" y="380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow_11" value="data" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="db_get_comments" target="view_detail">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_12" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_detail" target="view_is_auth_check">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_13" value="Yes" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_is_auth_check" target="view_render_detail_auth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_14" value="No" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_is_auth_check" target="view_render_detail_no_auth">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_15" value="HTML" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_render_detail_auth" target="user_see_detail">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_16" value="HTML" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_render_detail_no_auth" target="user_see_detail">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+                <mxPoint x="380" y="600" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow_17" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="user_submit_comment" target="view_create_comment">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_18" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_create_comment" target="view_is_auth_check2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_19" value="Yes" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_is_auth_check2" target="view_redirect_detail">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_20" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_redirect_detail" target="db_create_comment">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_21" value="No" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_is_auth_check2" target="view_redirect_login">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_22" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="user_click_all_orders" target="view_all_orders">
+            <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_23" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_all_orders" target="db_get_all_orders">
+            <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_24" value="data" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="db_get_all_orders" target="view_all_orders">
+            <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_25" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_all_orders" target="view_render_all_orders">
+            <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_26" value="HTML" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_render_all_orders" target="user_sees_all_orders">
+            <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_27" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="user_sees_all_orders" target="user_click_edit_delete">
+            <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_28" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="user_click_edit_delete" target="view_edit_delete">
+            <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_29" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_edit_delete" target="db_update_delete">
+            <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow_30" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;jettySize=auto;orthogonalLoop=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="view_edit_delete" target="view_redirect_all_orders">
+            <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
