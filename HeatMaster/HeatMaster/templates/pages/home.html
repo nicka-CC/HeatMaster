@@ -86,8 +86,10 @@
             <div class="termoregulators">
                 {% for thermostat in thermostats %}
                 <a href="{% url 'thermostat_list_by_type' thermostat.id %}" class="thermoregulator">
-                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
-                    <div class="thermoregulator_descripton">
+                    <div class="image-container">
+                        <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    </div>
+                    <div class="thermoregulator_descripton" style="width: 100%">
                         <div>{{ thermostat.type }}</div>
                     </div>
                 </a>
@@ -98,50 +100,58 @@
             <div class="title">Справочные материалы</div>
             <div class="termoregulators">
                 <a href="{% url 'heated_mats' %}" class="thermoregulator">
-                    <img src="{% static 'icon/nagrevatelnyj-mat.jpg' %}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
-                    <div class="thermoregulator_descripton">
+                    <div class="image-container">
+                        <img src="{% static 'icon/nagrevatelnyj-mat.jpg' %}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    </div>
+                    <div class="thermoregulator_descripton" style="width: 100%">
                         <div>Нагревательные маты</div>
                     </div>
                 </a>
                  <a href="{% url 'cable' %}" class="thermoregulator">
-                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
-                    <div class="thermoregulator_descripton">
+                    <div class="image-container">
+                        <img src="{% static 'icon/_r216465_9.jpg' %}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    </div>
+                    <div class="thermoregulator_descripton" style="width: 100%">
                         <div>Нагревательный кабель в стяжку</div>
                     </div>
                 </a>
                 <a href="{% url 'thin-cable' %}" class="thermoregulator">
-                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
-                    <div class="thermoregulator_descripton">
+                    <div class="image-container">
+                        <img src="{% static 'icon/landing-5f9ac5ae07e4fb84a61b8b475ae63a31.jpg' %}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    </div>
+                    <div class="thermoregulator_descripton" style="width: 100%">
                         <div>Тонкий нагревательный кабель</div>
                     </div>
                 </a>
                 <a href="{% url 'infrared-cable'  %}" class="thermoregulator">
-                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
-                    <div class="thermoregulator_descripton">
+                    <div class="image-container">
+                        <img src="{% static 'icon/infrakrasnaya-plenka-eastec-60sm0338mm-m132w.jpg' %}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    </div>
+                    <div class="thermoregulator_descripton" style="width: 100%">
                         <div>Инфракрасная пленка</div>
                     </div>
                 </a>
                 <a href="{% url 'thin-laminate-cable'%}" class="thermoregulator">
-                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
-                    <div class="thermoregulator_descripton">
+                    <div class="image-container">
+                        <img src="{% static 'icon/Снимок экрана 2025-12-18 151033.png' %}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    </div>
+                    <div class="thermoregulator_descripton" style="width: 100%">
                         <div>Теплый пол под ламинат</div>
                     </div>
                 </a>
-                <a href="{% url 'home' %}" class="thermoregulator">
-                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
-                    <div class="thermoregulator_descripton">
-                        <div>Терморегуляторы</div>
-                    </div>
-                </a>
                 <a href="{% url 'pruity-of-snowmelt' %}" class="thermoregulator">
-                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
-                    <div class="thermoregulator_descripton">
+                    <div class="image-container">
+                        <img src="{% static 'icon/images.jpg' %}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    </div>
+                    <div class="thermoregulator_descripton" style="width: 100%">
                         <div>Система снеготаяния, обогрев труб и водостоков</div>
                     </div>
                 </a>
                 <a href="{% url 'aquastrage' %}" class="thermoregulator">
-                    <img src="{{ thermostat.icon.url }}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
-                    <div class="thermoregulator_descripton">
+                    <div class="image-container">
+                        <img src="{% static 'icon/6500650963.jpg' %}" alt="{{ thermostat.type }}" class="img_termoregulator"/>
+                    </div>
+                    <div class="thermoregulator_descripton" style="width: 100%">
                         <div>Аквасторож</div>
                     </div>
                 </a>
