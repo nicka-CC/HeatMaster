@@ -1,123 +1,117 @@
 {% extends './layout.html' %}
 {% load static %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/thermostats.css' %}">
-<link rel="stylesheet" href="{% static 'css/comments.css' %}">
-{% endblock %}
-
 {% block content %}
-<div class="content">
-    <div class="padding"></div>
-    <div class="content_info single-thermostat">
-        <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <a href="{% url 'thermostat_list' %}">Терморегуляторы</a> /
-            <div class="bread_crump">{{ thermostat.name }}</div>
-        </div>
+<div class="container">
+    <div class="bread_crumps"><a href="{% url 'home' %}">Главная</a> / <a href="{% url 'thermostat_list' %}">Терморегуляторы</a> /
+        <div class="bread_crump">{{ thermostat.name }}</div>
+    </div>
 
-        <div class="detail-grid">
-            <div class="gallery">
-                {% if thermostat.image %}
-                <img src="{{ thermostat.image.url }}" alt="{{ thermostat.name }}" class="main-image"/>
-                {% endif %}
-                <div class="thumbs">
-                    {% for img in images %}
-                    <img src="{{ img.image.url }}" alt="" class="thumb"/>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="info">
-                <h1>{{ thermostat.name }}</h1>
-                <div class="price">Цена: <span>{{ thermostat.price }} р.</span></div>
-                <div class="product-characteristics">
-                    <h3>Характеристики</h3>
-                    <div class="characteristic-item">
-                        <span class="characteristic-label">Производитель:</span>
-                        <span class="characteristic-value">{{ thermostat.manufacturer }}</span>
-                    </div>
-                    <div class="characteristic-item">
-                        <span class="characteristic-label">Модель:</span>
-                        <span class="characteristic-value">{{ thermostat.model }}</span>
-                    </div>
-                    <div class="characteristic-item">
-                        <span class="characteristic-label">Страна:</span>
-                        <span class="characteristic-value">{{ thermostat.country_manufacturer }}</span>
-                    </div>
-                    <div class="characteristic-item">
-                        <span class="characteristic-label">Диапазон:</span>
-                        <span class="characteristic-value">{{ thermostat.control_range }}</span>
-                    </div>
-                    <div class="characteristic-item">
-                        <span class="characteristic-label">Макс. нагрузка:</span>
-                        <span class="characteristic-value">{{ thermostat.max_load }}</span>
-                    </div>
-                </div>
-                <div class="description">{{ thermostat.description_block|safe }}</div>
-                {% if thermostat.available > 0 %}
-                <form action="{% url 'add_to_cart' thermostat.id %}" method="post">
-                    {% csrf_token %}
-                    <input type="number" name="quantity" value="1" min="1" />
-                    <div class="installation-option">
-                        <input type="checkbox" name="include_installation" id="installation_{{ thermostat.id }}">
-                        <label for="installation_{{ thermostat.id }}">Установить (+100 р.)</label>
-                    </div>
-                    <button class="btn-order" type="submit">В корзину</button>
-                </form>
-                {% else %}
-                <div class="out-of-stock">Нет в наличии</div>
-                {% endif %}
-            </div>
-        </div>
-
-        <div class="comments-section">
-            <h3>Комментарии</h3>
-            <div class="comments">
-                {% for c in comments %}
-                <div class="comment-item">
-                    <div class="comment-head">
-                        <strong>{{ c.user.username }}</strong>
-                        <div class="rating">
-                            {% for i in ""|center:c.rating %}
-                            <span class="star">&#9733;</span>
-                            {% endfor %}
-                            {% for i in ""|center:c.missing_stars %}
-                            <span class="star" style="color: #ccc;">&#9733;</span>
-                            {% endfor %}
-                        </div>
-                        <span class="date">{{ c.created_at|date:"d.m.Y H:i" }}</span>
-                    </div>
-                    <div class="comment-text">{{ c.text }}</div>
-                    {% if user.is_authenticated and user.id == c.user.id or user.is_staff %}
-                    <div class="comment-actions">
-                        <form method="post" action="{% url 'delete_comment' c.id %}" style="display:inline-block;">
-                            {% csrf_token %}
-                            <button class="btn-link" type="submit">Удалить</button>
-                        </form>
-                    </div>
-                    {% endif %}
-                </div>
-                {% empty %}
-                <p class="no-comments">Пока нет комментариев.</p>
+    <div class="detail-grid">
+        <div class="gallery">
+            {% if thermostat.image %}
+            <img src="{{ thermostat.image.url }}" alt="{{ thermostat.name }}" class="main-image"/>
+            {% endif %}
+            <div class="thumbs">
+                {% for img in images %}
+                <img src="{{ img.image.url }}" alt="" class="thumb"/>
                 {% endfor %}
             </div>
-
-            {% if user.is_authenticated %}
-            <form method="post" action="{% url 'create_comment' thermostat.id %}" class="comment-form">
+        </div>
+        <div class="info">
+            <h1>{{ thermostat.name }}</h1>
+            <div class="price">Цена: <span>{{ thermostat.price }} р.</span></div>
+            <div class="product-characteristics">
+                <h3>Характеристики</h3>
+                <div class="characteristic-item">
+                    <span class="characteristic-label">Производитель:</span>
+                    <span class="characteristic-value">{{ thermostat.manufacturer }}</span>
+                </div>
+                <div class="characteristic-item">
+                    <span class="characteristic-label">Модель:</span>
+                    <span class="characteristic-value">{{ thermostat.model }}</span>
+                </div>
+                <div class="characteristic-item">
+                    <span class="characteristic-label">Страна:</span>
+                    <span class="characteristic-value">{{ thermostat.country_manufacturer }}</span>
+                </div>
+                <div class="characteristic-item">
+                    <span class="characteristic-label">Диапазон:</span>
+                    <span class="characteristic-value">{{ thermostat.control_range }}</span>
+                </div>
+                <div class="characteristic-item">
+                    <span class="characteristic-label">Макс. нагрузка:</span>
+                    <span class="characteristic-value">{{ thermostat.max_load }}</span>
+                </div>
+            </div>
+            <div class="description">{{ thermostat.description_block|safe }}</div>
+            {% if thermostat.available > 0 %}
+            <form action="{% url 'add_to_cart' thermostat.id %}" method="post">
                 {% csrf_token %}
-                <div class="form-row">
-                    <label for="comment_text">Ваш комментарий</label>
-                    <textarea class="text-area" name="text" id="comment_text" rows="3" placeholder="Поделитесь впечатлениями"></textarea>
+                <div class="form-group">
+                    <label for="quantity">Количество:</label>
+                    <input type="number" name="quantity" value="1" min="1" class="form-control" />
                 </div>
-                <div class="form-row">
-                    <label for="comment_rating">Оценка</label>
-                    <input class="text-input" type="number" name="rating" id="comment_rating" min="1" max="5" value="5" />
+                <div class="form-group">
+                    <input type="checkbox" name="include_installation" id="installation_{{ thermostat.id }}">
+                    <label for="installation_{{ thermostat.id }}">Установить (+100 р.)</label>
                 </div>
-                <button class="btn-order" type="submit">Отправить</button>
+                <button class="btn-primary" type="submit">В корзину</button>
             </form>
             {% else %}
-            <p class="login-prompt">Чтобы оставить комментарий, <a href="{% url 'signIn' %}">войдите</a>.</p>
+            <div class="out-of-stock">Нет в наличии</div>
             {% endif %}
         </div>
     </div>
-    <div class="padding2"></div>
+
+    <div class="comments-section">
+        <h3>Комментарии</h3>
+        <div class="comments">
+            {% for c in comments %}
+            <div class="comment-item">
+                <div class="comment-head">
+                    <strong>{{ c.user.username }}</strong>
+                    <div class="rating">
+                        {% for i in ""|center:c.rating %}
+                        <span class="star">&#9733;</span>
+                        {% endfor %}
+                        {% for i in ""|center:c.missing_stars %}
+                        <span class="star" style="color: #ccc;">&#9733;</span>
+                        {% endfor %}
+                    </div>
+                    <span class="date">{{ c.created_at|date:"d.m.Y H:i" }}</span>
+                </div>
+                <div class="comment-text">{{ c.text }}</div>
+                {% if user.is_authenticated and user.id == c.user.id or user.is_staff %}
+                <div class="comment-actions">
+                    <form method="post" action="{% url 'delete_comment' c.id %}" style="display:inline-block;">
+                        {% csrf_token %}
+                        <button class="btn-link" type="submit">Удалить</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+            {% empty %}
+            <p class="no-comments">Пока нет комментариев.</p>
+            {% endfor %}
+        </div>
+
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'create_comment' thermostat.id %}" class="comment-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="comment_text">Ваш комментарий</label>
+                <textarea class="form-control" name="text" id="comment_text" rows="3" placeholder="Поделитесь впечатлениями"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="comment_rating">Оценка</label>
+                <input class="form-control" type="number" name="rating" id="comment_rating" min="1" max="5" value="5" />
+            </div>
+            <button class="btn-primary" type="submit">Отправить</button>
+        </form>
+        {% else %}
+        <p class="login-prompt">Чтобы оставить комментарий, <a href="{% url 'signIn' %}">войдите</a>.</p>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}
