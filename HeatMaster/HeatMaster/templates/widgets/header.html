@@ -43,6 +43,7 @@
             <a class="btn btn-primary" href="{% url 'my_orders' %}">Мои заказы</a>
             {% if user|has_group:"Manager" %}
                 <a class="btn btn-primary" href="{% url 'all_orders' %}">Все заказы</a>
+                <a class="btn btn-primary" href="{% url 'manage_users' %}">Клиенты</a>
             {% endif %}
             <form action="{% url 'logout' %}" method="post" style="display:inline;">
                 {% csrf_token %}

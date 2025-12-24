@@ -1,0 +1,14 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <h1>Редактирование пользователя: {{ user_to_edit.username }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Сохранить изменения</button>
+        <a href="{% url 'manage_users' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}

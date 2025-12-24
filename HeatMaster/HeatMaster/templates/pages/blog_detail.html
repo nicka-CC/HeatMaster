@@ -24,9 +24,8 @@
             <div class="bread_crump">{{ blog.article }}</div>
         </div>
         <a href="{% url 'blog'%}">
-            <div class="blog_btn_ext"><- Назад</div>
-        </a>
-        <h1>{{ blog.article }}</h1>
+            <div class="blog_btn_ext" style="width: 150px;"><- Назад</div>
+        </a>        <h1>{{ blog.article }}</h1>
         {% for image in blog.blod.all %}
         <div>
             {% if image.status == 'header'%}

@@ -1,0 +1,15 @@
+{% extends './layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <h1>Вы уверены?</h1>
+    <p>Вы собираетесь навсегда удалить пользователя: <strong>{{ user_to_delete.username }}</strong>.</p>
+    <p>Это действие нельзя будет отменить.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Да, удалить</button>
+        <a href="{% url 'manage_users' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+{% endblock %}

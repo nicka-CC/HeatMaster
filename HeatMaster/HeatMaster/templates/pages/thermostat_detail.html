@@ -68,20 +68,21 @@
         <h3>Комментарии</h3>
         <div class="comments">
             {% for c in comments %}
-            <div class="comment-item">
-                <div class="comment-head">
-                    <strong>{{ c.user.username }}</strong>
-                    <div class="rating">
-                        {% for i in ""|center:c.rating %}
-                        <span class="star">&#9733;</span>
-                        {% endfor %}
-                        {% for i in ""|center:c.missing_stars %}
-                        <span class="star" style="color: #ccc;">&#9733;</span>
+            <div class="comment-card">
+                <div class="comment-header">
+                    <span class="comment-author">{{ c.user.username }}</span>
+                    <div class="comment-rating">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= c.rating %}
+                                <span class="star filled">&#9733;</span>
+                            {% else %}
+                                <span class="star">&#9733;</span>
+                            {% endif %}
                         {% endfor %}
                     </div>
-                    <span class="date">{{ c.created_at|date:"d.m.Y H:i" }}</span>
                 </div>
-                <div class="comment-text">{{ c.text }}</div>
+                <p class="comment-date">{{ c.created_at|date:"d.m.Y H:i" }}</p>
+                <p class="comment-body">{{ c.text }}</p>
                 {% if user.is_authenticated and user.id == c.user.id or user.is_staff %}
                 <div class="comment-actions">
                     <form method="post" action="{% url 'delete_comment' c.id %}" style="display:inline-block;">

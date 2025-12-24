@@ -63,12 +63,12 @@
                     </a>
                     {% endfor %}
                 </div>
-                <div class="search-box">
-                    <form method="get" action="{% url 'thermostat_list' %}">
-                        <input type="text" name="q" value="{{ q }}" placeholder="Поиск по названию или производителю" class="form-control"/>
-                        <button type="submit" class="btn-primary">Поиск</button>
-                    </form>
-                </div>
+            </div>
+            <div class="search-box">
+                <form method="get" action="{% url 'thermostat_list' %}" class="search-container" style="display: flex; margin-bottom: 20px">
+                    <input type="text" name="q" value="{{ q }}" placeholder="Поиск по названию или производителю" class="form-control"/>
+                    <button type="submit" class="btn-primary" style="max-height: 38px">Поиск</button>
+                </form>
             </div>
 
             <div class="grid">

@@ -37,3 +37,119 @@
     font-size: 15px;
     font-weight: 500;
 }
+
+/* New styles for thermostat list */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.search-container {
+    display: flex;
+    gap: 10px;
+    height: 38px;
+    margin-top: 20px;
+    /*align-items: center; !* Vertically align items *!*/
+}
+
+.search-container input.form-control {
+    flex-grow: 1; /* Allow input to take up available space */
+    width: auto;  /* Override any potential width: 100% */
+}
+
+.search-container button.btn-primary {
+    flex-shrink: 0; /* Prevent button from shrinking */
+}
+
+/* Comment Section Styles - Redesigned to match unified_design.css */
+.comments-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--card-border-color, #eee); /* Use var with fallback */
+}
+
+.comments-section h3 {
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.comment-card {
+    background-color: #fff; /* Match product-card */
+    border: 1px solid var(--card-border-color, #dee2e6);
+    border-radius: 12px; /* Match product-card */
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--card-shadow, 0 4px 8px rgba(0,0,0,0.05));
+    transition: box-shadow 0.3s ease;
+}
+
+.comment-card:hover {
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08); /* Slightly enhance shadow on hover */
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.comment-author {
+    font-weight: 700; /* Bolder author */
+    font-size: 1.1em;
+    color: var(--text-color, #333);
+}
+
+.comment-rating .star {
+    font-size: 1.2em;
+    color: #ccc;
+}
+
+.comment-rating .star.filled {
+    color: #f8b006; /* Keep the gold color for stars, it's a common convention */
+}
+
+.comment-date {
+    font-size: 0.85em;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+.comment-body {
+    line-height: 1.6;
+    color: var(--text-color, #333);
+}
+
+.comment-actions {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.comment-actions .btn-link {
+    color: var(--secondary-color, #E94216); /* Use secondary color for delete */
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.comment-actions .btn-link:hover {
+    text-decoration: underline;
+}
+
+/* Style the comment form to match the site's forms */
+.comment-form {
+    margin-top: 30px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow, 0 4px 8px rgba(0,0,0,0.05));
+}
+
+.no-comments {
+    color: #888;
+}

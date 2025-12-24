@@ -199,11 +199,175 @@ class ThermostatCommentForm(forms.ModelForm):
 from .models import Order
 
 class OrderForm(forms.ModelForm):
+
     class Meta:
+
         model = Order
+
         fields = ['status', 'shipping_address', 'comment']
+
         widgets = {
+
             'status': forms.Select(attrs={'class': 'form-control'}),
+
             'shipping_address': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+
             'comment': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+
         }
+
+
+
+
+
+class UserEditForm(forms.ModelForm):
+
+
+
+
+
+    class Meta:
+
+
+
+
+
+        model = User
+
+
+
+
+
+        fields = ['username', 'first_name', 'last_name', 'email', 'is_active']
+
+
+
+
+
+        labels = {
+
+
+
+
+
+            'username': 'Имя пользователя',
+
+
+
+
+
+            'first_name': 'Имя',
+
+
+
+
+
+            'last_name': 'Фамилия',
+
+
+
+
+
+            'email': 'Электронная почта',
+
+
+
+
+
+            'is_active': 'Активен',
+
+
+
+
+
+        }
+
+
+
+
+
+        widgets = {
+
+
+
+
+
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+
+
+
+
+
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+
+
+
+
+
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+
+
+
+
+
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+
+
+
+
+
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+    def clean_email(self):
+
+
+
+
+
+        email = self.cleaned_data.get('email')
+
+
+
+
+
+        # self.instance holds the user object being edited
+
+
+
+
+
+        if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
+
+
+
+
+
+            raise forms.ValidationError('Этот адрес электронной почты уже используется.')
+
+
+
+
+
+        return email
+
+
+
+
+
+

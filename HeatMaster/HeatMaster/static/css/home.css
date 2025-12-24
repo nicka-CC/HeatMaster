@@ -150,9 +150,7 @@ color:#C47344;
     text-decoration: underline;
 }
 .termoregulator{
-    max-width: 350px;
     overflow: hidden;
-
 }
 .img_termoregulator{
     width: 100%;
@@ -162,9 +160,8 @@ color:#C47344;
     border-top-right-radius: 20px;
 }
 .termoregulators{
-    display:flex;
-    flex-wrap: wrap;
-     justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 30px;
     margin-bottom: 84px;
     margin-top: 56px;
@@ -173,38 +170,19 @@ color:#C47344;
     background:#C47344;
     color:white;
     font-size: 18px;
-    width:300px !important;
     padding: 20px;
     text-align: center;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
-@media(max-width:600px){
-    .termoregulators{
-        gap:60px
-    }
-}
 @media(max-width:768px ){
-    .thermoregulator_descripton{
-        width: 209px;
-    }
     .padding{
         display:none;
     }
-    .termoregulator{
-        max-width: 209px;
-        height: 209px;
-        overflow: hidden;
-    }
-    .img_termoregulator{
-        width: 209px;
-        height: 190px;
-    }
     .content_info {
-    width: 100%;
-
-    margin: 0 1%;
-}
+        width: 100%;
+        margin: 0 1%;
+    }
 }
 @media(max-width:400px){
     .sidebar {
@@ -213,5 +191,4 @@ color:#C47344;
     .sidebar .slide img {
        height: 250px;
     }
-
 }

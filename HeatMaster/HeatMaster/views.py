@@ -1,8 +1,9 @@
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import CalculatePriceForm, CustomUserCreationForm, CustomAuthenticationForm, CommentBlogForm, BlogForm, \
-    ImageBlogForm, ThermostatCommentForm, OrderForm
+    ImageBlogForm, ThermostatCommentForm, OrderForm, UserEditForm
 from .models import Thermostats, Blog, CommentBlog, ImageBlog, Thermostat, ThermostatImages, Applications, HeatedMats, Produce, \
     Cart, CartItem, Order, OrderItem, ThermostatComment
 from .forms import ApplicationForm
@@ -465,6 +466,42 @@ def delete_order(request, order_id):
         return redirect('all_orders')
     return render(request, 'pages/delete_order.html', {'order': order})
 
+
+@manager_required
+def manage_users(request):
+    # Exclude superusers and members of the 'Manager' group
+    users = User.objects.filter(is_superuser=False).exclude(groups__name='Manager')
+    return render(request, 'pages/manage_users.html', {'users': users})
+
+
+@manager_required
+def edit_user(request, user_id):
+    user_to_edit = get_object_or_404(User, id=user_id)
+    # Managers should not be able to edit other managers or superusers
+    if user_to_edit.is_superuser or user_to_edit.groups.filter(name='Manager').exists():
+        return redirect('manage_users')
+
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, instance=user_to_edit)
+        if form.is_valid():
+            form.save()
+            return redirect('manage_users')
+    else:
+        form = UserEditForm(instance=user_to_edit)
+    return render(request, 'pages/edit_user.html', {'form': form, 'user_to_edit': user_to_edit})
+
+
+@manager_required
+def delete_user(request, user_id):
+    user_to_delete = get_object_or_404(User, id=user_id)
+    # Managers should not be able to delete other managers or superusers
+    if user_to_delete.is_superuser or user_to_delete.groups.filter(name='Manager').exists():
+        return redirect('manage_users')
+
+    if request.method == 'POST':
+        user_to_delete.delete()
+        return redirect('manage_users')
+    return render(request, 'pages/delete_user_confirm.html', {'user_to_delete': user_to_delete})
 
 
 

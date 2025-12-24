@@ -50,6 +50,12 @@ urlpatterns = [
     path('blog/', views.blog, name='blog'),
     path('create_blog/', views.create_blog, name='create_blog'),
     path('blog/<int:blog_id>/', views.blog_detail, name='blog_detail'),
+
+    # User management for managers
+    path('manage/users/', views.manage_users, name='manage_users'),
+    path('manage/users/edit/<int:user_id>/', views.edit_user, name='edit_user'),
+    path('manage/users/delete/<int:user_id>/', views.delete_user, name='delete_user'),
+
     path('admin/', admin.site.urls),
     path('videos/', views.videos, name='videos'),
     path('signUp/', views.signUp, name='signUp'),
