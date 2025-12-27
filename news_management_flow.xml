@@ -1,0 +1,67 @@
+<mxfile host="Electron" modified="2023-12-24T12:04:00.000Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.8 Chrome/114.0.5735.289 Electron/25.5.0 Safari/537.36" etag="ABC-127" version="21.6.8" type="device">
+  <diagram id="main" name="Main">
+    <mxGraphModel dx="1434" dy="746" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="start" value="Начало" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="360" y="40" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="action_choice" value="Выбрать действие" style="rhombus;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="340" y="160" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="view_news_list" value="Просмотреть&#10;список новостей" style="whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="120" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="create_news" value="Создать новость" style="whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="360" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="view_news_details" value="Просмотреть&#10;детали новости" style="whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="120" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fill_news_form" value="Заполнить форму&#10;создания новости&#10;(заголовок, текст,&#10;изображения)" style="whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="360" y="420" width="120" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="save_news" value="Сохранить новость&#10;в БД" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="360" y="560" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="end" value="Конец" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="360" y="700" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-1" parent="1" source="start" target="action_choice" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-2" parent="1" source="action_choice" target="view_news_list" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-3" parent="1" source="action_choice" target="create_news" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-4" parent="1" source="view_news_list" target="view_news_details" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-5" parent="1" source="view_news_details" target="end" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="740" />
+              <mxPoint x="360" y="740" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-6" parent="1" source="create_news" target="fill_news_form" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-7" parent="1" source="fill_news_form" target="save_news" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-8" parent="1" source="save_news" target="end" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -75,12 +75,18 @@ class CalculatePriceForm(forms.ModelForm):
 class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Логин'})
-        self.fields['password1'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'})
-        self.fields['password2'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Подтверждение пароля'})
-        self.fields['email'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Email'})
-        self.fields['first_name'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Фамилия'})
-        self.fields['last_name'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя'})
+        self.fields['username'].widget = forms.TextInput(attrs={'class': 'form-control'})
+        self.fields['username'].label = 'Имя пользователя'
+        self.fields['password1'].widget = forms.PasswordInput(attrs={'class': 'form-control'})
+        self.fields['password1'].label = 'Пароль'
+        self.fields['password2'].widget = forms.PasswordInput(attrs={'class': 'form-control'})
+        self.fields['password2'].label = 'Подтверждение пароля'
+        self.fields['email'].widget = forms.EmailInput(attrs={'class': 'form-control'})
+        self.fields['email'].label = 'Email'
+        self.fields['first_name'].widget = forms.TextInput(attrs={'class': 'form-control'})
+        self.fields['first_name'].label = 'Имя'
+        self.fields['last_name'].widget = forms.TextInput(attrs={'class': 'form-control'})
+        self.fields['last_name'].label = 'Фамилия'
 
         for field in self.fields:
          if self[field].errors:
@@ -104,8 +110,10 @@ class CustomUserCreationForm(UserCreationForm):
 class CustomAuthenticationForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Логин'})
-        self.fields['password'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Пароль'})
+        self.fields['username'].widget = forms.TextInput(attrs={'class': 'form-control'})
+        self.fields['username'].label = 'Имя пользователя'
+        self.fields['password'].widget = forms.PasswordInput(attrs={'class': 'form-control'})
+        self.fields['password'].label = 'Пароль'
         for field in self.fields:
          if self[field].errors:
             self.fields[field].widget.attrs['class'] += ' is-invalid'

@@ -1,0 +1,244 @@
+/*
+* File: orders.css
+* Description: Styles for the order history page.
+*/
+
+.orders-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.orders-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: var(--text-color);
+    text-align: center;
+}
+
+.filter-form {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.filter-form select {
+    padding: 10px 15px;
+    border: 1px solid var(--card-border-color);
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.order-card-wrapper {
+    background-color: #fff;
+    border: 1px solid var(--card-border-color);
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: var(--card-shadow);
+    transition: box-shadow 0.3s ease;
+    overflow: hidden; /* To contain the border-radius */
+}
+
+.order-card-wrapper:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+
+.order-header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fcfcfc;
+    padding: 15px 25px;
+    border-bottom: 1px solid var(--card-border-color);
+}
+
+.order-header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.order-number {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.order-date {
+    font-size: 0.9em;
+    color: #777;
+}
+
+.order-user {
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.status-new { background-color: #459CAF; }
+.status-processing { background-color: #f8b006; }
+.status-shipped { background-color: #34a853; }
+.status-delivered { background-color: #34a853; }
+.status-cancelled { background-color: #E94216; }
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.orders-table th,
+.orders-table td {
+    padding: 15px 25px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.orders-table thead {
+    background-color: #f8f9fa;
+}
+
+.orders-table th {
+    font-size: 0.9em;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.order-item-name {
+    font-weight: 600;
+}
+
+.installation-badge {
+    font-size: 0.85em;
+    font-weight: 500;
+    color: var(--accent-color);
+    margin-left: 5px;
+}
+
+.order-item-qty, .order-item-price, .order-item-total {
+    text-align: right;
+}
+
+.orders-table tfoot td {
+    border-bottom: none;
+}
+
+.order-info-row td {
+    padding-top: 10px;
+    padding-bottom: 0;
+    font-size: 0.9em;
+}
+
+.order-info-label {
+    font-weight: 600;
+    color: #666;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.order-total-row {
+    border-top: 2px solid var(--primary-color);
+}
+
+.order-total-row td {
+    padding-top: 15px;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.order-total-label {
+    text-align: right;
+}
+
+.order-total-value {
+    color: var(--primary-color);
+    text-align: right;
+}
+
+.order-actions {
+    padding: 15px 25px;
+    background-color: #fcfcfc;
+    border-top: 1px solid var(--card-border-color);
+    text-align: right;
+}
+
+.btn-edit, .btn-delete {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.btn-edit {
+    background-color: var(--accent-color);
+    color: #fff;
+    margin-right: 10px;
+}
+
+.btn-edit:hover {
+    background-color: #3a8a9e;
+}
+
+.btn-delete {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
+.btn-delete:hover {
+    background-color: #b63614;
+}
+
+
+/* Empty State */
+.orders-empty {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #fff;
+    border: 1px solid var(--card-border-color);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+}
+
+.orders-empty-icon {
+    font-size: 4em;
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+.orders-empty p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: #666;
+}
+
+.btn-start-shopping {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--primary-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.btn-start-shopping:hover {
+    background-color: #d18153;
+}

@@ -1,0 +1,114 @@
+<mxfile host="Electron" modified="2023-12-24T12:00:00.000Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.8 Chrome/114.0.5735.289 Electron/25.5.0 Safari/537.36" etag="ABC-123" version="21.6.8" type="device">
+  <diagram id="main" name="Main">
+    <mxGraphModel dx="1434" dy="746" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="start" value="Начало" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="360" y="40" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="auth_check" value="Пользователь&#10;авторизован?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="340" y="160" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="add_to_cart" value="Добавить товар&#10;в корзину" style="whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="120" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="view_cart" value="Просмотреть&#10;корзину" style="whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="300" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="checkout" value="Перейти к&#10;оформлению" style="whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="480" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fill_form" value="Заполнить форму&#10;оформления&#10;(адрес, коммент)" style="whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="480" y="420" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="create_order" value="Создать заказ&#10;в системе" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="480" y="540" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="clear_cart" value="Очистить&#10;корзину" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" parent="1" vertex="1">
+          <mxGeometry x="480" y="640" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="success_page" value="Показать страницу&#10;успешного заказа" style="whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="480" y="740" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="end" value="Конец" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="360" y="860" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="redirect_login" value="Перенаправить&#10;на страницу&#10;входа" style="whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+          <mxGeometry x="600" y="160" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-1" parent="1" source="start" target="auth_check" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-2" parent="1" source="auth_check" target="add_to_cart" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="240" as="sourcePoint" />
+            <mxPoint x="180" y="300" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="180" y="240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-3" parent="1" source="auth_check" target="view_cart" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="240" as="sourcePoint" />
+            <mxPoint x="360" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-4" parent="1" source="auth_check" target="checkout" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="420" y="240" as="sourcePoint" />
+            <mxPoint x="540" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-5" parent="1" source="auth_check" target="redirect_login" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="200" as="sourcePoint" />
+            <mxPoint x="660" y="200" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="580" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-6" parent="1" source="add_to_cart" target="view_cart" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-7" parent="1" source="view_cart" target="checkout" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-8" parent="1" source="checkout" target="fill_form" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-9" parent="1" source="fill_form" target="create_order" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-10" parent="1" source="create_order" target="clear_cart" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-11" parent="1" source="clear_cart" target="success_page" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-12" parent="1" source="success_page" target="end" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="540" y="820" as="sourcePoint" />
+            <mxPoint x="420" y="860" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="540" y="820" />
+              <mxPoint x="420" y="820" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-13" parent="1" source="redirect_login" target="end" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="660" y="240" as="sourcePoint" />
+            <mxPoint x="420" y="860" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="660" y="820" />
+              <mxPoint x="420" y="820" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
